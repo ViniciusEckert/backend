@@ -29,4 +29,6 @@ routes.get("/curso/:id",  cursosController.getById)
 routes.delete("/curso/:id",  cursosController.deleteById)
 
 routes.put("/aluno/:id/cursos", alunosController.Conectar)
+
+routes.put("/aluno/:id/curso", alunosController.Desconectar)
 export default routes

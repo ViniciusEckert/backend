@@ -20,7 +20,7 @@ model Alunos {
   email String @unique
   createdAt DateTime @default(now())
   updateAt DateTime @updatedAt
-  cursos CursosOnAlunos[]
+  cursos Cursos[]
 }
 
 model Cursos {
@@ -31,13 +31,6 @@ model Cursos {
   descricao String
   createdAt DateTime @default(now())
   updateAt DateTime @updatedAt
-  alunos CursosOnAlunos[]
+  alunos Alunos[]
 }
 
-model CursosOnAlunos {
-  curso Cursos @relation(fields: [cursosId], references: [id])
-  cursosId Int
-  aluno Alunos @relation(fields: [alunosid], references: [id])
-  alunosid Int
-  @@id([cursosId, alunosid])
-}

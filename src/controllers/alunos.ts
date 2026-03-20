@@ -102,20 +102,14 @@ export default {
      Conectar: async(request: Request, response: Response) => {
         try{
         const { id } = request.params
-        const { cursoId } = request.params
 
         const user = await prisma.alunos.update({
             where: {id: +id},
             data: {
                 cursos: {
-                    create: {
-                        cursosId: +cursoId
-                    }
+                    connect: { id: 4}
                 }
             },
-            include: {
-                cursos: true
-            }
         })
         console.log("Usuario atualizado")
         return response.status(201).json(user)
@@ -127,4 +121,26 @@ export default {
         return response.status(500).json("Unknown error. Try again later")
     }
     },   
+    Desconectar: async(request: Request, response: Response) => {
+        try{
+        const { id } = request.params
+
+        const user = await prisma.alunos.update({
+            where: {id: +id},
+            data: {
+                cursos: {
+                    disconnect: { id: 4}
+                }
+            },
+        })
+        console.log("Usuario atualizado")
+        return response.status(201).json(user)
+        } catch (e) {
+        if(e instanceof Prisma.PrismaClientKnownRequestError){
+            // @ts-ignore
+            return response.status(prismaErrorCodes[e.code] || 500).json(e.message)
+        }
+        return response.status(500).json("Unknown error. Try again later")
+    }
+    }
 }
