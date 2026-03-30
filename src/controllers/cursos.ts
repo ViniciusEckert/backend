@@ -1,7 +1,6 @@
 import { Request, Response } from "express"
 import { prisma } from "../../config/prisma"
-import prismaErrorCodes from "../../config/prismaErrorCodes.json"
-import { Prisma } from "../../generated/prisma/client"
+import { handleErrors } from "../helpers/handleErros"
 
 
 export default{
@@ -10,11 +9,7 @@ export default{
             const users = await prisma.cursos.findMany()
             return response.status(200).json(users)
         } catch (e) {
-        if(e instanceof Prisma.PrismaClientKnownRequestError){
-            // @ts-ignore
-            return response.status(prismaErrorCodes[e.code] || 500).json(e.message)
-        }
-        return response.status(500).json("Unknown error. Try again later")
+        return handleErrors(e, response)
     }
     },
 
@@ -32,11 +27,7 @@ export default{
             console.log("Created user")
             return response.status(201).json(user)
         } catch (e) {
-        if(e instanceof Prisma.PrismaClientKnownRequestError){
-            // @ts-ignore
-            return response.status(prismaErrorCodes[e.code] || 500).json(e.message)
-        }
-        return response.status(500).json("Unknown error. Try again later")
+        return handleErrors(e, response)
     }
     },
     
@@ -57,11 +48,7 @@ export default{
             console.log("Usuario atualizado")
             return response.status(201).json(user)
         } catch (e){
-             if(e instanceof Prisma.PrismaClientKnownRequestError){
-            // @ts-ignore
-            return response.status(prismaErrorCodes[e.code] || 500).json(e.message)
-        }
-        return response.status(500).json("Unknown error. Try again later")
+             return handleErrors(e, response)
         }
     },
 
@@ -71,11 +58,7 @@ export default{
         const user = await prisma.cursos.findUnique({where: {id: +id}})
         return response.status(200).json(user)
         } catch (e) {
-        if(e instanceof Prisma.PrismaClientKnownRequestError){
-            // @ts-ignore
-            return response.status(prismaErrorCodes[e.code] || 500).json(e.message)
-        }
-        return response.status(500).json("Unknown error. Try again later")
+        return handleErrors(e, response)
     }
     },
 
@@ -89,11 +72,7 @@ export default{
         console.log("Usuario deletado")
          return response.status(200).json(user)
          } catch (e) {
-        if(e instanceof Prisma.PrismaClientKnownRequestError){
-            // @ts-ignore
-            return response.status(prismaErrorCodes[e.code] || 500).json(e.message)
-        }
-        return response.status(500).json("Unknown error. Try again later")
+        return handleErrors(e, response)
     }
     }   
 }

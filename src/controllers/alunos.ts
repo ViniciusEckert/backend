@@ -1,8 +1,7 @@
 import { Request, Response } from "express"
 
 import { prisma } from "../../config/prisma"
-import prismaErrorCodes from "../../config/prismaErrorCodes.json"
-import { Prisma } from "../../generated/prisma/client"
+import { handleErrors } from "../helpers/handleErros"
 
 
 export default {
@@ -13,11 +12,7 @@ export default {
         })
         return response.status(200).json(users);
         } catch (e) {
-        if(e instanceof Prisma.PrismaClientKnownRequestError){
-            // @ts-ignore
-            return response.status(prismaErrorCodes[e.code] || 500).json(e.message)
-        }
-        return response.status(500).json("Unknown error. Try again later")
+        return handleErrors(e, response)
     }
     },
 
@@ -32,14 +27,9 @@ export default {
             email
         }
     })
-    console.log("Created user:", user)
     return response.status(201).json(user)
     } catch (e) {
-        if(e instanceof Prisma.PrismaClientKnownRequestError){
-            // @ts-ignore
-            return response.status(prismaErrorCodes[e.code] || 500).json(e.message)
-        }
-        return response.status(500).json("Unknown error. Try again later")
+        return handleErrors(e, response)
     }
     },
 
@@ -57,14 +47,9 @@ export default {
             },
             where: {id: +id}
         })
-        console.log("Usuario atualizado")
         return response.status(201).json(user)
         } catch (e) {
-        if(e instanceof Prisma.PrismaClientKnownRequestError){
-            // @ts-ignore
-            return response.status(prismaErrorCodes[e.code] || 500).json(e.message)
-        }
-        return response.status(500).json("Unknown error. Try again later")
+        return handleErrors(e, response)
     }
     },
 
@@ -74,11 +59,7 @@ export default {
         const user = await prisma.alunos.findUnique({where: {id: +id}})
         return response.status(200).json(user)
         } catch (e) {
-        if(e instanceof Prisma.PrismaClientKnownRequestError){
-            // @ts-ignore
-            return response.status(prismaErrorCodes[e.code] || 500).json(e.message)
-        }
-        return response.status(500).json("Unknown error. Try again later")
+        return handleErrors(e, response)
     }
     },
 
@@ -89,58 +70,45 @@ export default {
         const user = await prisma.alunos.delete({
             where: {id: +id}
         })
-        console.log("Usuario deletado")
          return response.status(200).json(user)
          } catch (e) {
-        if(e instanceof Prisma.PrismaClientKnownRequestError){
-            // @ts-ignore
-            return response.status(prismaErrorCodes[e.code] || 500).json(e.message)
-        }
-        return response.status(500).json("Unknown error. Try again later")
+        return handleErrors(e, response)
     }
     },
      Conectar: async(request: Request, response: Response) => {
         try{
         const { id } = request.params
+        const { cursoIds } = request.body
 
         const user = await prisma.alunos.update({
             where: {id: +id},
             data: {
                 cursos: {
-                    connect: { id: 4}
+                    connect: cursoIds.map((cursoIds:Number) => ({id: cursoIds}))
                 }
             },
         })
-        console.log("Usuario atualizado")
         return response.status(201).json(user)
         } catch (e) {
-        if(e instanceof Prisma.PrismaClientKnownRequestError){
-            // @ts-ignore
-            return response.status(prismaErrorCodes[e.code] || 500).json(e.message)
-        }
-        return response.status(500).json("Unknown error. Try again later")
+        return handleErrors(e, response)
     }
     },   
     Desconectar: async(request: Request, response: Response) => {
         try{
         const { id } = request.params
+        const { cursoIds } = request.body
 
         const user = await prisma.alunos.update({
             where: {id: +id},
             data: {
                 cursos: {
-                    disconnect: { id: 4}
+                    disconnect: { id: +cursoIds }
                 }
             },
         })
-        console.log("Usuario atualizado")
         return response.status(201).json(user)
         } catch (e) {
-        if(e instanceof Prisma.PrismaClientKnownRequestError){
-            // @ts-ignore
-            return response.status(prismaErrorCodes[e.code] || 500).json(e.message)
-        }
-        return response.status(500).json("Unknown error. Try again later")
+        return handleErrors(e, response)
     }
     }
 }

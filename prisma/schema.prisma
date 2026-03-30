@@ -34,3 +34,12 @@ model Cursos {
   alunos Alunos[]
 }
 
+model Funcionarios {
+  id Int @id @default(autoincrement())
+  nome String
+  email String @unique
+  senha String
+  admin Boolean @default(false)
+  createdAt DateTime @default(now())
+  updateAt DateTime @updatedAt
+}
