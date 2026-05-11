@@ -16,6 +16,10 @@ export default{
     create : async (request: Request, response: Response) => {
         try{
             const {nome, professor, cargaHoraria, descricao} = request.body
+
+            if(!nome || !cargaHoraria || !descricao){
+                return response.status(400).json("Dados do curso faltando")
+            }
             const user = await prisma.cursos.create({
                 data: {
                     nome,
@@ -46,7 +50,7 @@ export default{
             where: {id: +id}
             })
             console.log("Usuario atualizado")
-            return response.status(201).json(user)
+            return response.status(200).json(user)
         } catch (e){
              return handleErrors(e, response)
         }

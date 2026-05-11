@@ -19,6 +19,10 @@ export default {
     create: async (request: Request, response: Response) => {
         try {
         const { nome, cpf, email, idade } = request.body
+
+        if(!nome || !cpf || !email || !idade){
+            return response.status(400).json("Dados do aluno incompletos")
+        }
         const user = await prisma.alunos.create({
         data: {
             nome,
@@ -47,7 +51,7 @@ export default {
             },
             where: {id: +id}
         })
-        return response.status(201).json(user)
+        return response.status(200).json(user)
         } catch (e) {
         return handleErrors(e, response)
     }

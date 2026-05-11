@@ -8,7 +8,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js",
-    "dev": "tsx watch --include ./**/* ./src/index.ts"
+    "dev": "tsx watch --include ./**/* ./src/index.ts",
+    "seed": "tsx ./prisma/seed.ts"
   },
   "devDependencies": {
     "@types/bcrypt": "^6.0.0",
