@@ -60,7 +60,7 @@ export default {
     getById: async (request: Request, response: Response) => {
         try{
         const {id} = request.params
-        const user = await prisma.alunos.findUnique({where: {id: +id}})
+        const user = await prisma.alunos.findUnique({where: {id: +id}, include: { cursos: true}})
         return response.status(200).json(user)
         } catch (e) {
         return handleErrors(e, response)
@@ -92,7 +92,7 @@ export default {
                 }
             },
         })
-        return response.status(201).json(user)
+        return response.status(200).json(user)
         } catch (e) {
         return handleErrors(e, response)
     }
@@ -110,7 +110,7 @@ export default {
                 }
             },
         })
-        return response.status(201).json(user)
+        return response.status(200).json(user)
         } catch (e) {
         return handleErrors(e, response)
     }
