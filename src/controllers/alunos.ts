@@ -88,7 +88,7 @@ export default {
             where: {id: +id},
             data: {
                 cursos: {
-                    connect: cursoIds.map((cursoIds:Number) => ({id: cursoIds}))
+                    connect: cursoIds.map((cursoId:Number) => ({id: cursoId}))
                 }
             },
         })
@@ -102,12 +102,15 @@ export default {
         const { id } = request.params
         const { cursoIds } = request.body
 
+        console.log(cursoIds)
+
         const user = await prisma.alunos.update({
             where: {id: +id},
             data: {
                 cursos: {
-                    disconnect: { id: +cursoIds }
+                    disconnect: cursoIds.map((cursoId:Number) => ({id: cursoId}))
                 }
+                
             },
         })
         return response.status(200).json(user)

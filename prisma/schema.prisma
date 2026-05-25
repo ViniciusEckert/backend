@@ -43,3 +43,4 @@ model Funcionarios {
   createdAt DateTime @default(now())
   updateAt DateTime @updatedAt
 }
+

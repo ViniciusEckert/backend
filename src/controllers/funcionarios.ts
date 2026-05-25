@@ -26,7 +26,7 @@ export default {
             return response.status(200).json({access_token: token})
         } catch (e){
             return handleErrors(e, response)
-        }3
+        }
     },
     list: async (request: Request, response: Response) => {
         try {
