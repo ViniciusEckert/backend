@@ -1,13 +1,12 @@
 {
-  "name": "backend",
+  "name": "tcc",
   "version": "1.0.0",
-  "description": "cadastro de aulunos",
+  "description": "",
   "license": "ISC",
-  "author": "ViniEckert",
-  "main": "index.ts",
+  "author": "anthony e vinicius",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "tsx src/index.ts",
     "dev": "tsx watch --include ./**/* ./src/index.ts",
     "seed": "tsx ./prisma/seed.ts"
   },
@@ -17,19 +16,21 @@
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.6",
     "@types/jsonwebtoken": "^9.0.10",
-    "@types/node": "^25.4.0",
-    "prisma": "^7.5.0",
+    "@types/node": "^25.9.1",
+    "@types/swagger-ui-express": "^4.1.8",
+    "prisma": "^7.8.0",
     "tsx": "^4.21.0",
-    "typescript": "^5.9.3"
+    "typescript": "^6.0.3"
   },
   "dependencies": {
-    "@prisma/adapter-better-sqlite3": "^7.5.0",
-    "@prisma/client": "^7.5.0",
+    "@prisma/adapter-better-sqlite3": "^7.8.0",
+    "@prisma/client": "^7.8.0",
     "bcrypt": "^6.0.0",
     "cors": "^2.8.6",
-    "dotenv": "^17.3.1",
+    "dotenv": "^17.4.2",
     "express": "^5.2.1",
     "http": "^0.0.1-security",
-    "jsonwebtoken": "^9.0.3"
+    "jsonwebtoken": "^9.0.3",
+    "swagger-ui-express": "^5.0.1"
   }
 }

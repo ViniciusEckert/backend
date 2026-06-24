@@ -51,9 +51,12 @@ export const AnyNull = runtime.AnyNull
 
 
 export const ModelName = {
-  Alunos: 'Alunos',
-  Cursos: 'Cursos',
-  Funcionarios: 'Funcionarios'
+  Cliente: 'Cliente',
+  Agencia: 'Agencia',
+  Conta: 'Conta',
+  Cartao: 'Cartao',
+  Transacao: 'Transacao',
+  Funcionario: 'Funcionario'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -69,43 +72,72 @@ export const TransactionIsolationLevel = runtime.makeStrictEnum({
 export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
 
 
-export const AlunosScalarFieldEnum = {
+export const ClienteScalarFieldEnum = {
   id: 'id',
   nome: 'nome',
-  idade: 'idade',
+  email: 'email',
   cpf: 'cpf',
-  email: 'email',
-  createdAt: 'createdAt',
-  updateAt: 'updateAt'
-} as const
-
-export type AlunosScalarFieldEnum = (typeof AlunosScalarFieldEnum)[keyof typeof AlunosScalarFieldEnum]
-
-
-export const CursosScalarFieldEnum = {
-  id: 'id',
-  nome: 'nome',
-  professor: 'professor',
-  cargaHoraria: 'cargaHoraria',
-  descricao: 'descricao',
-  createdAt: 'createdAt',
-  updateAt: 'updateAt'
-} as const
-
-export type CursosScalarFieldEnum = (typeof CursosScalarFieldEnum)[keyof typeof CursosScalarFieldEnum]
-
-
-export const FuncionariosScalarFieldEnum = {
-  id: 'id',
-  nome: 'nome',
-  email: 'email',
+  data_nascimento: 'data_nascimento',
+  telefone: 'telefone',
   senha: 'senha',
-  admin: 'admin',
   createdAt: 'createdAt',
   updateAt: 'updateAt'
 } as const
 
-export type FuncionariosScalarFieldEnum = (typeof FuncionariosScalarFieldEnum)[keyof typeof FuncionariosScalarFieldEnum]
+export type ClienteScalarFieldEnum = (typeof ClienteScalarFieldEnum)[keyof typeof ClienteScalarFieldEnum]
+
+
+export const AgenciaScalarFieldEnum = {
+  id: 'id',
+  nome: 'nome',
+  numero: 'numero',
+  endereco: 'endereco'
+} as const
+
+export type AgenciaScalarFieldEnum = (typeof AgenciaScalarFieldEnum)[keyof typeof AgenciaScalarFieldEnum]
+
+
+export const ContaScalarFieldEnum = {
+  id: 'id',
+  senha: 'senha',
+  tipo_conta: 'tipo_conta',
+  saldo: 'saldo',
+  data_abertura: 'data_abertura'
+} as const
+
+export type ContaScalarFieldEnum = (typeof ContaScalarFieldEnum)[keyof typeof ContaScalarFieldEnum]
+
+
+export const CartaoScalarFieldEnum = {
+  id: 'id',
+  numero_cartao: 'numero_cartao',
+  tipo_cartao: 'tipo_cartao',
+  cvv: 'cvv',
+  validade: 'validade'
+} as const
+
+export type CartaoScalarFieldEnum = (typeof CartaoScalarFieldEnum)[keyof typeof CartaoScalarFieldEnum]
+
+
+export const TransacaoScalarFieldEnum = {
+  id: 'id',
+  tipo: 'tipo',
+  valor: 'valor',
+  dataTransacao: 'dataTransacao'
+} as const
+
+export type TransacaoScalarFieldEnum = (typeof TransacaoScalarFieldEnum)[keyof typeof TransacaoScalarFieldEnum]
+
+
+export const FuncionarioScalarFieldEnum = {
+  id: 'id',
+  nome: 'nome',
+  email: 'email',
+  admin: 'admin',
+  senha: 'senha'
+} as const
+
+export type FuncionarioScalarFieldEnum = (typeof FuncionarioScalarFieldEnum)[keyof typeof FuncionarioScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -114,12 +146,4 @@ export const SortOrder = {
 } as const
 
 export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
-
-
-export const NullsOrder = {
-  first: 'first',
-  last: 'last'
-} as const
-
-export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
 

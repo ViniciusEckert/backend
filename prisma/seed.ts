@@ -1,25 +1,25 @@
-import bcrypt from "bcrypt";
+import bcrypt from 'bcrypt'
 import { prisma } from "../config/prisma"
 
+async function main(){
 
-async function main() {
-  const employee = await prisma.funcionarios.create({
-    data: {
-      nome: "Funcionario",
-      email: "funcionario@gmail.com",
-      senha: bcrypt.hashSync("123456", +process.env.BCRYPT_ROUNDS!),
-      admin: true,
-    },
-  });
 
-  console.log("Funcionario criado:", employee);
+    const employee = await prisma.funcionario.create({
+        data:{
+            nome:"funcionario1",
+            email:"funcionario1@teste",
+            senha: bcrypt.hashSync("123456", +process.env.BCRYPT_ROUNDS!),
+            admin: true
+        },
+    })
+    console.log("funcionario criado", employee)
 }
 
 main()
-  .catch((e) => {
-    console.error(e);
-    process.exit(1);
-  })
-  .finally(async () => {
-    await prisma.$disconnect();
-  });
+    .catch((e) => {
+        console.error(e)
+        process.exit(1)
+    })
+    .finally(async() => {
+        await prisma.$disconnect()
+    })

@@ -8,7 +8,10 @@
  *
  * 🟢 You can import this file directly.
  */
-export type * from './models/Alunos.ts'
-export type * from './models/Cursos.ts'
-export type * from './models/Funcionarios.ts'
+export type * from './models/Cliente.ts'
+export type * from './models/Agencia.ts'
+export type * from './models/Conta.ts'
+export type * from './models/Cartao.ts'
+export type * from './models/Transacao.ts'
+export type * from './models/Funcionario.ts'
 export type * from './commonInputTypes.ts'

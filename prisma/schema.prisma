@@ -12,35 +12,86 @@ datasource db {
   provider = "sqlite"
 }
 
-model Alunos {
-  id Int @id @default(autoincrement())
-  nome String 
-  idade Int
-  cpf Int @unique
-  email String @unique
-  createdAt DateTime @default(now())
-  updateAt DateTime @updatedAt
-  cursos Cursos[]
+enum TipoConta{
+  CORRENTE
+  POUPANCA
+  SALARIO
+  UNIVERSITARIA
 }
 
-model Cursos {
-  id Int @id @default(autoincrement())
-  nome String @unique
-  professor String?
-  cargaHoraria Int
-  descricao String
-  createdAt DateTime @default(now())
-  updateAt DateTime @updatedAt
-  alunos Alunos[]
+enum TipoCartao{
+  CREDITO
+  DEBITO
 }
 
-model Funcionarios {
+enum TipoTransacao {
+  DEPOSITO
+  SAQUE
+  TRANSFERENCIA
+  PAGAMENTO
+}
+
+model Cliente{
   id Int @id @default(autoincrement())
   nome String
   email String @unique
+  cpf String @unique
+  data_nascimento String
+  telefone String
   senha String
-  admin Boolean @default(false)
   createdAt DateTime @default(now())
   updateAt DateTime @updatedAt
+
+  contas Conta[]
 }
 
+model Agencia{
+  id Int @id @default(autoincrement())
+  nome String
+  numero String @unique
+  endereco String
+
+  contas Conta[]
+  funcionarios Funcionario[]
+}
+
+model Conta{
+  id Int @id @default(autoincrement())
+  senha String
+  tipo_conta TipoConta
+  saldo Decimal @default(0)
+  data_abertura DateTime
+
+  clientes Cliente[]
+  agencias Agencia[]
+  transacoes Transacao[]
+  cartoes Cartao[]
+}
+
+model Cartao{
+  id Int @id @default(autoincrement())
+  numero_cartao String @unique
+  tipo_cartao TipoCartao
+  cvv String
+  validade DateTime
+
+  conta Conta[]
+}
+
+model Transacao{
+  id Int @id @default(autoincrement())
+  tipo TipoTransacao
+  valor Decimal
+  dataTransacao DateTime @default(now())
+
+  conta Conta[]
+}
+
+model Funcionario{
+  id Int @id @default(autoincrement())
+  nome String
+  email String @unique
+  admin Boolean
+  senha String
+  agencias Agencia[]
+}
