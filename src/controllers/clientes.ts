@@ -69,9 +69,18 @@ export default {
         try{
             const { id } = request.params
             const user = await prisma.cliente.findUnique({
-                where:{
+                where: {
                     id: +id
-                }})
+                },
+                include: {
+                    contas: {
+                        include: {
+                            cartoes: true,
+                            transacoes: true
+                        }
+                    }
+                }
+            })
             return response.status(200).json(user)
         }catch(e){
             handleErrors(e, response)
@@ -119,23 +128,25 @@ export default {
     },
 
 
-    connect: async(request: Request, response: Response) => {
-        try{
-            const {id} = request.params
-            const {contaId} = request.body
+    connect: async (request: Request, response: Response) => {
+        try {
+            const { id } = request.params;
+            const { contaId } = request.body;
 
             const user = await prisma.cliente.update({
-                where:{id: +id},
-                data:{
-                    contas:{
-                        connect: contaId.map((contaId: Number) => ({id: contaId}))
+                where: {
+                    id: +id
+                },
+                data: {
+                    contas: {
+                        connect: contaId.map((id: number) => ({ id }))
                     }
                 }
-            })
-        }
-        catch(e) {
-            handleErrors(e, response)
-        
+            });
+
+            return response.status(200).json(user);
+        } catch (e) {
+            return handleErrors(e, response);
         }
     },
 

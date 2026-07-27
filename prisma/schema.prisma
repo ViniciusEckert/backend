@@ -1,8 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Get a free hosted Postgres database in seconds: `npx create-db`
-
 generator client {
   provider = "prisma-client"
   output   = "../generated/prisma"
@@ -12,14 +7,74 @@ datasource db {
   provider = "sqlite"
 }
 
-enum TipoConta{
+model Cliente {
+  id              Int      @id @default(autoincrement())
+  nome            String
+  email           String   @unique
+  cpf             String   @unique
+  data_nascimento String
+  telefone        String
+  senha           String
+  createdAt       DateTime @default(now())
+  updateAt        DateTime @updatedAt
+  contas          Conta[]  @relation("ClienteToConta")
+}
+
+model Agencia {
+  id           Int           @id @default(autoincrement())
+  nome         String
+  numero       String        @unique
+  endereco     String
+  contas       Conta[]       @relation("AgenciaToConta")
+  funcionarios Funcionario[] @relation("AgenciaToFuncionario")
+}
+
+model Conta {
+  id            Int         @id @default(autoincrement())
+  senha         String
+  tipo_conta    TipoConta
+  saldo         Decimal     @default(0)
+  data_abertura DateTime
+  agencias      Agencia[]   @relation("AgenciaToConta")
+  cartoes       Cartao[]    @relation("CartaoToConta")
+  clientes      Cliente[]   @relation("ClienteToConta")
+  transacoes    Transacao[] @relation("ContaToTransacao")
+}
+
+model Cartao {
+  id            Int        @id @default(autoincrement())
+  numero_cartao String     @unique
+  tipo_cartao   TipoCartao
+  cvv           String
+  validade      DateTime
+  conta         Conta[]    @relation("CartaoToConta")
+}
+
+model Transacao {
+  id            Int           @id @default(autoincrement())
+  tipo          TipoTransacao
+  valor         Decimal
+  dataTransacao DateTime      @default(now())
+  conta         Conta[]       @relation("ContaToTransacao")
+}
+
+model Funcionario {
+  id       Int       @id @default(autoincrement())
+  nome     String
+  email    String    @unique
+  admin    Boolean
+  senha    String
+  agencias Agencia[] @relation("AgenciaToFuncionario")
+}
+
+enum TipoConta {
   CORRENTE
   POUPANCA
   SALARIO
   UNIVERSITARIA
 }
 
-enum TipoCartao{
+enum TipoCartao {
   CREDITO
   DEBITO
 }
@@ -29,69 +84,4 @@ enum TipoTransacao {
   SAQUE
   TRANSFERENCIA
   PAGAMENTO
-}
-
-model Cliente{
-  id Int @id @default(autoincrement())
-  nome String
-  email String @unique
-  cpf String @unique
-  data_nascimento String
-  telefone String
-  senha String
-  createdAt DateTime @default(now())
-  updateAt DateTime @updatedAt
-
-  contas Conta[]
-}
-
-model Agencia{
-  id Int @id @default(autoincrement())
-  nome String
-  numero String @unique
-  endereco String
-
-  contas Conta[]
-  funcionarios Funcionario[]
-}
-
-model Conta{
-  id Int @id @default(autoincrement())
-  senha String
-  tipo_conta TipoConta
-  saldo Decimal @default(0)
-  data_abertura DateTime
-
-  clientes Cliente[]
-  agencias Agencia[]
-  transacoes Transacao[]
-  cartoes Cartao[]
-}
-
-model Cartao{
-  id Int @id @default(autoincrement())
-  numero_cartao String @unique
-  tipo_cartao TipoCartao
-  cvv String
-  validade DateTime
-
-  conta Conta[]
-}
-
-model Transacao{
-  id Int @id @default(autoincrement())
-  tipo TipoTransacao
-  valor Decimal
-  dataTransacao DateTime @default(now())
-
-  conta Conta[]
-}
-
-model Funcionario{
-  id Int @id @default(autoincrement())
-  nome String
-  email String @unique
-  admin Boolean
-  senha String
-  agencias Agencia[]
 }

@@ -4,37 +4,52 @@ import { handleErrors } from "../helpers/handleErros"
 
 export default {
     create: async (request: Request, response: Response) => {
-        try{
-            const { senha, tipo_conta, data_abertura, clienteIds, agenciaIds } = request.body
-            
-            // Validações básicas
-            if(!senha || !tipo_conta){
-                return response.status(400).json("Dados incompletos.")
-            }
-
-            const data: any = {
+        try {
+            const {
                 senha,
-                tipo_conta, // Ex: "CORRENTE"
-                data_abertura: data_abertura || new Date()
-            }
+                tipo_conta,
+                saldo,
+                data_abertura,
+                clienteId,
+                agenciaId
+            } = request.body;
 
-            // Conectando relaçõesmany-to-many se existirem
-            if(clienteIds) {
-                data.clientes = { connect: clienteIds.map((id: number) => ({ id })) }
-            }
-            if(agenciaIds) {
-                data.agencias = { connect: agenciaIds.map((id: number) => ({ id })) }
+            if (!senha || !tipo_conta) {
+                return response.status(400).json("Dados incompletos.");
             }
 
             const conta = await prisma.conta.create({
-                data
-            })
-            return response.status(201).json(conta)
-        }catch(e){
-            return handleErrors(e, response)
+                data: {
+                    senha,
+                    tipo_conta,
+                    saldo: saldo ?? 0,
+                    data_abertura: data_abertura
+                        ? new Date(data_abertura)
+                        : new Date(),
+
+                    ...(clienteId && {
+                        clientes: {
+                            connect: [{ id: Number(clienteId) }]
+                        }
+                    }),
+
+                    ...(agenciaId && {
+                        agencias: {
+                            connect: [{ id: Number(agenciaId) }]
+                        }
+                    })
+                },
+                include: {
+                    clientes: true,
+                    agencias: true
+                }
+            });
+
+            return response.status(201).json(conta);
+        } catch (e) {
+            return handleErrors(e, response);
         }
     },
-
     list: async (request: Request, response: Response) => {
         try{
             const conta = await prisma.conta.findMany({
