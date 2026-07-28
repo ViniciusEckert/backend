@@ -220,10 +220,10 @@ export type ContaWhereInput = {
   tipo_conta?: Prisma.EnumTipoContaFilter<"Conta"> | $Enums.TipoConta
   saldo?: Prisma.DecimalFilter<"Conta"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   data_abertura?: Prisma.DateTimeFilter<"Conta"> | Date | string
-  clientes?: Prisma.ClienteListRelationFilter
   agencias?: Prisma.AgenciaListRelationFilter
-  transacoes?: Prisma.TransacaoListRelationFilter
   cartoes?: Prisma.CartaoListRelationFilter
+  clientes?: Prisma.ClienteListRelationFilter
+  transacoes?: Prisma.TransacaoListRelationFilter
 }
 
 export type ContaOrderByWithRelationInput = {
@@ -232,10 +232,10 @@ export type ContaOrderByWithRelationInput = {
   tipo_conta?: Prisma.SortOrder
   saldo?: Prisma.SortOrder
   data_abertura?: Prisma.SortOrder
-  clientes?: Prisma.ClienteOrderByRelationAggregateInput
   agencias?: Prisma.AgenciaOrderByRelationAggregateInput
-  transacoes?: Prisma.TransacaoOrderByRelationAggregateInput
   cartoes?: Prisma.CartaoOrderByRelationAggregateInput
+  clientes?: Prisma.ClienteOrderByRelationAggregateInput
+  transacoes?: Prisma.TransacaoOrderByRelationAggregateInput
 }
 
 export type ContaWhereUniqueInput = Prisma.AtLeast<{
@@ -247,10 +247,10 @@ export type ContaWhereUniqueInput = Prisma.AtLeast<{
   tipo_conta?: Prisma.EnumTipoContaFilter<"Conta"> | $Enums.TipoConta
   saldo?: Prisma.DecimalFilter<"Conta"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   data_abertura?: Prisma.DateTimeFilter<"Conta"> | Date | string
-  clientes?: Prisma.ClienteListRelationFilter
   agencias?: Prisma.AgenciaListRelationFilter
-  transacoes?: Prisma.TransacaoListRelationFilter
   cartoes?: Prisma.CartaoListRelationFilter
+  clientes?: Prisma.ClienteListRelationFilter
+  transacoes?: Prisma.TransacaoListRelationFilter
 }, "id">
 
 export type ContaOrderByWithAggregationInput = {
@@ -282,10 +282,10 @@ export type ContaCreateInput = {
   tipo_conta: $Enums.TipoConta
   saldo?: runtime.Decimal | runtime.DecimalJsLike | number | string
   data_abertura: Date | string
-  clientes?: Prisma.ClienteCreateNestedManyWithoutContasInput
   agencias?: Prisma.AgenciaCreateNestedManyWithoutContasInput
-  transacoes?: Prisma.TransacaoCreateNestedManyWithoutContaInput
   cartoes?: Prisma.CartaoCreateNestedManyWithoutContaInput
+  clientes?: Prisma.ClienteCreateNestedManyWithoutContasInput
+  transacoes?: Prisma.TransacaoCreateNestedManyWithoutContaInput
 }
 
 export type ContaUncheckedCreateInput = {
@@ -294,10 +294,10 @@ export type ContaUncheckedCreateInput = {
   tipo_conta: $Enums.TipoConta
   saldo?: runtime.Decimal | runtime.DecimalJsLike | number | string
   data_abertura: Date | string
-  clientes?: Prisma.ClienteUncheckedCreateNestedManyWithoutContasInput
   agencias?: Prisma.AgenciaUncheckedCreateNestedManyWithoutContasInput
-  transacoes?: Prisma.TransacaoUncheckedCreateNestedManyWithoutContaInput
   cartoes?: Prisma.CartaoUncheckedCreateNestedManyWithoutContaInput
+  clientes?: Prisma.ClienteUncheckedCreateNestedManyWithoutContasInput
+  transacoes?: Prisma.TransacaoUncheckedCreateNestedManyWithoutContaInput
 }
 
 export type ContaUpdateInput = {
@@ -305,10 +305,10 @@ export type ContaUpdateInput = {
   tipo_conta?: Prisma.EnumTipoContaFieldUpdateOperationsInput | $Enums.TipoConta
   saldo?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   data_abertura?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  clientes?: Prisma.ClienteUpdateManyWithoutContasNestedInput
   agencias?: Prisma.AgenciaUpdateManyWithoutContasNestedInput
-  transacoes?: Prisma.TransacaoUpdateManyWithoutContaNestedInput
   cartoes?: Prisma.CartaoUpdateManyWithoutContaNestedInput
+  clientes?: Prisma.ClienteUpdateManyWithoutContasNestedInput
+  transacoes?: Prisma.TransacaoUpdateManyWithoutContaNestedInput
 }
 
 export type ContaUncheckedUpdateInput = {
@@ -317,10 +317,10 @@ export type ContaUncheckedUpdateInput = {
   tipo_conta?: Prisma.EnumTipoContaFieldUpdateOperationsInput | $Enums.TipoConta
   saldo?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   data_abertura?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  clientes?: Prisma.ClienteUncheckedUpdateManyWithoutContasNestedInput
   agencias?: Prisma.AgenciaUncheckedUpdateManyWithoutContasNestedInput
-  transacoes?: Prisma.TransacaoUncheckedUpdateManyWithoutContaNestedInput
   cartoes?: Prisma.CartaoUncheckedUpdateManyWithoutContaNestedInput
+  clientes?: Prisma.ClienteUncheckedUpdateManyWithoutContasNestedInput
+  transacoes?: Prisma.TransacaoUncheckedUpdateManyWithoutContaNestedInput
 }
 
 export type ContaCreateManyInput = {
@@ -560,8 +560,8 @@ export type ContaCreateWithoutClientesInput = {
   saldo?: runtime.Decimal | runtime.DecimalJsLike | number | string
   data_abertura: Date | string
   agencias?: Prisma.AgenciaCreateNestedManyWithoutContasInput
-  transacoes?: Prisma.TransacaoCreateNestedManyWithoutContaInput
   cartoes?: Prisma.CartaoCreateNestedManyWithoutContaInput
+  transacoes?: Prisma.TransacaoCreateNestedManyWithoutContaInput
 }
 
 export type ContaUncheckedCreateWithoutClientesInput = {
@@ -571,8 +571,8 @@ export type ContaUncheckedCreateWithoutClientesInput = {
   saldo?: runtime.Decimal | runtime.DecimalJsLike | number | string
   data_abertura: Date | string
   agencias?: Prisma.AgenciaUncheckedCreateNestedManyWithoutContasInput
-  transacoes?: Prisma.TransacaoUncheckedCreateNestedManyWithoutContaInput
   cartoes?: Prisma.CartaoUncheckedCreateNestedManyWithoutContaInput
+  transacoes?: Prisma.TransacaoUncheckedCreateNestedManyWithoutContaInput
 }
 
 export type ContaCreateOrConnectWithoutClientesInput = {
@@ -612,9 +612,9 @@ export type ContaCreateWithoutAgenciasInput = {
   tipo_conta: $Enums.TipoConta
   saldo?: runtime.Decimal | runtime.DecimalJsLike | number | string
   data_abertura: Date | string
+  cartoes?: Prisma.CartaoCreateNestedManyWithoutContaInput
   clientes?: Prisma.ClienteCreateNestedManyWithoutContasInput
   transacoes?: Prisma.TransacaoCreateNestedManyWithoutContaInput
-  cartoes?: Prisma.CartaoCreateNestedManyWithoutContaInput
 }
 
 export type ContaUncheckedCreateWithoutAgenciasInput = {
@@ -623,9 +623,9 @@ export type ContaUncheckedCreateWithoutAgenciasInput = {
   tipo_conta: $Enums.TipoConta
   saldo?: runtime.Decimal | runtime.DecimalJsLike | number | string
   data_abertura: Date | string
+  cartoes?: Prisma.CartaoUncheckedCreateNestedManyWithoutContaInput
   clientes?: Prisma.ClienteUncheckedCreateNestedManyWithoutContasInput
   transacoes?: Prisma.TransacaoUncheckedCreateNestedManyWithoutContaInput
-  cartoes?: Prisma.CartaoUncheckedCreateNestedManyWithoutContaInput
 }
 
 export type ContaCreateOrConnectWithoutAgenciasInput = {
@@ -654,8 +654,8 @@ export type ContaCreateWithoutCartoesInput = {
   tipo_conta: $Enums.TipoConta
   saldo?: runtime.Decimal | runtime.DecimalJsLike | number | string
   data_abertura: Date | string
-  clientes?: Prisma.ClienteCreateNestedManyWithoutContasInput
   agencias?: Prisma.AgenciaCreateNestedManyWithoutContasInput
+  clientes?: Prisma.ClienteCreateNestedManyWithoutContasInput
   transacoes?: Prisma.TransacaoCreateNestedManyWithoutContaInput
 }
 
@@ -665,8 +665,8 @@ export type ContaUncheckedCreateWithoutCartoesInput = {
   tipo_conta: $Enums.TipoConta
   saldo?: runtime.Decimal | runtime.DecimalJsLike | number | string
   data_abertura: Date | string
-  clientes?: Prisma.ClienteUncheckedCreateNestedManyWithoutContasInput
   agencias?: Prisma.AgenciaUncheckedCreateNestedManyWithoutContasInput
+  clientes?: Prisma.ClienteUncheckedCreateNestedManyWithoutContasInput
   transacoes?: Prisma.TransacaoUncheckedCreateNestedManyWithoutContaInput
 }
 
@@ -696,9 +696,9 @@ export type ContaCreateWithoutTransacoesInput = {
   tipo_conta: $Enums.TipoConta
   saldo?: runtime.Decimal | runtime.DecimalJsLike | number | string
   data_abertura: Date | string
-  clientes?: Prisma.ClienteCreateNestedManyWithoutContasInput
   agencias?: Prisma.AgenciaCreateNestedManyWithoutContasInput
   cartoes?: Prisma.CartaoCreateNestedManyWithoutContaInput
+  clientes?: Prisma.ClienteCreateNestedManyWithoutContasInput
 }
 
 export type ContaUncheckedCreateWithoutTransacoesInput = {
@@ -707,9 +707,9 @@ export type ContaUncheckedCreateWithoutTransacoesInput = {
   tipo_conta: $Enums.TipoConta
   saldo?: runtime.Decimal | runtime.DecimalJsLike | number | string
   data_abertura: Date | string
-  clientes?: Prisma.ClienteUncheckedCreateNestedManyWithoutContasInput
   agencias?: Prisma.AgenciaUncheckedCreateNestedManyWithoutContasInput
   cartoes?: Prisma.CartaoUncheckedCreateNestedManyWithoutContaInput
+  clientes?: Prisma.ClienteUncheckedCreateNestedManyWithoutContasInput
 }
 
 export type ContaCreateOrConnectWithoutTransacoesInput = {
@@ -739,8 +739,8 @@ export type ContaUpdateWithoutClientesInput = {
   saldo?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   data_abertura?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   agencias?: Prisma.AgenciaUpdateManyWithoutContasNestedInput
-  transacoes?: Prisma.TransacaoUpdateManyWithoutContaNestedInput
   cartoes?: Prisma.CartaoUpdateManyWithoutContaNestedInput
+  transacoes?: Prisma.TransacaoUpdateManyWithoutContaNestedInput
 }
 
 export type ContaUncheckedUpdateWithoutClientesInput = {
@@ -750,8 +750,8 @@ export type ContaUncheckedUpdateWithoutClientesInput = {
   saldo?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   data_abertura?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   agencias?: Prisma.AgenciaUncheckedUpdateManyWithoutContasNestedInput
-  transacoes?: Prisma.TransacaoUncheckedUpdateManyWithoutContaNestedInput
   cartoes?: Prisma.CartaoUncheckedUpdateManyWithoutContaNestedInput
+  transacoes?: Prisma.TransacaoUncheckedUpdateManyWithoutContaNestedInput
 }
 
 export type ContaUncheckedUpdateManyWithoutClientesInput = {
@@ -767,9 +767,9 @@ export type ContaUpdateWithoutAgenciasInput = {
   tipo_conta?: Prisma.EnumTipoContaFieldUpdateOperationsInput | $Enums.TipoConta
   saldo?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   data_abertura?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  cartoes?: Prisma.CartaoUpdateManyWithoutContaNestedInput
   clientes?: Prisma.ClienteUpdateManyWithoutContasNestedInput
   transacoes?: Prisma.TransacaoUpdateManyWithoutContaNestedInput
-  cartoes?: Prisma.CartaoUpdateManyWithoutContaNestedInput
 }
 
 export type ContaUncheckedUpdateWithoutAgenciasInput = {
@@ -778,9 +778,9 @@ export type ContaUncheckedUpdateWithoutAgenciasInput = {
   tipo_conta?: Prisma.EnumTipoContaFieldUpdateOperationsInput | $Enums.TipoConta
   saldo?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   data_abertura?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  cartoes?: Prisma.CartaoUncheckedUpdateManyWithoutContaNestedInput
   clientes?: Prisma.ClienteUncheckedUpdateManyWithoutContasNestedInput
   transacoes?: Prisma.TransacaoUncheckedUpdateManyWithoutContaNestedInput
-  cartoes?: Prisma.CartaoUncheckedUpdateManyWithoutContaNestedInput
 }
 
 export type ContaUncheckedUpdateManyWithoutAgenciasInput = {
@@ -796,8 +796,8 @@ export type ContaUpdateWithoutCartoesInput = {
   tipo_conta?: Prisma.EnumTipoContaFieldUpdateOperationsInput | $Enums.TipoConta
   saldo?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   data_abertura?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  clientes?: Prisma.ClienteUpdateManyWithoutContasNestedInput
   agencias?: Prisma.AgenciaUpdateManyWithoutContasNestedInput
+  clientes?: Prisma.ClienteUpdateManyWithoutContasNestedInput
   transacoes?: Prisma.TransacaoUpdateManyWithoutContaNestedInput
 }
 
@@ -807,8 +807,8 @@ export type ContaUncheckedUpdateWithoutCartoesInput = {
   tipo_conta?: Prisma.EnumTipoContaFieldUpdateOperationsInput | $Enums.TipoConta
   saldo?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   data_abertura?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  clientes?: Prisma.ClienteUncheckedUpdateManyWithoutContasNestedInput
   agencias?: Prisma.AgenciaUncheckedUpdateManyWithoutContasNestedInput
+  clientes?: Prisma.ClienteUncheckedUpdateManyWithoutContasNestedInput
   transacoes?: Prisma.TransacaoUncheckedUpdateManyWithoutContaNestedInput
 }
 
@@ -825,9 +825,9 @@ export type ContaUpdateWithoutTransacoesInput = {
   tipo_conta?: Prisma.EnumTipoContaFieldUpdateOperationsInput | $Enums.TipoConta
   saldo?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   data_abertura?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  clientes?: Prisma.ClienteUpdateManyWithoutContasNestedInput
   agencias?: Prisma.AgenciaUpdateManyWithoutContasNestedInput
   cartoes?: Prisma.CartaoUpdateManyWithoutContaNestedInput
+  clientes?: Prisma.ClienteUpdateManyWithoutContasNestedInput
 }
 
 export type ContaUncheckedUpdateWithoutTransacoesInput = {
@@ -836,9 +836,9 @@ export type ContaUncheckedUpdateWithoutTransacoesInput = {
   tipo_conta?: Prisma.EnumTipoContaFieldUpdateOperationsInput | $Enums.TipoConta
   saldo?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   data_abertura?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  clientes?: Prisma.ClienteUncheckedUpdateManyWithoutContasNestedInput
   agencias?: Prisma.AgenciaUncheckedUpdateManyWithoutContasNestedInput
   cartoes?: Prisma.CartaoUncheckedUpdateManyWithoutContaNestedInput
+  clientes?: Prisma.ClienteUncheckedUpdateManyWithoutContasNestedInput
 }
 
 export type ContaUncheckedUpdateManyWithoutTransacoesInput = {
@@ -855,17 +855,17 @@ export type ContaUncheckedUpdateManyWithoutTransacoesInput = {
  */
 
 export type ContaCountOutputType = {
-  clientes: number
   agencias: number
-  transacoes: number
   cartoes: number
+  clientes: number
+  transacoes: number
 }
 
 export type ContaCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  clientes?: boolean | ContaCountOutputTypeCountClientesArgs
   agencias?: boolean | ContaCountOutputTypeCountAgenciasArgs
-  transacoes?: boolean | ContaCountOutputTypeCountTransacoesArgs
   cartoes?: boolean | ContaCountOutputTypeCountCartoesArgs
+  clientes?: boolean | ContaCountOutputTypeCountClientesArgs
+  transacoes?: boolean | ContaCountOutputTypeCountTransacoesArgs
 }
 
 /**
@@ -881,22 +881,8 @@ export type ContaCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extens
 /**
  * ContaCountOutputType without action
  */
-export type ContaCountOutputTypeCountClientesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.ClienteWhereInput
-}
-
-/**
- * ContaCountOutputType without action
- */
 export type ContaCountOutputTypeCountAgenciasArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.AgenciaWhereInput
-}
-
-/**
- * ContaCountOutputType without action
- */
-export type ContaCountOutputTypeCountTransacoesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.TransacaoWhereInput
 }
 
 /**
@@ -906,6 +892,20 @@ export type ContaCountOutputTypeCountCartoesArgs<ExtArgs extends runtime.Types.E
   where?: Prisma.CartaoWhereInput
 }
 
+/**
+ * ContaCountOutputType without action
+ */
+export type ContaCountOutputTypeCountClientesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ClienteWhereInput
+}
+
+/**
+ * ContaCountOutputType without action
+ */
+export type ContaCountOutputTypeCountTransacoesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.TransacaoWhereInput
+}
+
 
 export type ContaSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -913,10 +913,10 @@ export type ContaSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   tipo_conta?: boolean
   saldo?: boolean
   data_abertura?: boolean
-  clientes?: boolean | Prisma.Conta$clientesArgs<ExtArgs>
   agencias?: boolean | Prisma.Conta$agenciasArgs<ExtArgs>
-  transacoes?: boolean | Prisma.Conta$transacoesArgs<ExtArgs>
   cartoes?: boolean | Prisma.Conta$cartoesArgs<ExtArgs>
+  clientes?: boolean | Prisma.Conta$clientesArgs<ExtArgs>
+  transacoes?: boolean | Prisma.Conta$transacoesArgs<ExtArgs>
   _count?: boolean | Prisma.ContaCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["conta"]>
 
@@ -946,10 +946,10 @@ export type ContaSelectScalar = {
 
 export type ContaOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "senha" | "tipo_conta" | "saldo" | "data_abertura", ExtArgs["result"]["conta"]>
 export type ContaInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  clientes?: boolean | Prisma.Conta$clientesArgs<ExtArgs>
   agencias?: boolean | Prisma.Conta$agenciasArgs<ExtArgs>
-  transacoes?: boolean | Prisma.Conta$transacoesArgs<ExtArgs>
   cartoes?: boolean | Prisma.Conta$cartoesArgs<ExtArgs>
+  clientes?: boolean | Prisma.Conta$clientesArgs<ExtArgs>
+  transacoes?: boolean | Prisma.Conta$transacoesArgs<ExtArgs>
   _count?: boolean | Prisma.ContaCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type ContaIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -958,10 +958,10 @@ export type ContaIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extens
 export type $ContaPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Conta"
   objects: {
-    clientes: Prisma.$ClientePayload<ExtArgs>[]
     agencias: Prisma.$AgenciaPayload<ExtArgs>[]
-    transacoes: Prisma.$TransacaoPayload<ExtArgs>[]
     cartoes: Prisma.$CartaoPayload<ExtArgs>[]
+    clientes: Prisma.$ClientePayload<ExtArgs>[]
+    transacoes: Prisma.$TransacaoPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -1363,10 +1363,10 @@ readonly fields: ContaFieldRefs;
  */
 export interface Prisma__ContaClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  clientes<T extends Prisma.Conta$clientesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Conta$clientesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ClientePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   agencias<T extends Prisma.Conta$agenciasArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Conta$agenciasArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AgenciaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  transacoes<T extends Prisma.Conta$transacoesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Conta$transacoesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TransacaoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   cartoes<T extends Prisma.Conta$cartoesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Conta$cartoesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CartaoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  clientes<T extends Prisma.Conta$clientesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Conta$clientesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ClientePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  transacoes<T extends Prisma.Conta$transacoesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Conta$transacoesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TransacaoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1792,30 +1792,6 @@ export type ContaDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Interna
 }
 
 /**
- * Conta.clientes
- */
-export type Conta$clientesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the Cliente
-   */
-  select?: Prisma.ClienteSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the Cliente
-   */
-  omit?: Prisma.ClienteOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.ClienteInclude<ExtArgs> | null
-  where?: Prisma.ClienteWhereInput
-  orderBy?: Prisma.ClienteOrderByWithRelationInput | Prisma.ClienteOrderByWithRelationInput[]
-  cursor?: Prisma.ClienteWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.ClienteScalarFieldEnum | Prisma.ClienteScalarFieldEnum[]
-}
-
-/**
  * Conta.agencias
  */
 export type Conta$agenciasArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1840,30 +1816,6 @@ export type Conta$agenciasArgs<ExtArgs extends runtime.Types.Extensions.Internal
 }
 
 /**
- * Conta.transacoes
- */
-export type Conta$transacoesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the Transacao
-   */
-  select?: Prisma.TransacaoSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the Transacao
-   */
-  omit?: Prisma.TransacaoOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.TransacaoInclude<ExtArgs> | null
-  where?: Prisma.TransacaoWhereInput
-  orderBy?: Prisma.TransacaoOrderByWithRelationInput | Prisma.TransacaoOrderByWithRelationInput[]
-  cursor?: Prisma.TransacaoWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.TransacaoScalarFieldEnum | Prisma.TransacaoScalarFieldEnum[]
-}
-
-/**
  * Conta.cartoes
  */
 export type Conta$cartoesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1885,6 +1837,54 @@ export type Conta$cartoesArgs<ExtArgs extends runtime.Types.Extensions.InternalA
   take?: number
   skip?: number
   distinct?: Prisma.CartaoScalarFieldEnum | Prisma.CartaoScalarFieldEnum[]
+}
+
+/**
+ * Conta.clientes
+ */
+export type Conta$clientesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Cliente
+   */
+  select?: Prisma.ClienteSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Cliente
+   */
+  omit?: Prisma.ClienteOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ClienteInclude<ExtArgs> | null
+  where?: Prisma.ClienteWhereInput
+  orderBy?: Prisma.ClienteOrderByWithRelationInput | Prisma.ClienteOrderByWithRelationInput[]
+  cursor?: Prisma.ClienteWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ClienteScalarFieldEnum | Prisma.ClienteScalarFieldEnum[]
+}
+
+/**
+ * Conta.transacoes
+ */
+export type Conta$transacoesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Transacao
+   */
+  select?: Prisma.TransacaoSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Transacao
+   */
+  omit?: Prisma.TransacaoOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TransacaoInclude<ExtArgs> | null
+  where?: Prisma.TransacaoWhereInput
+  orderBy?: Prisma.TransacaoOrderByWithRelationInput | Prisma.TransacaoOrderByWithRelationInput[]
+  cursor?: Prisma.TransacaoWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.TransacaoScalarFieldEnum | Prisma.TransacaoScalarFieldEnum[]
 }
 
 /**
