@@ -86,14 +86,14 @@ export default {
     update: async (request: Request, response: Response) => {
         try{
             const { id } = request.params
-            const { nome, email, admin, Senha } = request.body
+            const { nome, email, admin, senha } = request.body
 
             const funcionario = await prisma.funcionario.update({
                 data: {
                     nome,
                     email,
                     admin,
-                    Senha
+                    senha
                 },
                 where: { id: +id }
             })

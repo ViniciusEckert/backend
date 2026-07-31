@@ -102,7 +102,8 @@ export const ContaScalarFieldEnum = {
   senha: 'senha',
   tipo_conta: 'tipo_conta',
   saldo: 'saldo',
-  data_abertura: 'data_abertura'
+  data_abertura: 'data_abertura',
+  pix: 'pix'
 } as const
 
 export type ContaScalarFieldEnum = (typeof ContaScalarFieldEnum)[keyof typeof ContaScalarFieldEnum]
@@ -146,4 +147,12 @@ export const SortOrder = {
 } as const
 
 export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
+
+
+export const NullsOrder = {
+  first: 'first',
+  last: 'last'
+} as const
+
+export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
 

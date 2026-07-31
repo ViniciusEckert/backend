@@ -5,6 +5,7 @@ import { handleErrors } from "../helpers/handleErros"
 export default {
   create: async (request: Request, response: Response) => {
     try {
+
       const { tipo, valor, descricao, contaOrigemId, contaDestinoId, contaIds } =
         request.body
       const clienteId = (request as any).user?.id
@@ -44,13 +45,15 @@ export default {
             .json({ error: "Conta não encontrada" })
         }
 
-        // Verificar se cliente é dono da conta origem
-        const ehDono = contaOrigem.clientes?.some(
-          (c: any) => c.id === clienteId
-        )
-        if (!ehDono) {
-          return response.status(403).json({ error: "Acesso negado" })
-        }
+
+if (clienteId) {
+  const ehDono = contaOrigem.clientes?.some(
+    (c: any) => Number(c.id) === Number(clienteId)
+  )
+  if (!ehDono) {
+    return response.status(403).json({ error: "Acesso negado" })
+  }
+}
 
         // Verificar saldo
         if (contaOrigem.saldo < valor) {
@@ -128,6 +131,7 @@ export default {
 
       return response.status(201).json(transacao)
     } catch (e) {
+      console.error('[transacoes.create] erro real:', e)
       return handleErrors(e, response)
     }
   },

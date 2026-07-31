@@ -35,6 +35,7 @@ model Conta {
   tipo_conta    TipoConta
   saldo         Decimal     @default(0)
   data_abertura DateTime
+  pix           String?
   agencias      Agencia[]   @relation("AgenciaToConta")
   cartoes       Cartao[]    @relation("CartaoToConta")
   clientes      Cliente[]   @relation("ClienteToConta")
@@ -55,6 +56,7 @@ model Transacao {
   tipo          TipoTransacao
   valor         Decimal
   dataTransacao DateTime      @default(now())
+  descricao String?
   conta         Conta[]       @relation("ContaToTransacao")
 }
 
