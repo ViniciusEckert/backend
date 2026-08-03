@@ -954,7 +954,8 @@ export const TransacaoScalarFieldEnum = {
   id: 'id',
   tipo: 'tipo',
   valor: 'valor',
-  dataTransacao: 'dataTransacao'
+  dataTransacao: 'dataTransacao',
+  descricao: 'descricao'
 } as const
 
 export type TransacaoScalarFieldEnum = (typeof TransacaoScalarFieldEnum)[keyof typeof TransacaoScalarFieldEnum]

@@ -5,31 +5,40 @@ import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken"
 
 export default {
-    login: async(request: Request, response: Response) =>{
-        try{
-            const {email, senha} = request.body
-            const employee = await prisma.funcionario.findUnique({
-                where:{
-                    email,
-                }
-            })
+    login: async (request: Request, response: Response) => {
+        console.log(request.body);
+    try {
+        const { email, senha } = request.body
 
-            if(!employee || !bcrypt.compareSync(senha, employee.senha)){
-                return response.status(404).json("Email e/ou senha inválidos")
-            }
-
-            console.log("teste");
-            const token = jwt.sign(employee, process.env.JWT_SECRET!, {
-                expiresIn: "1d"
-            })
-
-            return response.status(200).json({access_token: token})
-
-        }catch(e){
-            console.error(e);
-            return response.status(401).json()
+        if (!email || !senha) {
+            return response.status(400).json("Email e senha são obrigatórios")
         }
-    },
+
+        const employee = await prisma.funcionario.findUnique({
+            where: { email }
+        })
+
+        if (!employee || !bcrypt.compareSync(senha, employee.senha)) {
+            return response.status(404).json("Email e/ou senha inválidos")
+        }
+
+        const token = jwt.sign(
+            {
+                id: employee.id,
+                email: employee.email,
+                admin: employee.admin
+            },
+            process.env.JWT_SECRET!,
+            { expiresIn: "1d" }
+        )
+
+        return response.status(200).json({ access_token: token })
+
+    } catch (e) {
+        console.error(e)
+        return response.status(500).json("Erro interno")
+    }
+},
 
     create: async (request: Request, response: Response) => {
         try{

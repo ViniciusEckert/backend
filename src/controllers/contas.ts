@@ -24,26 +24,26 @@ export default {
           senha,
           tipo_conta,
           saldo: saldo ?? 0,
+          pix,
           data_abertura: data_abertura
             ? new Date(data_abertura)
             : new Date(),
-          pix,
 
-          ...(clienteIds && {
-            clientes: {
-              connect: clienteIds.map((id: number) => ({
-                id: Number(id),
-              })),
-            },
+          clientes: clienteIds
+            ? {
+                connect: clienteIds.map((id: number) => ({
+                  id: Number(id),
+                })),
+              }
+            : undefined,
 
-            agencias: agenciaIds
-              ? {
-                  connect: agenciaIds.map((id: number) => ({
-                    id: Number(id),
-                  })),
-                }
-              : undefined,
-          }),
+          agencias: agenciaIds
+            ? {
+                connect: agenciaIds.map((id: number) => ({
+                  id: Number(id),
+                })),
+              }
+            : undefined,
         },
         include: {
           clientes: true,
@@ -56,74 +56,92 @@ export default {
       return handleErrors(e, response);
     }
   },
+
   list: async (request: Request, response: Response) => {
     try {
-      const conta = await prisma.conta.findMany({
+      const contas = await prisma.conta.findMany({
         include: {
           clientes: true,
-          transacoes: true,
+          agencias: true,
           cartoes: true,
+          transacoes: true,
         },
       });
-      return response.status(200).json(conta);
+
+      return response.status(200).json(contas);
     } catch (e) {
-      handleErrors(e, response);
+      return handleErrors(e, response);
     }
   },
 
   getById: async (request: Request, response: Response) => {
     try {
       const { id } = request.params;
+
       const conta = await prisma.conta.findUnique({
-        where: { id: +id },
+        where: {
+          id: Number(id),
+        },
         include: {
           clientes: true,
           agencias: true,
-          transacoes: true,
           cartoes: true,
+          transacoes: true,
         },
       });
+
       return response.status(200).json(conta);
     } catch (e) {
-      handleErrors(e, response);
+      return handleErrors(e, response);
     }
   },
 
   update: async (request: Request, response: Response) => {
     try {
       const { id } = request.params;
-      const { saldo, tipo_conta, senha } = request.body;
+      const { saldo, tipo_conta, senha, pix } = request.body;
 
       const conta = await prisma.conta.update({
+        where: {
+          id: Number(id),
+        },
         data: {
           saldo,
           tipo_conta,
           senha,
+          pix,
         },
-        where: { id: +id },
       });
+
       return response.status(200).json(conta);
     } catch (e) {
-      handleErrors(e, response);
+      return handleErrors(e, response);
     }
   },
-
-  clientConnect: async (request: Request, response: Response) => {
+    clientConnect: async (request: Request, response: Response) => {
     try {
       const { id } = request.params;
       const { clienteId } = request.body;
 
-      const contas = await prisma.conta.update({
-        where: { id: +id },
+      const conta = await prisma.conta.update({
+        where: {
+          id: Number(id),
+        },
         data: {
-          cliente: {
-            connect: clienteId.map((id: number) => ({ id })),
+          clientes: {
+            connect: clienteId.map((id: number) => ({
+              id: Number(id),
+            })),
           },
         },
+        include: {
+          clientes: true,
+        },
       });
-      return response.status(200).json(contas);
+
+      return response.status(200).json(conta);
     } catch (e) {
-      handleErrors(e, response);
+      return handleErrors(e, response);
     }
   },
 
@@ -132,17 +150,25 @@ export default {
       const { id } = request.params;
       const { clienteId } = request.body;
 
-      const cliente = await prisma.conta.update({
-        where: { id: +id },
+      const conta = await prisma.conta.update({
+        where: {
+          id: Number(id),
+        },
         data: {
-          cliente: {
-            disconnect: clienteId.map((id: number) => ({ id })),
+          clientes: {
+            disconnect: clienteId.map((id: number) => ({
+              id: Number(id),
+            })),
           },
         },
+        include: {
+          clientes: true,
+        },
       });
-      return response.status(200).json(cliente);
+
+      return response.status(200).json(conta);
     } catch (e) {
-      handleErrors(e, response);
+      return handleErrors(e, response);
     }
   },
 
@@ -151,17 +177,25 @@ export default {
       const { id } = request.params;
       const { agenciaId } = request.body;
 
-      const cliente = await prisma.conta.update({
-        where: { id: +id },
+      const conta = await prisma.conta.update({
+        where: {
+          id: Number(id),
+        },
         data: {
-          agencia: {
-            connect: agenciaId.map((id: number) => ({ id })),
+          agencias: {
+            connect: agenciaId.map((id: number) => ({
+              id: Number(id),
+            })),
           },
         },
+        include: {
+          agencias: true,
+        },
       });
-      return response.status(200).json(cliente);
+
+      return response.status(200).json(conta);
     } catch (e) {
-      handleErrors(e, response);
+      return handleErrors(e, response);
     }
   },
 
@@ -170,36 +204,50 @@ export default {
       const { id } = request.params;
       const { agenciaId } = request.body;
 
-      const cliente = await prisma.conta.update({
-        where: { id: +id },
+      const conta = await prisma.conta.update({
+        where: {
+          id: Number(id),
+        },
         data: {
-          agencia: {
-            disconnect: agenciaId.map((id: number) => ({ id })),
+          agencias: {
+            disconnect: agenciaId.map((id: number) => ({
+              id: Number(id),
+            })),
           },
         },
+        include: {
+          agencias: true,
+        },
       });
-      return response.status(200).json(cliente);
-    } catch (e) {
-      handleErrors(e, response);
-    }
-  },
 
-  transConnect: async (request: Request, response: Response) => {
+      return response.status(200).json(conta);
+    } catch (e) {
+      return handleErrors(e, response);
+    }
+  },  transConnect: async (request: Request, response: Response) => {
     try {
       const { id } = request.params;
       const { transacaoId } = request.body;
 
-      const cliente = await prisma.conta.update({
-        where: { id: +id },
+      const conta = await prisma.conta.update({
+        where: {
+          id: Number(id),
+        },
         data: {
-          transacao: {
-            connect: transacaoId.map((id: number) => ({ id })),
+          transacoes: {
+            connect: transacaoId.map((id: number) => ({
+              id: Number(id),
+            })),
           },
         },
+        include: {
+          transacoes: true,
+        },
       });
-      return response.status(200).json(cliente);
+
+      return response.status(200).json(conta);
     } catch (e) {
-      handleErrors(e, response);
+      return handleErrors(e, response);
     }
   },
 
@@ -208,17 +256,25 @@ export default {
       const { id } = request.params;
       const { transacaoId } = request.body;
 
-      const cliente = await prisma.conta.update({
-        where: { id: +id },
+      const conta = await prisma.conta.update({
+        where: {
+          id: Number(id),
+        },
         data: {
-          transacao: {
-            disconnect: transacaoId.map((id: number) => ({ id })),
+          transacoes: {
+            disconnect: transacaoId.map((id: number) => ({
+              id: Number(id),
+            })),
           },
         },
+        include: {
+          transacoes: true,
+        },
       });
-      return response.status(200).json(cliente);
+
+      return response.status(200).json(conta);
     } catch (e) {
-      handleErrors(e, response);
+      return handleErrors(e, response);
     }
   },
 
@@ -227,17 +283,25 @@ export default {
       const { id } = request.params;
       const { cartaoId } = request.body;
 
-      const cliente = await prisma.conta.update({
-        where: { id: +id },
+      const conta = await prisma.conta.update({
+        where: {
+          id: Number(id),
+        },
         data: {
-          cartao: {
-            connect: cartaoId.map((id: number) => ({ id })),
+          cartoes: {
+            connect: cartaoId.map((id: number) => ({
+              id: Number(id),
+            })),
           },
         },
+        include: {
+          cartoes: true,
+        },
       });
-      return response.status(200).json(cliente);
+
+      return response.status(200).json(conta);
     } catch (e) {
-      handleErrors(e, response);
+      return handleErrors(e, response);
     }
   },
 
@@ -246,27 +310,41 @@ export default {
       const { id } = request.params;
       const { cartaoId } = request.body;
 
-      const cliente = await prisma.conta.update({
-        where: { id: +id },
+      const conta = await prisma.conta.update({
+        where: {
+          id: Number(id),
+        },
         data: {
-          cartao: {
-            disconnect: cartaoId.map((id: number) => ({ id })),
+          cartoes: {
+            disconnect: cartaoId.map((id: number) => ({
+              id: Number(id),
+            })),
           },
         },
+        include: {
+          cartoes: true,
+        },
       });
-      return response.status(200).json(cliente);
+
+      return response.status(200).json(conta);
     } catch (e) {
-      handleErrors(e, response);
+      return handleErrors(e, response);
     }
   },
 
   delete: async (request: Request, response: Response) => {
     try {
       const { id } = request.params;
-      const conta = await prisma.cliente.delete({ where: { id: +id } });
+
+      const conta = await prisma.conta.delete({
+        where: {
+          id: Number(id),
+        },
+      });
+
       return response.status(200).json(conta);
     } catch (e) {
-      handleErrors(e, response);
+      return handleErrors(e, response);
     }
   },
 };

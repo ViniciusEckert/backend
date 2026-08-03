@@ -7,7 +7,7 @@ async function main(){
     const employee = await prisma.funcionario.create({
         data:{
             nome:"funcionario1",
-            email:"funcionario1@teste",
+            email:"funcionario1@teste.com",
             senha: bcrypt.hashSync("123456", +process.env.BCRYPT_ROUNDS!),
             admin: true
         },

@@ -18,6 +18,8 @@ routes.put("/clientes/:id", clientesController.update)
 routes.delete("/clientes/:id", clientesController.delete)
 routes.put("/clientes/conectar/:id", clientesController.connect)
 routes.put("/clientes/desconectar/:id", clientesController.disconnect)
+routes.put("/contas/conectarCliente/:id", contasController.clientConnect)
+routes.put("/contas/desconectarCliente/:id", contasController.clientDisconnect)
 
 ///////////////// AGÊNCIAS /////////////////
 routes.get("/agencias", agenciasController.list)
@@ -29,6 +31,8 @@ routes.put("/agencias/addFuncionario/:id", agenciasController.conectarFunc)
 routes.put("/agencias/delFuncionario/:id", agenciasController.desconectarFunc)
 routes.put("/agencias/addConta/:id", agenciasController.conectarConta)
 routes.put("/agencias/delConta/:id", agenciasController.desconectarConta)
+routes.put("/contas/conectarAgencia/:id", contasController.agenciaConnect)
+routes.put("/contas/desconectarAgencia/:id", contasController.agenciaDisconnect)
 
 
 ///////////////// CONTAS /////////////////.
@@ -54,6 +58,8 @@ routes.put("/cartoes/:id", cartoesController.update)
 routes.delete("/cartoes/:id", cartoesController.delete)
 routes.put("/cartoes/conectar/:id", cartoesController.connect)
 routes.put("/cartoes/desconectar/:id", cartoesController.disconnect)
+routes.put("/contas/conectarCartao/:id", contasController.cartaoConnect)
+routes.put("/contas/desconectarCartao/:id", contasController.cartaoDisconnect)
 
 ///////////////// TRANSAÇÕES /////////////////.
 routes.get("/transacoes", transacoesController.list)
@@ -63,5 +69,7 @@ routes.put("/transacoes/:id", transacoesController.update)
 routes.delete("/transacoes/:id", transacoesController.delete)
 routes.put("/transacoes/conectar/:id", transacoesController.connect)
 routes.put("/transacoes/desconectar/:id", transacoesController.disconnect)
+routes.put("/contas/conectarTransacao/:id", contasController.transConnect)
+routes.put("/contas/desconectarTransacao/:id", contasController.transDisconnect)
 
 export default routes
