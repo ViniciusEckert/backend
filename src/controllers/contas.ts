@@ -56,6 +56,33 @@ export default {
       return handleErrors(e, response);
     }
   },
+  
+  getByPix: async (request: Request, response: Response) => {
+  try {
+    const chaveParam = request.params.chave;
+
+    const chave = Array.isArray(chaveParam)
+      ? chaveParam[0]
+      : chaveParam;
+
+    const conta = await prisma.conta.findFirst({
+      where: {
+        pix: chave,
+      },
+      include: {
+        clientes: true,
+      },
+    });
+
+    if (!conta) {
+      return response.status(404).json({ erro: "Conta não encontrada" });
+    }
+
+    return response.status(200).json(conta);
+  } catch (e) {
+    return handleErrors(e, response);
+  }
+},
 
   list: async (request: Request, response: Response) => {
     try {
