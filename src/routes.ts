@@ -41,7 +41,7 @@ routes.post("/contas", contasController.create)
 routes.get("/conta/:id", contasController.getById)
 routes.put("/contas/:id", contasController.update)
 routes.delete("/contas/:id", contasController.delete)
-routes.get("/contas/:pix", contasController.getByPix)
+routes.get("/contas/pix/:chave", contasController.getByPix)
 
 ///////////////// FUNCIONARIOS /////////////////
 routes.get("/funcionarios", funcionariosController.list)
