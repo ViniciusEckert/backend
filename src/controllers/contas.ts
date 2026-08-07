@@ -117,6 +117,12 @@ export default {
         },
       });
 
+      if (!conta) {
+        return response.status(404).json({
+          erro: "Conta não encontrada",
+        });
+      }
+
       return response.status(200).json(conta);
     } catch (e) {
       return handleErrors(e, response);

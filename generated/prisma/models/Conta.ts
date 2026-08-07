@@ -231,7 +231,8 @@ export type ContaWhereInput = {
   agencias?: Prisma.AgenciaListRelationFilter
   cartoes?: Prisma.CartaoListRelationFilter
   clientes?: Prisma.ClienteListRelationFilter
-  transacoes?: Prisma.TransacaoListRelationFilter
+  transacoesOrigem?: Prisma.TransacaoListRelationFilter
+  transacoesDestino?: Prisma.TransacaoListRelationFilter
 }
 
 export type ContaOrderByWithRelationInput = {
@@ -244,7 +245,8 @@ export type ContaOrderByWithRelationInput = {
   agencias?: Prisma.AgenciaOrderByRelationAggregateInput
   cartoes?: Prisma.CartaoOrderByRelationAggregateInput
   clientes?: Prisma.ClienteOrderByRelationAggregateInput
-  transacoes?: Prisma.TransacaoOrderByRelationAggregateInput
+  transacoesOrigem?: Prisma.TransacaoOrderByRelationAggregateInput
+  transacoesDestino?: Prisma.TransacaoOrderByRelationAggregateInput
 }
 
 export type ContaWhereUniqueInput = Prisma.AtLeast<{
@@ -260,7 +262,8 @@ export type ContaWhereUniqueInput = Prisma.AtLeast<{
   agencias?: Prisma.AgenciaListRelationFilter
   cartoes?: Prisma.CartaoListRelationFilter
   clientes?: Prisma.ClienteListRelationFilter
-  transacoes?: Prisma.TransacaoListRelationFilter
+  transacoesOrigem?: Prisma.TransacaoListRelationFilter
+  transacoesDestino?: Prisma.TransacaoListRelationFilter
 }, "id">
 
 export type ContaOrderByWithAggregationInput = {
@@ -298,7 +301,8 @@ export type ContaCreateInput = {
   agencias?: Prisma.AgenciaCreateNestedManyWithoutContasInput
   cartoes?: Prisma.CartaoCreateNestedManyWithoutContaInput
   clientes?: Prisma.ClienteCreateNestedManyWithoutContasInput
-  transacoes?: Prisma.TransacaoCreateNestedManyWithoutContaInput
+  transacoesOrigem?: Prisma.TransacaoCreateNestedManyWithoutContaOrigemInput
+  transacoesDestino?: Prisma.TransacaoCreateNestedManyWithoutContaDestinoInput
 }
 
 export type ContaUncheckedCreateInput = {
@@ -311,7 +315,8 @@ export type ContaUncheckedCreateInput = {
   agencias?: Prisma.AgenciaUncheckedCreateNestedManyWithoutContasInput
   cartoes?: Prisma.CartaoUncheckedCreateNestedManyWithoutContaInput
   clientes?: Prisma.ClienteUncheckedCreateNestedManyWithoutContasInput
-  transacoes?: Prisma.TransacaoUncheckedCreateNestedManyWithoutContaInput
+  transacoesOrigem?: Prisma.TransacaoUncheckedCreateNestedManyWithoutContaOrigemInput
+  transacoesDestino?: Prisma.TransacaoUncheckedCreateNestedManyWithoutContaDestinoInput
 }
 
 export type ContaUpdateInput = {
@@ -323,7 +328,8 @@ export type ContaUpdateInput = {
   agencias?: Prisma.AgenciaUpdateManyWithoutContasNestedInput
   cartoes?: Prisma.CartaoUpdateManyWithoutContaNestedInput
   clientes?: Prisma.ClienteUpdateManyWithoutContasNestedInput
-  transacoes?: Prisma.TransacaoUpdateManyWithoutContaNestedInput
+  transacoesOrigem?: Prisma.TransacaoUpdateManyWithoutContaOrigemNestedInput
+  transacoesDestino?: Prisma.TransacaoUpdateManyWithoutContaDestinoNestedInput
 }
 
 export type ContaUncheckedUpdateInput = {
@@ -336,7 +342,8 @@ export type ContaUncheckedUpdateInput = {
   agencias?: Prisma.AgenciaUncheckedUpdateManyWithoutContasNestedInput
   cartoes?: Prisma.CartaoUncheckedUpdateManyWithoutContaNestedInput
   clientes?: Prisma.ClienteUncheckedUpdateManyWithoutContasNestedInput
-  transacoes?: Prisma.TransacaoUncheckedUpdateManyWithoutContaNestedInput
+  transacoesOrigem?: Prisma.TransacaoUncheckedUpdateManyWithoutContaOrigemNestedInput
+  transacoesDestino?: Prisma.TransacaoUncheckedUpdateManyWithoutContaDestinoNestedInput
 }
 
 export type ContaCreateManyInput = {
@@ -410,6 +417,11 @@ export type ContaMinOrderByAggregateInput = {
 export type ContaSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
   saldo?: Prisma.SortOrder
+}
+
+export type ContaNullableScalarRelationFilter = {
+  is?: Prisma.ContaWhereInput | null
+  isNot?: Prisma.ContaWhereInput | null
 }
 
 export type ContaCreateNestedManyWithoutClientesInput = {
@@ -542,42 +554,36 @@ export type ContaUncheckedUpdateManyWithoutCartoesNestedInput = {
   deleteMany?: Prisma.ContaScalarWhereInput | Prisma.ContaScalarWhereInput[]
 }
 
-export type ContaCreateNestedManyWithoutTransacoesInput = {
-  create?: Prisma.XOR<Prisma.ContaCreateWithoutTransacoesInput, Prisma.ContaUncheckedCreateWithoutTransacoesInput> | Prisma.ContaCreateWithoutTransacoesInput[] | Prisma.ContaUncheckedCreateWithoutTransacoesInput[]
-  connectOrCreate?: Prisma.ContaCreateOrConnectWithoutTransacoesInput | Prisma.ContaCreateOrConnectWithoutTransacoesInput[]
-  connect?: Prisma.ContaWhereUniqueInput | Prisma.ContaWhereUniqueInput[]
+export type ContaCreateNestedOneWithoutTransacoesOrigemInput = {
+  create?: Prisma.XOR<Prisma.ContaCreateWithoutTransacoesOrigemInput, Prisma.ContaUncheckedCreateWithoutTransacoesOrigemInput>
+  connectOrCreate?: Prisma.ContaCreateOrConnectWithoutTransacoesOrigemInput
+  connect?: Prisma.ContaWhereUniqueInput
 }
 
-export type ContaUncheckedCreateNestedManyWithoutTransacoesInput = {
-  create?: Prisma.XOR<Prisma.ContaCreateWithoutTransacoesInput, Prisma.ContaUncheckedCreateWithoutTransacoesInput> | Prisma.ContaCreateWithoutTransacoesInput[] | Prisma.ContaUncheckedCreateWithoutTransacoesInput[]
-  connectOrCreate?: Prisma.ContaCreateOrConnectWithoutTransacoesInput | Prisma.ContaCreateOrConnectWithoutTransacoesInput[]
-  connect?: Prisma.ContaWhereUniqueInput | Prisma.ContaWhereUniqueInput[]
+export type ContaCreateNestedOneWithoutTransacoesDestinoInput = {
+  create?: Prisma.XOR<Prisma.ContaCreateWithoutTransacoesDestinoInput, Prisma.ContaUncheckedCreateWithoutTransacoesDestinoInput>
+  connectOrCreate?: Prisma.ContaCreateOrConnectWithoutTransacoesDestinoInput
+  connect?: Prisma.ContaWhereUniqueInput
 }
 
-export type ContaUpdateManyWithoutTransacoesNestedInput = {
-  create?: Prisma.XOR<Prisma.ContaCreateWithoutTransacoesInput, Prisma.ContaUncheckedCreateWithoutTransacoesInput> | Prisma.ContaCreateWithoutTransacoesInput[] | Prisma.ContaUncheckedCreateWithoutTransacoesInput[]
-  connectOrCreate?: Prisma.ContaCreateOrConnectWithoutTransacoesInput | Prisma.ContaCreateOrConnectWithoutTransacoesInput[]
-  upsert?: Prisma.ContaUpsertWithWhereUniqueWithoutTransacoesInput | Prisma.ContaUpsertWithWhereUniqueWithoutTransacoesInput[]
-  set?: Prisma.ContaWhereUniqueInput | Prisma.ContaWhereUniqueInput[]
-  disconnect?: Prisma.ContaWhereUniqueInput | Prisma.ContaWhereUniqueInput[]
-  delete?: Prisma.ContaWhereUniqueInput | Prisma.ContaWhereUniqueInput[]
-  connect?: Prisma.ContaWhereUniqueInput | Prisma.ContaWhereUniqueInput[]
-  update?: Prisma.ContaUpdateWithWhereUniqueWithoutTransacoesInput | Prisma.ContaUpdateWithWhereUniqueWithoutTransacoesInput[]
-  updateMany?: Prisma.ContaUpdateManyWithWhereWithoutTransacoesInput | Prisma.ContaUpdateManyWithWhereWithoutTransacoesInput[]
-  deleteMany?: Prisma.ContaScalarWhereInput | Prisma.ContaScalarWhereInput[]
+export type ContaUpdateOneWithoutTransacoesOrigemNestedInput = {
+  create?: Prisma.XOR<Prisma.ContaCreateWithoutTransacoesOrigemInput, Prisma.ContaUncheckedCreateWithoutTransacoesOrigemInput>
+  connectOrCreate?: Prisma.ContaCreateOrConnectWithoutTransacoesOrigemInput
+  upsert?: Prisma.ContaUpsertWithoutTransacoesOrigemInput
+  disconnect?: Prisma.ContaWhereInput | boolean
+  delete?: Prisma.ContaWhereInput | boolean
+  connect?: Prisma.ContaWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ContaUpdateToOneWithWhereWithoutTransacoesOrigemInput, Prisma.ContaUpdateWithoutTransacoesOrigemInput>, Prisma.ContaUncheckedUpdateWithoutTransacoesOrigemInput>
 }
 
-export type ContaUncheckedUpdateManyWithoutTransacoesNestedInput = {
-  create?: Prisma.XOR<Prisma.ContaCreateWithoutTransacoesInput, Prisma.ContaUncheckedCreateWithoutTransacoesInput> | Prisma.ContaCreateWithoutTransacoesInput[] | Prisma.ContaUncheckedCreateWithoutTransacoesInput[]
-  connectOrCreate?: Prisma.ContaCreateOrConnectWithoutTransacoesInput | Prisma.ContaCreateOrConnectWithoutTransacoesInput[]
-  upsert?: Prisma.ContaUpsertWithWhereUniqueWithoutTransacoesInput | Prisma.ContaUpsertWithWhereUniqueWithoutTransacoesInput[]
-  set?: Prisma.ContaWhereUniqueInput | Prisma.ContaWhereUniqueInput[]
-  disconnect?: Prisma.ContaWhereUniqueInput | Prisma.ContaWhereUniqueInput[]
-  delete?: Prisma.ContaWhereUniqueInput | Prisma.ContaWhereUniqueInput[]
-  connect?: Prisma.ContaWhereUniqueInput | Prisma.ContaWhereUniqueInput[]
-  update?: Prisma.ContaUpdateWithWhereUniqueWithoutTransacoesInput | Prisma.ContaUpdateWithWhereUniqueWithoutTransacoesInput[]
-  updateMany?: Prisma.ContaUpdateManyWithWhereWithoutTransacoesInput | Prisma.ContaUpdateManyWithWhereWithoutTransacoesInput[]
-  deleteMany?: Prisma.ContaScalarWhereInput | Prisma.ContaScalarWhereInput[]
+export type ContaUpdateOneWithoutTransacoesDestinoNestedInput = {
+  create?: Prisma.XOR<Prisma.ContaCreateWithoutTransacoesDestinoInput, Prisma.ContaUncheckedCreateWithoutTransacoesDestinoInput>
+  connectOrCreate?: Prisma.ContaCreateOrConnectWithoutTransacoesDestinoInput
+  upsert?: Prisma.ContaUpsertWithoutTransacoesDestinoInput
+  disconnect?: Prisma.ContaWhereInput | boolean
+  delete?: Prisma.ContaWhereInput | boolean
+  connect?: Prisma.ContaWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ContaUpdateToOneWithWhereWithoutTransacoesDestinoInput, Prisma.ContaUpdateWithoutTransacoesDestinoInput>, Prisma.ContaUncheckedUpdateWithoutTransacoesDestinoInput>
 }
 
 export type ContaCreateWithoutClientesInput = {
@@ -588,7 +594,8 @@ export type ContaCreateWithoutClientesInput = {
   pix?: string | null
   agencias?: Prisma.AgenciaCreateNestedManyWithoutContasInput
   cartoes?: Prisma.CartaoCreateNestedManyWithoutContaInput
-  transacoes?: Prisma.TransacaoCreateNestedManyWithoutContaInput
+  transacoesOrigem?: Prisma.TransacaoCreateNestedManyWithoutContaOrigemInput
+  transacoesDestino?: Prisma.TransacaoCreateNestedManyWithoutContaDestinoInput
 }
 
 export type ContaUncheckedCreateWithoutClientesInput = {
@@ -600,7 +607,8 @@ export type ContaUncheckedCreateWithoutClientesInput = {
   pix?: string | null
   agencias?: Prisma.AgenciaUncheckedCreateNestedManyWithoutContasInput
   cartoes?: Prisma.CartaoUncheckedCreateNestedManyWithoutContaInput
-  transacoes?: Prisma.TransacaoUncheckedCreateNestedManyWithoutContaInput
+  transacoesOrigem?: Prisma.TransacaoUncheckedCreateNestedManyWithoutContaOrigemInput
+  transacoesDestino?: Prisma.TransacaoUncheckedCreateNestedManyWithoutContaDestinoInput
 }
 
 export type ContaCreateOrConnectWithoutClientesInput = {
@@ -644,7 +652,8 @@ export type ContaCreateWithoutAgenciasInput = {
   pix?: string | null
   cartoes?: Prisma.CartaoCreateNestedManyWithoutContaInput
   clientes?: Prisma.ClienteCreateNestedManyWithoutContasInput
-  transacoes?: Prisma.TransacaoCreateNestedManyWithoutContaInput
+  transacoesOrigem?: Prisma.TransacaoCreateNestedManyWithoutContaOrigemInput
+  transacoesDestino?: Prisma.TransacaoCreateNestedManyWithoutContaDestinoInput
 }
 
 export type ContaUncheckedCreateWithoutAgenciasInput = {
@@ -656,7 +665,8 @@ export type ContaUncheckedCreateWithoutAgenciasInput = {
   pix?: string | null
   cartoes?: Prisma.CartaoUncheckedCreateNestedManyWithoutContaInput
   clientes?: Prisma.ClienteUncheckedCreateNestedManyWithoutContasInput
-  transacoes?: Prisma.TransacaoUncheckedCreateNestedManyWithoutContaInput
+  transacoesOrigem?: Prisma.TransacaoUncheckedCreateNestedManyWithoutContaOrigemInput
+  transacoesDestino?: Prisma.TransacaoUncheckedCreateNestedManyWithoutContaDestinoInput
 }
 
 export type ContaCreateOrConnectWithoutAgenciasInput = {
@@ -688,7 +698,8 @@ export type ContaCreateWithoutCartoesInput = {
   pix?: string | null
   agencias?: Prisma.AgenciaCreateNestedManyWithoutContasInput
   clientes?: Prisma.ClienteCreateNestedManyWithoutContasInput
-  transacoes?: Prisma.TransacaoCreateNestedManyWithoutContaInput
+  transacoesOrigem?: Prisma.TransacaoCreateNestedManyWithoutContaOrigemInput
+  transacoesDestino?: Prisma.TransacaoCreateNestedManyWithoutContaDestinoInput
 }
 
 export type ContaUncheckedCreateWithoutCartoesInput = {
@@ -700,7 +711,8 @@ export type ContaUncheckedCreateWithoutCartoesInput = {
   pix?: string | null
   agencias?: Prisma.AgenciaUncheckedCreateNestedManyWithoutContasInput
   clientes?: Prisma.ClienteUncheckedCreateNestedManyWithoutContasInput
-  transacoes?: Prisma.TransacaoUncheckedCreateNestedManyWithoutContaInput
+  transacoesOrigem?: Prisma.TransacaoUncheckedCreateNestedManyWithoutContaOrigemInput
+  transacoesDestino?: Prisma.TransacaoUncheckedCreateNestedManyWithoutContaDestinoInput
 }
 
 export type ContaCreateOrConnectWithoutCartoesInput = {
@@ -724,7 +736,7 @@ export type ContaUpdateManyWithWhereWithoutCartoesInput = {
   data: Prisma.XOR<Prisma.ContaUpdateManyMutationInput, Prisma.ContaUncheckedUpdateManyWithoutCartoesInput>
 }
 
-export type ContaCreateWithoutTransacoesInput = {
+export type ContaCreateWithoutTransacoesOrigemInput = {
   senha: string
   tipo_conta: $Enums.TipoConta
   saldo?: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -733,9 +745,10 @@ export type ContaCreateWithoutTransacoesInput = {
   agencias?: Prisma.AgenciaCreateNestedManyWithoutContasInput
   cartoes?: Prisma.CartaoCreateNestedManyWithoutContaInput
   clientes?: Prisma.ClienteCreateNestedManyWithoutContasInput
+  transacoesDestino?: Prisma.TransacaoCreateNestedManyWithoutContaDestinoInput
 }
 
-export type ContaUncheckedCreateWithoutTransacoesInput = {
+export type ContaUncheckedCreateWithoutTransacoesOrigemInput = {
   id?: number
   senha: string
   tipo_conta: $Enums.TipoConta
@@ -745,27 +758,114 @@ export type ContaUncheckedCreateWithoutTransacoesInput = {
   agencias?: Prisma.AgenciaUncheckedCreateNestedManyWithoutContasInput
   cartoes?: Prisma.CartaoUncheckedCreateNestedManyWithoutContaInput
   clientes?: Prisma.ClienteUncheckedCreateNestedManyWithoutContasInput
+  transacoesDestino?: Prisma.TransacaoUncheckedCreateNestedManyWithoutContaDestinoInput
 }
 
-export type ContaCreateOrConnectWithoutTransacoesInput = {
+export type ContaCreateOrConnectWithoutTransacoesOrigemInput = {
   where: Prisma.ContaWhereUniqueInput
-  create: Prisma.XOR<Prisma.ContaCreateWithoutTransacoesInput, Prisma.ContaUncheckedCreateWithoutTransacoesInput>
+  create: Prisma.XOR<Prisma.ContaCreateWithoutTransacoesOrigemInput, Prisma.ContaUncheckedCreateWithoutTransacoesOrigemInput>
 }
 
-export type ContaUpsertWithWhereUniqueWithoutTransacoesInput = {
+export type ContaCreateWithoutTransacoesDestinoInput = {
+  senha: string
+  tipo_conta: $Enums.TipoConta
+  saldo?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  data_abertura: Date | string
+  pix?: string | null
+  agencias?: Prisma.AgenciaCreateNestedManyWithoutContasInput
+  cartoes?: Prisma.CartaoCreateNestedManyWithoutContaInput
+  clientes?: Prisma.ClienteCreateNestedManyWithoutContasInput
+  transacoesOrigem?: Prisma.TransacaoCreateNestedManyWithoutContaOrigemInput
+}
+
+export type ContaUncheckedCreateWithoutTransacoesDestinoInput = {
+  id?: number
+  senha: string
+  tipo_conta: $Enums.TipoConta
+  saldo?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  data_abertura: Date | string
+  pix?: string | null
+  agencias?: Prisma.AgenciaUncheckedCreateNestedManyWithoutContasInput
+  cartoes?: Prisma.CartaoUncheckedCreateNestedManyWithoutContaInput
+  clientes?: Prisma.ClienteUncheckedCreateNestedManyWithoutContasInput
+  transacoesOrigem?: Prisma.TransacaoUncheckedCreateNestedManyWithoutContaOrigemInput
+}
+
+export type ContaCreateOrConnectWithoutTransacoesDestinoInput = {
   where: Prisma.ContaWhereUniqueInput
-  update: Prisma.XOR<Prisma.ContaUpdateWithoutTransacoesInput, Prisma.ContaUncheckedUpdateWithoutTransacoesInput>
-  create: Prisma.XOR<Prisma.ContaCreateWithoutTransacoesInput, Prisma.ContaUncheckedCreateWithoutTransacoesInput>
+  create: Prisma.XOR<Prisma.ContaCreateWithoutTransacoesDestinoInput, Prisma.ContaUncheckedCreateWithoutTransacoesDestinoInput>
 }
 
-export type ContaUpdateWithWhereUniqueWithoutTransacoesInput = {
-  where: Prisma.ContaWhereUniqueInput
-  data: Prisma.XOR<Prisma.ContaUpdateWithoutTransacoesInput, Prisma.ContaUncheckedUpdateWithoutTransacoesInput>
+export type ContaUpsertWithoutTransacoesOrigemInput = {
+  update: Prisma.XOR<Prisma.ContaUpdateWithoutTransacoesOrigemInput, Prisma.ContaUncheckedUpdateWithoutTransacoesOrigemInput>
+  create: Prisma.XOR<Prisma.ContaCreateWithoutTransacoesOrigemInput, Prisma.ContaUncheckedCreateWithoutTransacoesOrigemInput>
+  where?: Prisma.ContaWhereInput
 }
 
-export type ContaUpdateManyWithWhereWithoutTransacoesInput = {
-  where: Prisma.ContaScalarWhereInput
-  data: Prisma.XOR<Prisma.ContaUpdateManyMutationInput, Prisma.ContaUncheckedUpdateManyWithoutTransacoesInput>
+export type ContaUpdateToOneWithWhereWithoutTransacoesOrigemInput = {
+  where?: Prisma.ContaWhereInput
+  data: Prisma.XOR<Prisma.ContaUpdateWithoutTransacoesOrigemInput, Prisma.ContaUncheckedUpdateWithoutTransacoesOrigemInput>
+}
+
+export type ContaUpdateWithoutTransacoesOrigemInput = {
+  senha?: Prisma.StringFieldUpdateOperationsInput | string
+  tipo_conta?: Prisma.EnumTipoContaFieldUpdateOperationsInput | $Enums.TipoConta
+  saldo?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  data_abertura?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  pix?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  agencias?: Prisma.AgenciaUpdateManyWithoutContasNestedInput
+  cartoes?: Prisma.CartaoUpdateManyWithoutContaNestedInput
+  clientes?: Prisma.ClienteUpdateManyWithoutContasNestedInput
+  transacoesDestino?: Prisma.TransacaoUpdateManyWithoutContaDestinoNestedInput
+}
+
+export type ContaUncheckedUpdateWithoutTransacoesOrigemInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  senha?: Prisma.StringFieldUpdateOperationsInput | string
+  tipo_conta?: Prisma.EnumTipoContaFieldUpdateOperationsInput | $Enums.TipoConta
+  saldo?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  data_abertura?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  pix?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  agencias?: Prisma.AgenciaUncheckedUpdateManyWithoutContasNestedInput
+  cartoes?: Prisma.CartaoUncheckedUpdateManyWithoutContaNestedInput
+  clientes?: Prisma.ClienteUncheckedUpdateManyWithoutContasNestedInput
+  transacoesDestino?: Prisma.TransacaoUncheckedUpdateManyWithoutContaDestinoNestedInput
+}
+
+export type ContaUpsertWithoutTransacoesDestinoInput = {
+  update: Prisma.XOR<Prisma.ContaUpdateWithoutTransacoesDestinoInput, Prisma.ContaUncheckedUpdateWithoutTransacoesDestinoInput>
+  create: Prisma.XOR<Prisma.ContaCreateWithoutTransacoesDestinoInput, Prisma.ContaUncheckedCreateWithoutTransacoesDestinoInput>
+  where?: Prisma.ContaWhereInput
+}
+
+export type ContaUpdateToOneWithWhereWithoutTransacoesDestinoInput = {
+  where?: Prisma.ContaWhereInput
+  data: Prisma.XOR<Prisma.ContaUpdateWithoutTransacoesDestinoInput, Prisma.ContaUncheckedUpdateWithoutTransacoesDestinoInput>
+}
+
+export type ContaUpdateWithoutTransacoesDestinoInput = {
+  senha?: Prisma.StringFieldUpdateOperationsInput | string
+  tipo_conta?: Prisma.EnumTipoContaFieldUpdateOperationsInput | $Enums.TipoConta
+  saldo?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  data_abertura?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  pix?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  agencias?: Prisma.AgenciaUpdateManyWithoutContasNestedInput
+  cartoes?: Prisma.CartaoUpdateManyWithoutContaNestedInput
+  clientes?: Prisma.ClienteUpdateManyWithoutContasNestedInput
+  transacoesOrigem?: Prisma.TransacaoUpdateManyWithoutContaOrigemNestedInput
+}
+
+export type ContaUncheckedUpdateWithoutTransacoesDestinoInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  senha?: Prisma.StringFieldUpdateOperationsInput | string
+  tipo_conta?: Prisma.EnumTipoContaFieldUpdateOperationsInput | $Enums.TipoConta
+  saldo?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  data_abertura?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  pix?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  agencias?: Prisma.AgenciaUncheckedUpdateManyWithoutContasNestedInput
+  cartoes?: Prisma.CartaoUncheckedUpdateManyWithoutContaNestedInput
+  clientes?: Prisma.ClienteUncheckedUpdateManyWithoutContasNestedInput
+  transacoesOrigem?: Prisma.TransacaoUncheckedUpdateManyWithoutContaOrigemNestedInput
 }
 
 export type ContaUpdateWithoutClientesInput = {
@@ -776,7 +876,8 @@ export type ContaUpdateWithoutClientesInput = {
   pix?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   agencias?: Prisma.AgenciaUpdateManyWithoutContasNestedInput
   cartoes?: Prisma.CartaoUpdateManyWithoutContaNestedInput
-  transacoes?: Prisma.TransacaoUpdateManyWithoutContaNestedInput
+  transacoesOrigem?: Prisma.TransacaoUpdateManyWithoutContaOrigemNestedInput
+  transacoesDestino?: Prisma.TransacaoUpdateManyWithoutContaDestinoNestedInput
 }
 
 export type ContaUncheckedUpdateWithoutClientesInput = {
@@ -788,7 +889,8 @@ export type ContaUncheckedUpdateWithoutClientesInput = {
   pix?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   agencias?: Prisma.AgenciaUncheckedUpdateManyWithoutContasNestedInput
   cartoes?: Prisma.CartaoUncheckedUpdateManyWithoutContaNestedInput
-  transacoes?: Prisma.TransacaoUncheckedUpdateManyWithoutContaNestedInput
+  transacoesOrigem?: Prisma.TransacaoUncheckedUpdateManyWithoutContaOrigemNestedInput
+  transacoesDestino?: Prisma.TransacaoUncheckedUpdateManyWithoutContaDestinoNestedInput
 }
 
 export type ContaUncheckedUpdateManyWithoutClientesInput = {
@@ -808,7 +910,8 @@ export type ContaUpdateWithoutAgenciasInput = {
   pix?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cartoes?: Prisma.CartaoUpdateManyWithoutContaNestedInput
   clientes?: Prisma.ClienteUpdateManyWithoutContasNestedInput
-  transacoes?: Prisma.TransacaoUpdateManyWithoutContaNestedInput
+  transacoesOrigem?: Prisma.TransacaoUpdateManyWithoutContaOrigemNestedInput
+  transacoesDestino?: Prisma.TransacaoUpdateManyWithoutContaDestinoNestedInput
 }
 
 export type ContaUncheckedUpdateWithoutAgenciasInput = {
@@ -820,7 +923,8 @@ export type ContaUncheckedUpdateWithoutAgenciasInput = {
   pix?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cartoes?: Prisma.CartaoUncheckedUpdateManyWithoutContaNestedInput
   clientes?: Prisma.ClienteUncheckedUpdateManyWithoutContasNestedInput
-  transacoes?: Prisma.TransacaoUncheckedUpdateManyWithoutContaNestedInput
+  transacoesOrigem?: Prisma.TransacaoUncheckedUpdateManyWithoutContaOrigemNestedInput
+  transacoesDestino?: Prisma.TransacaoUncheckedUpdateManyWithoutContaDestinoNestedInput
 }
 
 export type ContaUncheckedUpdateManyWithoutAgenciasInput = {
@@ -840,7 +944,8 @@ export type ContaUpdateWithoutCartoesInput = {
   pix?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   agencias?: Prisma.AgenciaUpdateManyWithoutContasNestedInput
   clientes?: Prisma.ClienteUpdateManyWithoutContasNestedInput
-  transacoes?: Prisma.TransacaoUpdateManyWithoutContaNestedInput
+  transacoesOrigem?: Prisma.TransacaoUpdateManyWithoutContaOrigemNestedInput
+  transacoesDestino?: Prisma.TransacaoUpdateManyWithoutContaDestinoNestedInput
 }
 
 export type ContaUncheckedUpdateWithoutCartoesInput = {
@@ -852,42 +957,11 @@ export type ContaUncheckedUpdateWithoutCartoesInput = {
   pix?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   agencias?: Prisma.AgenciaUncheckedUpdateManyWithoutContasNestedInput
   clientes?: Prisma.ClienteUncheckedUpdateManyWithoutContasNestedInput
-  transacoes?: Prisma.TransacaoUncheckedUpdateManyWithoutContaNestedInput
+  transacoesOrigem?: Prisma.TransacaoUncheckedUpdateManyWithoutContaOrigemNestedInput
+  transacoesDestino?: Prisma.TransacaoUncheckedUpdateManyWithoutContaDestinoNestedInput
 }
 
 export type ContaUncheckedUpdateManyWithoutCartoesInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
-  senha?: Prisma.StringFieldUpdateOperationsInput | string
-  tipo_conta?: Prisma.EnumTipoContaFieldUpdateOperationsInput | $Enums.TipoConta
-  saldo?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  data_abertura?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  pix?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-}
-
-export type ContaUpdateWithoutTransacoesInput = {
-  senha?: Prisma.StringFieldUpdateOperationsInput | string
-  tipo_conta?: Prisma.EnumTipoContaFieldUpdateOperationsInput | $Enums.TipoConta
-  saldo?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  data_abertura?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  pix?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  agencias?: Prisma.AgenciaUpdateManyWithoutContasNestedInput
-  cartoes?: Prisma.CartaoUpdateManyWithoutContaNestedInput
-  clientes?: Prisma.ClienteUpdateManyWithoutContasNestedInput
-}
-
-export type ContaUncheckedUpdateWithoutTransacoesInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
-  senha?: Prisma.StringFieldUpdateOperationsInput | string
-  tipo_conta?: Prisma.EnumTipoContaFieldUpdateOperationsInput | $Enums.TipoConta
-  saldo?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  data_abertura?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  pix?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  agencias?: Prisma.AgenciaUncheckedUpdateManyWithoutContasNestedInput
-  cartoes?: Prisma.CartaoUncheckedUpdateManyWithoutContaNestedInput
-  clientes?: Prisma.ClienteUncheckedUpdateManyWithoutContasNestedInput
-}
-
-export type ContaUncheckedUpdateManyWithoutTransacoesInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   senha?: Prisma.StringFieldUpdateOperationsInput | string
   tipo_conta?: Prisma.EnumTipoContaFieldUpdateOperationsInput | $Enums.TipoConta
@@ -905,14 +979,16 @@ export type ContaCountOutputType = {
   agencias: number
   cartoes: number
   clientes: number
-  transacoes: number
+  transacoesOrigem: number
+  transacoesDestino: number
 }
 
 export type ContaCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   agencias?: boolean | ContaCountOutputTypeCountAgenciasArgs
   cartoes?: boolean | ContaCountOutputTypeCountCartoesArgs
   clientes?: boolean | ContaCountOutputTypeCountClientesArgs
-  transacoes?: boolean | ContaCountOutputTypeCountTransacoesArgs
+  transacoesOrigem?: boolean | ContaCountOutputTypeCountTransacoesOrigemArgs
+  transacoesDestino?: boolean | ContaCountOutputTypeCountTransacoesDestinoArgs
 }
 
 /**
@@ -949,7 +1025,14 @@ export type ContaCountOutputTypeCountClientesArgs<ExtArgs extends runtime.Types.
 /**
  * ContaCountOutputType without action
  */
-export type ContaCountOutputTypeCountTransacoesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type ContaCountOutputTypeCountTransacoesOrigemArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.TransacaoWhereInput
+}
+
+/**
+ * ContaCountOutputType without action
+ */
+export type ContaCountOutputTypeCountTransacoesDestinoArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.TransacaoWhereInput
 }
 
@@ -964,7 +1047,8 @@ export type ContaSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   agencias?: boolean | Prisma.Conta$agenciasArgs<ExtArgs>
   cartoes?: boolean | Prisma.Conta$cartoesArgs<ExtArgs>
   clientes?: boolean | Prisma.Conta$clientesArgs<ExtArgs>
-  transacoes?: boolean | Prisma.Conta$transacoesArgs<ExtArgs>
+  transacoesOrigem?: boolean | Prisma.Conta$transacoesOrigemArgs<ExtArgs>
+  transacoesDestino?: boolean | Prisma.Conta$transacoesDestinoArgs<ExtArgs>
   _count?: boolean | Prisma.ContaCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["conta"]>
 
@@ -1000,7 +1084,8 @@ export type ContaInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   agencias?: boolean | Prisma.Conta$agenciasArgs<ExtArgs>
   cartoes?: boolean | Prisma.Conta$cartoesArgs<ExtArgs>
   clientes?: boolean | Prisma.Conta$clientesArgs<ExtArgs>
-  transacoes?: boolean | Prisma.Conta$transacoesArgs<ExtArgs>
+  transacoesOrigem?: boolean | Prisma.Conta$transacoesOrigemArgs<ExtArgs>
+  transacoesDestino?: boolean | Prisma.Conta$transacoesDestinoArgs<ExtArgs>
   _count?: boolean | Prisma.ContaCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type ContaIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -1012,7 +1097,8 @@ export type $ContaPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     agencias: Prisma.$AgenciaPayload<ExtArgs>[]
     cartoes: Prisma.$CartaoPayload<ExtArgs>[]
     clientes: Prisma.$ClientePayload<ExtArgs>[]
-    transacoes: Prisma.$TransacaoPayload<ExtArgs>[]
+    transacoesOrigem: Prisma.$TransacaoPayload<ExtArgs>[]
+    transacoesDestino: Prisma.$TransacaoPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -1418,7 +1504,8 @@ export interface Prisma__ContaClient<T, Null = never, ExtArgs extends runtime.Ty
   agencias<T extends Prisma.Conta$agenciasArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Conta$agenciasArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AgenciaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   cartoes<T extends Prisma.Conta$cartoesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Conta$cartoesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CartaoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   clientes<T extends Prisma.Conta$clientesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Conta$clientesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ClientePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  transacoes<T extends Prisma.Conta$transacoesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Conta$transacoesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TransacaoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  transacoesOrigem<T extends Prisma.Conta$transacoesOrigemArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Conta$transacoesOrigemArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TransacaoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  transacoesDestino<T extends Prisma.Conta$transacoesDestinoArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Conta$transacoesDestinoArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TransacaoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1917,9 +2004,33 @@ export type Conta$clientesArgs<ExtArgs extends runtime.Types.Extensions.Internal
 }
 
 /**
- * Conta.transacoes
+ * Conta.transacoesOrigem
  */
-export type Conta$transacoesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type Conta$transacoesOrigemArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Transacao
+   */
+  select?: Prisma.TransacaoSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Transacao
+   */
+  omit?: Prisma.TransacaoOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TransacaoInclude<ExtArgs> | null
+  where?: Prisma.TransacaoWhereInput
+  orderBy?: Prisma.TransacaoOrderByWithRelationInput | Prisma.TransacaoOrderByWithRelationInput[]
+  cursor?: Prisma.TransacaoWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.TransacaoScalarFieldEnum | Prisma.TransacaoScalarFieldEnum[]
+}
+
+/**
+ * Conta.transacoesDestino
+ */
+export type Conta$transacoesDestinoArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
    * Select specific fields to fetch from the Transacao
    */

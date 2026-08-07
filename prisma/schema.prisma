@@ -30,16 +30,19 @@ model Agencia {
 }
 
 model Conta {
-  id            Int         @id @default(autoincrement())
+  id            Int       @id @default(autoincrement())
   senha         String
   tipo_conta    TipoConta
-  saldo         Decimal     @default(0)
+  saldo         Decimal   @default(0)
   data_abertura DateTime
   pix           String?
-  agencias      Agencia[]   @relation("AgenciaToConta")
-  cartoes       Cartao[]    @relation("CartaoToConta")
-  clientes      Cliente[]   @relation("ClienteToConta")
-  transacoes    Transacao[] @relation("ContaToTransacao")
+
+  agencias Agencia[] @relation("AgenciaToConta")
+  cartoes  Cartao[]  @relation("CartaoToConta")
+  clientes Cliente[] @relation("ClienteToConta")
+
+  transacoesOrigem  Transacao[] @relation("ContaOrigem")
+  transacoesDestino Transacao[] @relation("ContaDestino")
 }
 
 model Cartao {
@@ -56,8 +59,13 @@ model Transacao {
   tipo          TipoTransacao
   valor         Decimal
   dataTransacao DateTime      @default(now())
-  descricao String?
-  conta         Conta[]       @relation("ContaToTransacao")
+  descricao     String?
+
+  contaOrigemId  Int?
+  contaDestinoId Int?
+
+  contaOrigem  Conta? @relation("ContaOrigem", fields: [contaOrigemId], references: [id])
+  contaDestino Conta? @relation("ContaDestino", fields: [contaDestinoId], references: [id])
 }
 
 model Funcionario {

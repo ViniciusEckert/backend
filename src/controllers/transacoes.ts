@@ -5,96 +5,127 @@ import { handleErrors } from "../helpers/handleErros"
 export default {
   create: async (request: Request, response: Response) => {
     try {
+      const {
+        tipo,
+        valor,
+        descricao,
+        contaOrigemId,
+        contaDestinoId,
+      } = request.body
 
-      const { tipo, valor, descricao, contaOrigemId, contaDestinoId, contaIds } =
-        request.body
       const clienteId = (request as any).user?.id
 
-      // Validações básicas
-      if (!tipo || !valor) {
+      if (!tipo || valor === undefined) {
         return response.status(400).json("Dados incompletos.")
       }
 
-      // Se for TRANSFERENCIA, precisa validar contas e fazer transação Prisma
+      // ============================
+      // TRANSFERÊNCIA
+      // ============================
+
       if (tipo === "TRANSFERENCIA") {
         if (!contaOrigemId || !contaDestinoId) {
-          return response
-            .status(400)
-            .json({ error: "Contas de origem e destino são obrigatórias" })
+          return response.status(400).json({
+            error: "Contas de origem e destino são obrigatórias",
+          })
         }
 
-        if (valor <= 0) {
-          return response
-            .status(400)
-            .json({ error: "Valor deve ser maior que zero" })
+        if (Number(valor) <= 0) {
+          return response.status(400).json({
+            error: "Valor deve ser maior que zero",
+          })
         }
 
-        // Buscar contas
         const contaOrigem = await prisma.conta.findUnique({
-          where: { id: +contaOrigemId },
-          include: { clientes: true },
+          where: {
+            id: Number(contaOrigemId),
+          },
+          include: {
+            clientes: true,
+          },
         })
 
         const contaDestino = await prisma.conta.findUnique({
-          where: { id: +contaDestinoId },
+          where: {
+            id: Number(contaDestinoId),
+          },
         })
 
         if (!contaOrigem || !contaDestino) {
-          return response
-            .status(404)
-            .json({ error: "Conta não encontrada" })
+          return response.status(404).json({
+            error: "Conta não encontrada",
+          })
         }
 
+        // Verifica se o cliente é dono da conta de origem
+        if (clienteId) {
+          const ehDono = contaOrigem.clientes.some(
+            (cliente) => Number(cliente.id) === Number(clienteId)
+          )
 
-if (clienteId) {
-  const ehDono = contaOrigem.clientes?.some(
-    (c: any) => Number(c.id) === Number(clienteId)
-  )
-  if (!ehDono) {
-    return response.status(403).json({ error: "Acesso negado" })
-  }
-}
-
-        // Verificar saldo
-        if (contaOrigem.saldo < valor) {
-          return response
-            .status(400)
-            .json({ error: "Saldo insuficiente" })
+          if (!ehDono) {
+            return response.status(403).json({
+              error: "Acesso negado",
+            })
+          }
         }
 
-        // Usar transação do Prisma para garantir atomicidade
+        // Verifica saldo
+        if (Number(contaOrigem.saldo) < Number(valor)) {
+          return response.status(400).json({
+            error: "Saldo insuficiente",
+          })
+        }
+
         const resultado = await prisma.$transaction(async (tx) => {
-          // Debitar da conta origem
+          // Debita origem
           const debito = await tx.conta.update({
-            where: { id: +contaOrigemId },
-            data: { saldo: { decrement: valor } },
-          })
-
-          // Creditar na conta destino
-          const credito = await tx.conta.update({
-            where: { id: +contaDestinoId },
-            data: { saldo: { increment: valor } },
-          })
-
-          // Criar transação de saída (origem)
-          const transacaoSaida = await tx.transacao.create({
+            where: {
+              id: Number(contaOrigemId),
+            },
             data: {
-              tipo: "TRANSFERENCIA",
-              valor: -valor,
-              descricao: descricao || "Transferência enviada",
-              dataTransacao: new Date(),
-              conta: { connect: { id: +contaOrigemId } },
+              saldo: {
+                decrement: Number(valor),
+              },
             },
           })
 
-          // Criar transação de entrada (destino)
-          const transacaoEntrada = await tx.transacao.create({
+          // Credita destino
+          const credito = await tx.conta.update({
+            where: {
+              id: Number(contaDestinoId),
+            },
+            data: {
+              saldo: {
+                increment: Number(valor),
+              },
+            },
+          })
+
+          // Registra a transferência
+          const transacao = await tx.transacao.create({
             data: {
               tipo: "TRANSFERENCIA",
-              valor: valor,
-              descricao: descricao || "Transferência recebida",
+              valor: Number(valor),
+              descricao: descricao || "Transferência realizada",
               dataTransacao: new Date(),
-              conta: { connect: { id: +contaDestinoId } },
+
+              contaOrigem: {
+                connect: {
+                  id: Number(contaOrigemId),
+                },
+              },
+
+              contaDestino: {
+                connect: {
+                  id: Number(contaDestinoId),
+                },
+              },
+            },
+
+            include: {
+              contaOrigem: true,
+              contaDestino: true,
             },
           })
 
@@ -104,8 +135,7 @@ if (clienteId) {
             dados: {
               debito,
               credito,
-              transacaoSaida,
-              transacaoEntrada,
+              transacao,
             },
           }
         })
@@ -113,92 +143,245 @@ if (clienteId) {
         return response.status(201).json(resultado)
       }
 
-      // Para outros tipos de transação, usar o fluxo padrão
-      const data: any = {
+      // ============================
+      // OUTRAS TRANSAÇÕES
+      // ============================
+
+      const data: {
+        tipo: typeof tipo
+        valor: number
+        descricao?: string
+        dataTransacao: Date
+        contaOrigem?: {
+          connect: {
+            id: number
+          }
+        }
+        contaDestino?: {
+          connect: {
+            id: number
+          }
+        }
+      } = {
         tipo,
-        valor,
+        valor: Number(valor),
         descricao: descricao || "",
         dataTransacao: new Date(),
       }
 
-      if (contaIds) {
-        data.conta = { connect: contaIds.map((id: number) => ({ id })) }
+      /*
+       * Para depósito:
+       * contaDestinoId = conta que recebe
+       *
+       * Para saque/pagamento:
+       * contaOrigemId = conta que perde o dinheiro
+       */
+
+      if (tipo === "DEPOSITO" && contaDestinoId) {
+        data.contaDestino = {
+          connect: {
+            id: Number(contaDestinoId),
+          },
+        }
+      }
+
+      if (
+        (tipo === "SAQUE" || tipo === "PAGAMENTO") &&
+        contaOrigemId
+      ) {
+        data.contaOrigem = {
+          connect: {
+            id: Number(contaOrigemId),
+          },
+        }
       }
 
       const transacao = await prisma.transacao.create({
         data,
+
+        include: {
+          contaOrigem: true,
+          contaDestino: true,
+        },
       })
 
       return response.status(201).json(transacao)
     } catch (e) {
-      console.error('[transacoes.create] erro real:', e)
+      console.error("[transacoes.create] erro real:", e)
       return handleErrors(e, response)
     }
   },
+
+  // ============================
+  // LISTAR TRANSAÇÕES
+  // ============================
 
   list: async (request: Request, response: Response) => {
     try {
       const { contaId, tipo } = request.query
 
-      const where: any = {}
-      if (contaId) where.contaId = +contaId
-      if (tipo) where.tipo = tipo
+      const where: {
+        tipo?: any
+        OR?: {
+          contaOrigemId?: number
+          contaDestinoId?: number
+        }[]
+      } = {}
+
+      if (tipo) {
+        where.tipo = tipo
+      }
+
+      if (contaId) {
+        const id = Number(contaId)
+
+        where.OR = [
+          {
+            contaOrigemId: id,
+          },
+          {
+            contaDestinoId: id,
+          },
+        ]
+      }
 
       const transacoes = await prisma.transacao.findMany({
         where,
-        include: { conta: true },
-        orderBy: { dataTransacao: "desc" },
+
+        include: {
+          contaOrigem: true,
+          contaDestino: true,
+        },
+
+        orderBy: {
+          dataTransacao: "desc",
+        },
       })
+
       return response.status(200).json(transacoes)
     } catch (e) {
-      handleErrors(e, response)
+      return handleErrors(e, response)
     }
   },
+
+  // ============================
+  // BUSCAR POR ID
+  // ============================
 
   getById: async (request: Request, response: Response) => {
     try {
       const { id } = request.params
+
       const transacao = await prisma.transacao.findUnique({
-        where: { id: +id },
-        include: { conta: true },
+        where: {
+          id: Number(id),
+        },
+
+        include: {
+          contaOrigem: true,
+          contaDestino: true,
+        },
       })
+
+      if (!transacao) {
+        return response.status(404).json({
+          erro: "Transação não encontrada",
+        })
+      }
+
       return response.status(200).json(transacao)
     } catch (e) {
-      handleErrors(e, response)
+      return handleErrors(e, response)
     }
   },
+
+  // ============================
+  // ATUALIZAR
+  // ============================
 
   update: async (request: Request, response: Response) => {
     try {
       const { id } = request.params
-      const { tipo, valor, descricao } = request.body
+      const {
+        tipo,
+        valor,
+        descricao,
+        contaOrigemId,
+        contaDestinoId,
+      } = request.body
 
       const data: any = {}
-      if (tipo) data.tipo = tipo
-      if (valor) data.valor = valor
-      if (descricao) data.descricao = descricao
+
+      if (tipo) {
+        data.tipo = tipo
+      }
+
+      if (valor !== undefined) {
+        data.valor = Number(valor)
+      }
+
+      if (descricao !== undefined) {
+        data.descricao = descricao
+      }
+
+      if (contaOrigemId !== undefined) {
+        data.contaOrigem = {
+          connect: {
+            id: Number(contaOrigemId),
+          },
+        }
+      }
+
+      if (contaDestinoId !== undefined) {
+        data.contaDestino = {
+          connect: {
+            id: Number(contaDestinoId),
+          },
+        }
+      }
 
       const transacao = await prisma.transacao.update({
         data,
-        where: { id: +id },
+
+        where: {
+          id: Number(id),
+        },
+
+        include: {
+          contaOrigem: true,
+          contaDestino: true,
+        },
       })
+
       return response.status(200).json(transacao)
     } catch (e) {
-      handleErrors(e, response)
+      return handleErrors(e, response)
     }
   },
+
+  // ============================
+  // DELETAR
+  // ============================
 
   delete: async (request: Request, response: Response) => {
     try {
       const { id } = request.params
+
       const transacao = await prisma.transacao.delete({
-        where: { id: +id },
+        where: {
+          id: Number(id),
+        },
       })
+
       return response.status(200).json(transacao)
     } catch (e) {
-      handleErrors(e, response)
+      return handleErrors(e, response)
     }
   },
+
+  // ============================
+  // CONECTAR CONTA DE ORIGEM
+  // ============================
 
   connect: async (request: Request, response: Response) => {
     try {
@@ -206,35 +389,58 @@ if (clienteId) {
       const { contaId } = request.body
 
       const transacao = await prisma.transacao.update({
-        where: { id: +id },
+        where: {
+          id: Number(id),
+        },
+
         data: {
-          conta: {
-            connect: contaId.map((id: number) => ({ id })),
+          contaOrigem: {
+            connect: {
+              id: Number(contaId),
+            },
           },
         },
+
+        include: {
+          contaOrigem: true,
+          contaDestino: true,
+        },
       })
+
       return response.status(200).json(transacao)
     } catch (e) {
-      handleErrors(e, response)
+      return handleErrors(e, response)
     }
   },
+
+  // ============================
+  // DESCONECTAR CONTA DE ORIGEM
+  // ============================
 
   disconnect: async (request: Request, response: Response) => {
     try {
       const { id } = request.params
-      const { contaId } = request.body
 
       const transacao = await prisma.transacao.update({
-        where: { id: +id },
+        where: {
+          id: Number(id),
+        },
+
         data: {
-          conta: {
-            disconnect: contaId.map((id: number) => ({ id })),
+          contaOrigem: {
+            disconnect: true,
           },
         },
+
+        include: {
+          contaOrigem: true,
+          contaDestino: true,
+        },
       })
+
       return response.status(200).json(transacao)
     } catch (e) {
-      handleErrors(e, response)
+      return handleErrors(e, response)
     }
   },
 }

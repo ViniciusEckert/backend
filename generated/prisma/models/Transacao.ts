@@ -29,11 +29,15 @@ export type AggregateTransacao = {
 export type TransacaoAvgAggregateOutputType = {
   id: number | null
   valor: runtime.Decimal | null
+  contaOrigemId: number | null
+  contaDestinoId: number | null
 }
 
 export type TransacaoSumAggregateOutputType = {
   id: number | null
   valor: runtime.Decimal | null
+  contaOrigemId: number | null
+  contaDestinoId: number | null
 }
 
 export type TransacaoMinAggregateOutputType = {
@@ -42,6 +46,8 @@ export type TransacaoMinAggregateOutputType = {
   valor: runtime.Decimal | null
   dataTransacao: Date | null
   descricao: string | null
+  contaOrigemId: number | null
+  contaDestinoId: number | null
 }
 
 export type TransacaoMaxAggregateOutputType = {
@@ -50,6 +56,8 @@ export type TransacaoMaxAggregateOutputType = {
   valor: runtime.Decimal | null
   dataTransacao: Date | null
   descricao: string | null
+  contaOrigemId: number | null
+  contaDestinoId: number | null
 }
 
 export type TransacaoCountAggregateOutputType = {
@@ -58,6 +66,8 @@ export type TransacaoCountAggregateOutputType = {
   valor: number
   dataTransacao: number
   descricao: number
+  contaOrigemId: number
+  contaDestinoId: number
   _all: number
 }
 
@@ -65,11 +75,15 @@ export type TransacaoCountAggregateOutputType = {
 export type TransacaoAvgAggregateInputType = {
   id?: true
   valor?: true
+  contaOrigemId?: true
+  contaDestinoId?: true
 }
 
 export type TransacaoSumAggregateInputType = {
   id?: true
   valor?: true
+  contaOrigemId?: true
+  contaDestinoId?: true
 }
 
 export type TransacaoMinAggregateInputType = {
@@ -78,6 +92,8 @@ export type TransacaoMinAggregateInputType = {
   valor?: true
   dataTransacao?: true
   descricao?: true
+  contaOrigemId?: true
+  contaDestinoId?: true
 }
 
 export type TransacaoMaxAggregateInputType = {
@@ -86,6 +102,8 @@ export type TransacaoMaxAggregateInputType = {
   valor?: true
   dataTransacao?: true
   descricao?: true
+  contaOrigemId?: true
+  contaDestinoId?: true
 }
 
 export type TransacaoCountAggregateInputType = {
@@ -94,6 +112,8 @@ export type TransacaoCountAggregateInputType = {
   valor?: true
   dataTransacao?: true
   descricao?: true
+  contaOrigemId?: true
+  contaDestinoId?: true
   _all?: true
 }
 
@@ -189,6 +209,8 @@ export type TransacaoGroupByOutputType = {
   valor: runtime.Decimal
   dataTransacao: Date
   descricao: string | null
+  contaOrigemId: number | null
+  contaDestinoId: number | null
   _count: TransacaoCountAggregateOutputType | null
   _avg: TransacaoAvgAggregateOutputType | null
   _sum: TransacaoSumAggregateOutputType | null
@@ -220,7 +242,10 @@ export type TransacaoWhereInput = {
   valor?: Prisma.DecimalFilter<"Transacao"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   dataTransacao?: Prisma.DateTimeFilter<"Transacao"> | Date | string
   descricao?: Prisma.StringNullableFilter<"Transacao"> | string | null
-  conta?: Prisma.ContaListRelationFilter
+  contaOrigemId?: Prisma.IntNullableFilter<"Transacao"> | number | null
+  contaDestinoId?: Prisma.IntNullableFilter<"Transacao"> | number | null
+  contaOrigem?: Prisma.XOR<Prisma.ContaNullableScalarRelationFilter, Prisma.ContaWhereInput> | null
+  contaDestino?: Prisma.XOR<Prisma.ContaNullableScalarRelationFilter, Prisma.ContaWhereInput> | null
 }
 
 export type TransacaoOrderByWithRelationInput = {
@@ -229,7 +254,10 @@ export type TransacaoOrderByWithRelationInput = {
   valor?: Prisma.SortOrder
   dataTransacao?: Prisma.SortOrder
   descricao?: Prisma.SortOrderInput | Prisma.SortOrder
-  conta?: Prisma.ContaOrderByRelationAggregateInput
+  contaOrigemId?: Prisma.SortOrderInput | Prisma.SortOrder
+  contaDestinoId?: Prisma.SortOrderInput | Prisma.SortOrder
+  contaOrigem?: Prisma.ContaOrderByWithRelationInput
+  contaDestino?: Prisma.ContaOrderByWithRelationInput
 }
 
 export type TransacaoWhereUniqueInput = Prisma.AtLeast<{
@@ -241,7 +269,10 @@ export type TransacaoWhereUniqueInput = Prisma.AtLeast<{
   valor?: Prisma.DecimalFilter<"Transacao"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   dataTransacao?: Prisma.DateTimeFilter<"Transacao"> | Date | string
   descricao?: Prisma.StringNullableFilter<"Transacao"> | string | null
-  conta?: Prisma.ContaListRelationFilter
+  contaOrigemId?: Prisma.IntNullableFilter<"Transacao"> | number | null
+  contaDestinoId?: Prisma.IntNullableFilter<"Transacao"> | number | null
+  contaOrigem?: Prisma.XOR<Prisma.ContaNullableScalarRelationFilter, Prisma.ContaWhereInput> | null
+  contaDestino?: Prisma.XOR<Prisma.ContaNullableScalarRelationFilter, Prisma.ContaWhereInput> | null
 }, "id">
 
 export type TransacaoOrderByWithAggregationInput = {
@@ -250,6 +281,8 @@ export type TransacaoOrderByWithAggregationInput = {
   valor?: Prisma.SortOrder
   dataTransacao?: Prisma.SortOrder
   descricao?: Prisma.SortOrderInput | Prisma.SortOrder
+  contaOrigemId?: Prisma.SortOrderInput | Prisma.SortOrder
+  contaDestinoId?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.TransacaoCountOrderByAggregateInput
   _avg?: Prisma.TransacaoAvgOrderByAggregateInput
   _max?: Prisma.TransacaoMaxOrderByAggregateInput
@@ -266,6 +299,8 @@ export type TransacaoScalarWhereWithAggregatesInput = {
   valor?: Prisma.DecimalWithAggregatesFilter<"Transacao"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   dataTransacao?: Prisma.DateTimeWithAggregatesFilter<"Transacao"> | Date | string
   descricao?: Prisma.StringNullableWithAggregatesFilter<"Transacao"> | string | null
+  contaOrigemId?: Prisma.IntNullableWithAggregatesFilter<"Transacao"> | number | null
+  contaDestinoId?: Prisma.IntNullableWithAggregatesFilter<"Transacao"> | number | null
 }
 
 export type TransacaoCreateInput = {
@@ -273,7 +308,8 @@ export type TransacaoCreateInput = {
   valor: runtime.Decimal | runtime.DecimalJsLike | number | string
   dataTransacao?: Date | string
   descricao?: string | null
-  conta?: Prisma.ContaCreateNestedManyWithoutTransacoesInput
+  contaOrigem?: Prisma.ContaCreateNestedOneWithoutTransacoesOrigemInput
+  contaDestino?: Prisma.ContaCreateNestedOneWithoutTransacoesDestinoInput
 }
 
 export type TransacaoUncheckedCreateInput = {
@@ -282,7 +318,8 @@ export type TransacaoUncheckedCreateInput = {
   valor: runtime.Decimal | runtime.DecimalJsLike | number | string
   dataTransacao?: Date | string
   descricao?: string | null
-  conta?: Prisma.ContaUncheckedCreateNestedManyWithoutTransacoesInput
+  contaOrigemId?: number | null
+  contaDestinoId?: number | null
 }
 
 export type TransacaoUpdateInput = {
@@ -290,7 +327,8 @@ export type TransacaoUpdateInput = {
   valor?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   dataTransacao?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   descricao?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  conta?: Prisma.ContaUpdateManyWithoutTransacoesNestedInput
+  contaOrigem?: Prisma.ContaUpdateOneWithoutTransacoesOrigemNestedInput
+  contaDestino?: Prisma.ContaUpdateOneWithoutTransacoesDestinoNestedInput
 }
 
 export type TransacaoUncheckedUpdateInput = {
@@ -299,7 +337,8 @@ export type TransacaoUncheckedUpdateInput = {
   valor?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   dataTransacao?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   descricao?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  conta?: Prisma.ContaUncheckedUpdateManyWithoutTransacoesNestedInput
+  contaOrigemId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  contaDestinoId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
 export type TransacaoCreateManyInput = {
@@ -308,6 +347,8 @@ export type TransacaoCreateManyInput = {
   valor: runtime.Decimal | runtime.DecimalJsLike | number | string
   dataTransacao?: Date | string
   descricao?: string | null
+  contaOrigemId?: number | null
+  contaDestinoId?: number | null
 }
 
 export type TransacaoUpdateManyMutationInput = {
@@ -323,6 +364,8 @@ export type TransacaoUncheckedUpdateManyInput = {
   valor?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   dataTransacao?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   descricao?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contaOrigemId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  contaDestinoId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
 export type TransacaoListRelationFilter = {
@@ -341,11 +384,15 @@ export type TransacaoCountOrderByAggregateInput = {
   valor?: Prisma.SortOrder
   dataTransacao?: Prisma.SortOrder
   descricao?: Prisma.SortOrder
+  contaOrigemId?: Prisma.SortOrder
+  contaDestinoId?: Prisma.SortOrder
 }
 
 export type TransacaoAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
   valor?: Prisma.SortOrder
+  contaOrigemId?: Prisma.SortOrder
+  contaDestinoId?: Prisma.SortOrder
 }
 
 export type TransacaoMaxOrderByAggregateInput = {
@@ -354,6 +401,8 @@ export type TransacaoMaxOrderByAggregateInput = {
   valor?: Prisma.SortOrder
   dataTransacao?: Prisma.SortOrder
   descricao?: Prisma.SortOrder
+  contaOrigemId?: Prisma.SortOrder
+  contaDestinoId?: Prisma.SortOrder
 }
 
 export type TransacaoMinOrderByAggregateInput = {
@@ -362,48 +411,98 @@ export type TransacaoMinOrderByAggregateInput = {
   valor?: Prisma.SortOrder
   dataTransacao?: Prisma.SortOrder
   descricao?: Prisma.SortOrder
+  contaOrigemId?: Prisma.SortOrder
+  contaDestinoId?: Prisma.SortOrder
 }
 
 export type TransacaoSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
   valor?: Prisma.SortOrder
+  contaOrigemId?: Prisma.SortOrder
+  contaDestinoId?: Prisma.SortOrder
 }
 
-export type TransacaoCreateNestedManyWithoutContaInput = {
-  create?: Prisma.XOR<Prisma.TransacaoCreateWithoutContaInput, Prisma.TransacaoUncheckedCreateWithoutContaInput> | Prisma.TransacaoCreateWithoutContaInput[] | Prisma.TransacaoUncheckedCreateWithoutContaInput[]
-  connectOrCreate?: Prisma.TransacaoCreateOrConnectWithoutContaInput | Prisma.TransacaoCreateOrConnectWithoutContaInput[]
+export type TransacaoCreateNestedManyWithoutContaOrigemInput = {
+  create?: Prisma.XOR<Prisma.TransacaoCreateWithoutContaOrigemInput, Prisma.TransacaoUncheckedCreateWithoutContaOrigemInput> | Prisma.TransacaoCreateWithoutContaOrigemInput[] | Prisma.TransacaoUncheckedCreateWithoutContaOrigemInput[]
+  connectOrCreate?: Prisma.TransacaoCreateOrConnectWithoutContaOrigemInput | Prisma.TransacaoCreateOrConnectWithoutContaOrigemInput[]
+  createMany?: Prisma.TransacaoCreateManyContaOrigemInputEnvelope
   connect?: Prisma.TransacaoWhereUniqueInput | Prisma.TransacaoWhereUniqueInput[]
 }
 
-export type TransacaoUncheckedCreateNestedManyWithoutContaInput = {
-  create?: Prisma.XOR<Prisma.TransacaoCreateWithoutContaInput, Prisma.TransacaoUncheckedCreateWithoutContaInput> | Prisma.TransacaoCreateWithoutContaInput[] | Prisma.TransacaoUncheckedCreateWithoutContaInput[]
-  connectOrCreate?: Prisma.TransacaoCreateOrConnectWithoutContaInput | Prisma.TransacaoCreateOrConnectWithoutContaInput[]
+export type TransacaoCreateNestedManyWithoutContaDestinoInput = {
+  create?: Prisma.XOR<Prisma.TransacaoCreateWithoutContaDestinoInput, Prisma.TransacaoUncheckedCreateWithoutContaDestinoInput> | Prisma.TransacaoCreateWithoutContaDestinoInput[] | Prisma.TransacaoUncheckedCreateWithoutContaDestinoInput[]
+  connectOrCreate?: Prisma.TransacaoCreateOrConnectWithoutContaDestinoInput | Prisma.TransacaoCreateOrConnectWithoutContaDestinoInput[]
+  createMany?: Prisma.TransacaoCreateManyContaDestinoInputEnvelope
   connect?: Prisma.TransacaoWhereUniqueInput | Prisma.TransacaoWhereUniqueInput[]
 }
 
-export type TransacaoUpdateManyWithoutContaNestedInput = {
-  create?: Prisma.XOR<Prisma.TransacaoCreateWithoutContaInput, Prisma.TransacaoUncheckedCreateWithoutContaInput> | Prisma.TransacaoCreateWithoutContaInput[] | Prisma.TransacaoUncheckedCreateWithoutContaInput[]
-  connectOrCreate?: Prisma.TransacaoCreateOrConnectWithoutContaInput | Prisma.TransacaoCreateOrConnectWithoutContaInput[]
-  upsert?: Prisma.TransacaoUpsertWithWhereUniqueWithoutContaInput | Prisma.TransacaoUpsertWithWhereUniqueWithoutContaInput[]
+export type TransacaoUncheckedCreateNestedManyWithoutContaOrigemInput = {
+  create?: Prisma.XOR<Prisma.TransacaoCreateWithoutContaOrigemInput, Prisma.TransacaoUncheckedCreateWithoutContaOrigemInput> | Prisma.TransacaoCreateWithoutContaOrigemInput[] | Prisma.TransacaoUncheckedCreateWithoutContaOrigemInput[]
+  connectOrCreate?: Prisma.TransacaoCreateOrConnectWithoutContaOrigemInput | Prisma.TransacaoCreateOrConnectWithoutContaOrigemInput[]
+  createMany?: Prisma.TransacaoCreateManyContaOrigemInputEnvelope
+  connect?: Prisma.TransacaoWhereUniqueInput | Prisma.TransacaoWhereUniqueInput[]
+}
+
+export type TransacaoUncheckedCreateNestedManyWithoutContaDestinoInput = {
+  create?: Prisma.XOR<Prisma.TransacaoCreateWithoutContaDestinoInput, Prisma.TransacaoUncheckedCreateWithoutContaDestinoInput> | Prisma.TransacaoCreateWithoutContaDestinoInput[] | Prisma.TransacaoUncheckedCreateWithoutContaDestinoInput[]
+  connectOrCreate?: Prisma.TransacaoCreateOrConnectWithoutContaDestinoInput | Prisma.TransacaoCreateOrConnectWithoutContaDestinoInput[]
+  createMany?: Prisma.TransacaoCreateManyContaDestinoInputEnvelope
+  connect?: Prisma.TransacaoWhereUniqueInput | Prisma.TransacaoWhereUniqueInput[]
+}
+
+export type TransacaoUpdateManyWithoutContaOrigemNestedInput = {
+  create?: Prisma.XOR<Prisma.TransacaoCreateWithoutContaOrigemInput, Prisma.TransacaoUncheckedCreateWithoutContaOrigemInput> | Prisma.TransacaoCreateWithoutContaOrigemInput[] | Prisma.TransacaoUncheckedCreateWithoutContaOrigemInput[]
+  connectOrCreate?: Prisma.TransacaoCreateOrConnectWithoutContaOrigemInput | Prisma.TransacaoCreateOrConnectWithoutContaOrigemInput[]
+  upsert?: Prisma.TransacaoUpsertWithWhereUniqueWithoutContaOrigemInput | Prisma.TransacaoUpsertWithWhereUniqueWithoutContaOrigemInput[]
+  createMany?: Prisma.TransacaoCreateManyContaOrigemInputEnvelope
   set?: Prisma.TransacaoWhereUniqueInput | Prisma.TransacaoWhereUniqueInput[]
   disconnect?: Prisma.TransacaoWhereUniqueInput | Prisma.TransacaoWhereUniqueInput[]
   delete?: Prisma.TransacaoWhereUniqueInput | Prisma.TransacaoWhereUniqueInput[]
   connect?: Prisma.TransacaoWhereUniqueInput | Prisma.TransacaoWhereUniqueInput[]
-  update?: Prisma.TransacaoUpdateWithWhereUniqueWithoutContaInput | Prisma.TransacaoUpdateWithWhereUniqueWithoutContaInput[]
-  updateMany?: Prisma.TransacaoUpdateManyWithWhereWithoutContaInput | Prisma.TransacaoUpdateManyWithWhereWithoutContaInput[]
+  update?: Prisma.TransacaoUpdateWithWhereUniqueWithoutContaOrigemInput | Prisma.TransacaoUpdateWithWhereUniqueWithoutContaOrigemInput[]
+  updateMany?: Prisma.TransacaoUpdateManyWithWhereWithoutContaOrigemInput | Prisma.TransacaoUpdateManyWithWhereWithoutContaOrigemInput[]
   deleteMany?: Prisma.TransacaoScalarWhereInput | Prisma.TransacaoScalarWhereInput[]
 }
 
-export type TransacaoUncheckedUpdateManyWithoutContaNestedInput = {
-  create?: Prisma.XOR<Prisma.TransacaoCreateWithoutContaInput, Prisma.TransacaoUncheckedCreateWithoutContaInput> | Prisma.TransacaoCreateWithoutContaInput[] | Prisma.TransacaoUncheckedCreateWithoutContaInput[]
-  connectOrCreate?: Prisma.TransacaoCreateOrConnectWithoutContaInput | Prisma.TransacaoCreateOrConnectWithoutContaInput[]
-  upsert?: Prisma.TransacaoUpsertWithWhereUniqueWithoutContaInput | Prisma.TransacaoUpsertWithWhereUniqueWithoutContaInput[]
+export type TransacaoUpdateManyWithoutContaDestinoNestedInput = {
+  create?: Prisma.XOR<Prisma.TransacaoCreateWithoutContaDestinoInput, Prisma.TransacaoUncheckedCreateWithoutContaDestinoInput> | Prisma.TransacaoCreateWithoutContaDestinoInput[] | Prisma.TransacaoUncheckedCreateWithoutContaDestinoInput[]
+  connectOrCreate?: Prisma.TransacaoCreateOrConnectWithoutContaDestinoInput | Prisma.TransacaoCreateOrConnectWithoutContaDestinoInput[]
+  upsert?: Prisma.TransacaoUpsertWithWhereUniqueWithoutContaDestinoInput | Prisma.TransacaoUpsertWithWhereUniqueWithoutContaDestinoInput[]
+  createMany?: Prisma.TransacaoCreateManyContaDestinoInputEnvelope
   set?: Prisma.TransacaoWhereUniqueInput | Prisma.TransacaoWhereUniqueInput[]
   disconnect?: Prisma.TransacaoWhereUniqueInput | Prisma.TransacaoWhereUniqueInput[]
   delete?: Prisma.TransacaoWhereUniqueInput | Prisma.TransacaoWhereUniqueInput[]
   connect?: Prisma.TransacaoWhereUniqueInput | Prisma.TransacaoWhereUniqueInput[]
-  update?: Prisma.TransacaoUpdateWithWhereUniqueWithoutContaInput | Prisma.TransacaoUpdateWithWhereUniqueWithoutContaInput[]
-  updateMany?: Prisma.TransacaoUpdateManyWithWhereWithoutContaInput | Prisma.TransacaoUpdateManyWithWhereWithoutContaInput[]
+  update?: Prisma.TransacaoUpdateWithWhereUniqueWithoutContaDestinoInput | Prisma.TransacaoUpdateWithWhereUniqueWithoutContaDestinoInput[]
+  updateMany?: Prisma.TransacaoUpdateManyWithWhereWithoutContaDestinoInput | Prisma.TransacaoUpdateManyWithWhereWithoutContaDestinoInput[]
+  deleteMany?: Prisma.TransacaoScalarWhereInput | Prisma.TransacaoScalarWhereInput[]
+}
+
+export type TransacaoUncheckedUpdateManyWithoutContaOrigemNestedInput = {
+  create?: Prisma.XOR<Prisma.TransacaoCreateWithoutContaOrigemInput, Prisma.TransacaoUncheckedCreateWithoutContaOrigemInput> | Prisma.TransacaoCreateWithoutContaOrigemInput[] | Prisma.TransacaoUncheckedCreateWithoutContaOrigemInput[]
+  connectOrCreate?: Prisma.TransacaoCreateOrConnectWithoutContaOrigemInput | Prisma.TransacaoCreateOrConnectWithoutContaOrigemInput[]
+  upsert?: Prisma.TransacaoUpsertWithWhereUniqueWithoutContaOrigemInput | Prisma.TransacaoUpsertWithWhereUniqueWithoutContaOrigemInput[]
+  createMany?: Prisma.TransacaoCreateManyContaOrigemInputEnvelope
+  set?: Prisma.TransacaoWhereUniqueInput | Prisma.TransacaoWhereUniqueInput[]
+  disconnect?: Prisma.TransacaoWhereUniqueInput | Prisma.TransacaoWhereUniqueInput[]
+  delete?: Prisma.TransacaoWhereUniqueInput | Prisma.TransacaoWhereUniqueInput[]
+  connect?: Prisma.TransacaoWhereUniqueInput | Prisma.TransacaoWhereUniqueInput[]
+  update?: Prisma.TransacaoUpdateWithWhereUniqueWithoutContaOrigemInput | Prisma.TransacaoUpdateWithWhereUniqueWithoutContaOrigemInput[]
+  updateMany?: Prisma.TransacaoUpdateManyWithWhereWithoutContaOrigemInput | Prisma.TransacaoUpdateManyWithWhereWithoutContaOrigemInput[]
+  deleteMany?: Prisma.TransacaoScalarWhereInput | Prisma.TransacaoScalarWhereInput[]
+}
+
+export type TransacaoUncheckedUpdateManyWithoutContaDestinoNestedInput = {
+  create?: Prisma.XOR<Prisma.TransacaoCreateWithoutContaDestinoInput, Prisma.TransacaoUncheckedCreateWithoutContaDestinoInput> | Prisma.TransacaoCreateWithoutContaDestinoInput[] | Prisma.TransacaoUncheckedCreateWithoutContaDestinoInput[]
+  connectOrCreate?: Prisma.TransacaoCreateOrConnectWithoutContaDestinoInput | Prisma.TransacaoCreateOrConnectWithoutContaDestinoInput[]
+  upsert?: Prisma.TransacaoUpsertWithWhereUniqueWithoutContaDestinoInput | Prisma.TransacaoUpsertWithWhereUniqueWithoutContaDestinoInput[]
+  createMany?: Prisma.TransacaoCreateManyContaDestinoInputEnvelope
+  set?: Prisma.TransacaoWhereUniqueInput | Prisma.TransacaoWhereUniqueInput[]
+  disconnect?: Prisma.TransacaoWhereUniqueInput | Prisma.TransacaoWhereUniqueInput[]
+  delete?: Prisma.TransacaoWhereUniqueInput | Prisma.TransacaoWhereUniqueInput[]
+  connect?: Prisma.TransacaoWhereUniqueInput | Prisma.TransacaoWhereUniqueInput[]
+  update?: Prisma.TransacaoUpdateWithWhereUniqueWithoutContaDestinoInput | Prisma.TransacaoUpdateWithWhereUniqueWithoutContaDestinoInput[]
+  updateMany?: Prisma.TransacaoUpdateManyWithWhereWithoutContaDestinoInput | Prisma.TransacaoUpdateManyWithWhereWithoutContaDestinoInput[]
   deleteMany?: Prisma.TransacaoScalarWhereInput | Prisma.TransacaoScalarWhereInput[]
 }
 
@@ -411,40 +510,80 @@ export type EnumTipoTransacaoFieldUpdateOperationsInput = {
   set?: $Enums.TipoTransacao
 }
 
-export type TransacaoCreateWithoutContaInput = {
+export type NullableIntFieldUpdateOperationsInput = {
+  set?: number | null
+  increment?: number
+  decrement?: number
+  multiply?: number
+  divide?: number
+}
+
+export type TransacaoCreateWithoutContaOrigemInput = {
   tipo: $Enums.TipoTransacao
   valor: runtime.Decimal | runtime.DecimalJsLike | number | string
   dataTransacao?: Date | string
   descricao?: string | null
+  contaDestino?: Prisma.ContaCreateNestedOneWithoutTransacoesDestinoInput
 }
 
-export type TransacaoUncheckedCreateWithoutContaInput = {
+export type TransacaoUncheckedCreateWithoutContaOrigemInput = {
   id?: number
   tipo: $Enums.TipoTransacao
   valor: runtime.Decimal | runtime.DecimalJsLike | number | string
   dataTransacao?: Date | string
   descricao?: string | null
+  contaDestinoId?: number | null
 }
 
-export type TransacaoCreateOrConnectWithoutContaInput = {
+export type TransacaoCreateOrConnectWithoutContaOrigemInput = {
   where: Prisma.TransacaoWhereUniqueInput
-  create: Prisma.XOR<Prisma.TransacaoCreateWithoutContaInput, Prisma.TransacaoUncheckedCreateWithoutContaInput>
+  create: Prisma.XOR<Prisma.TransacaoCreateWithoutContaOrigemInput, Prisma.TransacaoUncheckedCreateWithoutContaOrigemInput>
 }
 
-export type TransacaoUpsertWithWhereUniqueWithoutContaInput = {
+export type TransacaoCreateManyContaOrigemInputEnvelope = {
+  data: Prisma.TransacaoCreateManyContaOrigemInput | Prisma.TransacaoCreateManyContaOrigemInput[]
+}
+
+export type TransacaoCreateWithoutContaDestinoInput = {
+  tipo: $Enums.TipoTransacao
+  valor: runtime.Decimal | runtime.DecimalJsLike | number | string
+  dataTransacao?: Date | string
+  descricao?: string | null
+  contaOrigem?: Prisma.ContaCreateNestedOneWithoutTransacoesOrigemInput
+}
+
+export type TransacaoUncheckedCreateWithoutContaDestinoInput = {
+  id?: number
+  tipo: $Enums.TipoTransacao
+  valor: runtime.Decimal | runtime.DecimalJsLike | number | string
+  dataTransacao?: Date | string
+  descricao?: string | null
+  contaOrigemId?: number | null
+}
+
+export type TransacaoCreateOrConnectWithoutContaDestinoInput = {
   where: Prisma.TransacaoWhereUniqueInput
-  update: Prisma.XOR<Prisma.TransacaoUpdateWithoutContaInput, Prisma.TransacaoUncheckedUpdateWithoutContaInput>
-  create: Prisma.XOR<Prisma.TransacaoCreateWithoutContaInput, Prisma.TransacaoUncheckedCreateWithoutContaInput>
+  create: Prisma.XOR<Prisma.TransacaoCreateWithoutContaDestinoInput, Prisma.TransacaoUncheckedCreateWithoutContaDestinoInput>
 }
 
-export type TransacaoUpdateWithWhereUniqueWithoutContaInput = {
+export type TransacaoCreateManyContaDestinoInputEnvelope = {
+  data: Prisma.TransacaoCreateManyContaDestinoInput | Prisma.TransacaoCreateManyContaDestinoInput[]
+}
+
+export type TransacaoUpsertWithWhereUniqueWithoutContaOrigemInput = {
   where: Prisma.TransacaoWhereUniqueInput
-  data: Prisma.XOR<Prisma.TransacaoUpdateWithoutContaInput, Prisma.TransacaoUncheckedUpdateWithoutContaInput>
+  update: Prisma.XOR<Prisma.TransacaoUpdateWithoutContaOrigemInput, Prisma.TransacaoUncheckedUpdateWithoutContaOrigemInput>
+  create: Prisma.XOR<Prisma.TransacaoCreateWithoutContaOrigemInput, Prisma.TransacaoUncheckedCreateWithoutContaOrigemInput>
 }
 
-export type TransacaoUpdateManyWithWhereWithoutContaInput = {
+export type TransacaoUpdateWithWhereUniqueWithoutContaOrigemInput = {
+  where: Prisma.TransacaoWhereUniqueInput
+  data: Prisma.XOR<Prisma.TransacaoUpdateWithoutContaOrigemInput, Prisma.TransacaoUncheckedUpdateWithoutContaOrigemInput>
+}
+
+export type TransacaoUpdateManyWithWhereWithoutContaOrigemInput = {
   where: Prisma.TransacaoScalarWhereInput
-  data: Prisma.XOR<Prisma.TransacaoUpdateManyMutationInput, Prisma.TransacaoUncheckedUpdateManyWithoutContaInput>
+  data: Prisma.XOR<Prisma.TransacaoUpdateManyMutationInput, Prisma.TransacaoUncheckedUpdateManyWithoutContaOrigemInput>
 }
 
 export type TransacaoScalarWhereInput = {
@@ -456,60 +595,96 @@ export type TransacaoScalarWhereInput = {
   valor?: Prisma.DecimalFilter<"Transacao"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   dataTransacao?: Prisma.DateTimeFilter<"Transacao"> | Date | string
   descricao?: Prisma.StringNullableFilter<"Transacao"> | string | null
+  contaOrigemId?: Prisma.IntNullableFilter<"Transacao"> | number | null
+  contaDestinoId?: Prisma.IntNullableFilter<"Transacao"> | number | null
 }
 
-export type TransacaoUpdateWithoutContaInput = {
+export type TransacaoUpsertWithWhereUniqueWithoutContaDestinoInput = {
+  where: Prisma.TransacaoWhereUniqueInput
+  update: Prisma.XOR<Prisma.TransacaoUpdateWithoutContaDestinoInput, Prisma.TransacaoUncheckedUpdateWithoutContaDestinoInput>
+  create: Prisma.XOR<Prisma.TransacaoCreateWithoutContaDestinoInput, Prisma.TransacaoUncheckedCreateWithoutContaDestinoInput>
+}
+
+export type TransacaoUpdateWithWhereUniqueWithoutContaDestinoInput = {
+  where: Prisma.TransacaoWhereUniqueInput
+  data: Prisma.XOR<Prisma.TransacaoUpdateWithoutContaDestinoInput, Prisma.TransacaoUncheckedUpdateWithoutContaDestinoInput>
+}
+
+export type TransacaoUpdateManyWithWhereWithoutContaDestinoInput = {
+  where: Prisma.TransacaoScalarWhereInput
+  data: Prisma.XOR<Prisma.TransacaoUpdateManyMutationInput, Prisma.TransacaoUncheckedUpdateManyWithoutContaDestinoInput>
+}
+
+export type TransacaoCreateManyContaOrigemInput = {
+  id?: number
+  tipo: $Enums.TipoTransacao
+  valor: runtime.Decimal | runtime.DecimalJsLike | number | string
+  dataTransacao?: Date | string
+  descricao?: string | null
+  contaDestinoId?: number | null
+}
+
+export type TransacaoCreateManyContaDestinoInput = {
+  id?: number
+  tipo: $Enums.TipoTransacao
+  valor: runtime.Decimal | runtime.DecimalJsLike | number | string
+  dataTransacao?: Date | string
+  descricao?: string | null
+  contaOrigemId?: number | null
+}
+
+export type TransacaoUpdateWithoutContaOrigemInput = {
   tipo?: Prisma.EnumTipoTransacaoFieldUpdateOperationsInput | $Enums.TipoTransacao
   valor?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   dataTransacao?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   descricao?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contaDestino?: Prisma.ContaUpdateOneWithoutTransacoesDestinoNestedInput
 }
 
-export type TransacaoUncheckedUpdateWithoutContaInput = {
+export type TransacaoUncheckedUpdateWithoutContaOrigemInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   tipo?: Prisma.EnumTipoTransacaoFieldUpdateOperationsInput | $Enums.TipoTransacao
   valor?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   dataTransacao?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   descricao?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contaDestinoId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
-export type TransacaoUncheckedUpdateManyWithoutContaInput = {
+export type TransacaoUncheckedUpdateManyWithoutContaOrigemInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   tipo?: Prisma.EnumTipoTransacaoFieldUpdateOperationsInput | $Enums.TipoTransacao
   valor?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   dataTransacao?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   descricao?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contaDestinoId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
-
-/**
- * Count Type TransacaoCountOutputType
- */
-
-export type TransacaoCountOutputType = {
-  conta: number
+export type TransacaoUpdateWithoutContaDestinoInput = {
+  tipo?: Prisma.EnumTipoTransacaoFieldUpdateOperationsInput | $Enums.TipoTransacao
+  valor?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  dataTransacao?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  descricao?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contaOrigem?: Prisma.ContaUpdateOneWithoutTransacoesOrigemNestedInput
 }
 
-export type TransacaoCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  conta?: boolean | TransacaoCountOutputTypeCountContaArgs
+export type TransacaoUncheckedUpdateWithoutContaDestinoInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  tipo?: Prisma.EnumTipoTransacaoFieldUpdateOperationsInput | $Enums.TipoTransacao
+  valor?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  dataTransacao?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  descricao?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contaOrigemId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
-/**
- * TransacaoCountOutputType without action
- */
-export type TransacaoCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the TransacaoCountOutputType
-   */
-  select?: Prisma.TransacaoCountOutputTypeSelect<ExtArgs> | null
+export type TransacaoUncheckedUpdateManyWithoutContaDestinoInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  tipo?: Prisma.EnumTipoTransacaoFieldUpdateOperationsInput | $Enums.TipoTransacao
+  valor?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  dataTransacao?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  descricao?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contaOrigemId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
-/**
- * TransacaoCountOutputType without action
- */
-export type TransacaoCountOutputTypeCountContaArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.ContaWhereInput
-}
 
 
 export type TransacaoSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -518,8 +693,10 @@ export type TransacaoSelect<ExtArgs extends runtime.Types.Extensions.InternalArg
   valor?: boolean
   dataTransacao?: boolean
   descricao?: boolean
-  conta?: boolean | Prisma.Transacao$contaArgs<ExtArgs>
-  _count?: boolean | Prisma.TransacaoCountOutputTypeDefaultArgs<ExtArgs>
+  contaOrigemId?: boolean
+  contaDestinoId?: boolean
+  contaOrigem?: boolean | Prisma.Transacao$contaOrigemArgs<ExtArgs>
+  contaDestino?: boolean | Prisma.Transacao$contaDestinoArgs<ExtArgs>
 }, ExtArgs["result"]["transacao"]>
 
 export type TransacaoSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -528,6 +705,10 @@ export type TransacaoSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ext
   valor?: boolean
   dataTransacao?: boolean
   descricao?: boolean
+  contaOrigemId?: boolean
+  contaDestinoId?: boolean
+  contaOrigem?: boolean | Prisma.Transacao$contaOrigemArgs<ExtArgs>
+  contaDestino?: boolean | Prisma.Transacao$contaDestinoArgs<ExtArgs>
 }, ExtArgs["result"]["transacao"]>
 
 export type TransacaoSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -536,6 +717,10 @@ export type TransacaoSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ext
   valor?: boolean
   dataTransacao?: boolean
   descricao?: boolean
+  contaOrigemId?: boolean
+  contaDestinoId?: boolean
+  contaOrigem?: boolean | Prisma.Transacao$contaOrigemArgs<ExtArgs>
+  contaDestino?: boolean | Prisma.Transacao$contaDestinoArgs<ExtArgs>
 }, ExtArgs["result"]["transacao"]>
 
 export type TransacaoSelectScalar = {
@@ -544,20 +729,29 @@ export type TransacaoSelectScalar = {
   valor?: boolean
   dataTransacao?: boolean
   descricao?: boolean
+  contaOrigemId?: boolean
+  contaDestinoId?: boolean
 }
 
-export type TransacaoOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tipo" | "valor" | "dataTransacao" | "descricao", ExtArgs["result"]["transacao"]>
+export type TransacaoOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tipo" | "valor" | "dataTransacao" | "descricao" | "contaOrigemId" | "contaDestinoId", ExtArgs["result"]["transacao"]>
 export type TransacaoInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  conta?: boolean | Prisma.Transacao$contaArgs<ExtArgs>
-  _count?: boolean | Prisma.TransacaoCountOutputTypeDefaultArgs<ExtArgs>
+  contaOrigem?: boolean | Prisma.Transacao$contaOrigemArgs<ExtArgs>
+  contaDestino?: boolean | Prisma.Transacao$contaDestinoArgs<ExtArgs>
 }
-export type TransacaoIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
-export type TransacaoIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
+export type TransacaoIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  contaOrigem?: boolean | Prisma.Transacao$contaOrigemArgs<ExtArgs>
+  contaDestino?: boolean | Prisma.Transacao$contaDestinoArgs<ExtArgs>
+}
+export type TransacaoIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  contaOrigem?: boolean | Prisma.Transacao$contaOrigemArgs<ExtArgs>
+  contaDestino?: boolean | Prisma.Transacao$contaDestinoArgs<ExtArgs>
+}
 
 export type $TransacaoPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Transacao"
   objects: {
-    conta: Prisma.$ContaPayload<ExtArgs>[]
+    contaOrigem: Prisma.$ContaPayload<ExtArgs> | null
+    contaDestino: Prisma.$ContaPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -565,6 +759,8 @@ export type $TransacaoPayload<ExtArgs extends runtime.Types.Extensions.InternalA
     valor: runtime.Decimal
     dataTransacao: Date
     descricao: string | null
+    contaOrigemId: number | null
+    contaDestinoId: number | null
   }, ExtArgs["result"]["transacao"]>
   composites: {}
 }
@@ -959,7 +1155,8 @@ readonly fields: TransacaoFieldRefs;
  */
 export interface Prisma__TransacaoClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  conta<T extends Prisma.Transacao$contaArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Transacao$contaArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ContaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  contaOrigem<T extends Prisma.Transacao$contaOrigemArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Transacao$contaOrigemArgs<ExtArgs>>): Prisma.Prisma__ContaClient<runtime.Types.Result.GetResult<Prisma.$ContaPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  contaDestino<T extends Prisma.Transacao$contaDestinoArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Transacao$contaDestinoArgs<ExtArgs>>): Prisma.Prisma__ContaClient<runtime.Types.Result.GetResult<Prisma.$ContaPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -994,6 +1191,8 @@ export interface TransacaoFieldRefs {
   readonly valor: Prisma.FieldRef<"Transacao", 'Decimal'>
   readonly dataTransacao: Prisma.FieldRef<"Transacao", 'DateTime'>
   readonly descricao: Prisma.FieldRef<"Transacao", 'String'>
+  readonly contaOrigemId: Prisma.FieldRef<"Transacao", 'Int'>
+  readonly contaDestinoId: Prisma.FieldRef<"Transacao", 'Int'>
 }
     
 
@@ -1246,6 +1445,10 @@ export type TransacaoCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Exten
    * The data used to create many Transacaos.
    */
   data: Prisma.TransacaoCreateManyInput | Prisma.TransacaoCreateManyInput[]
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TransacaoIncludeCreateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -1316,6 +1519,10 @@ export type TransacaoUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Exten
    * Limit how many Transacaos to update.
    */
   limit?: number
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TransacaoIncludeUpdateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -1385,9 +1592,9 @@ export type TransacaoDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Int
 }
 
 /**
- * Transacao.conta
+ * Transacao.contaOrigem
  */
-export type Transacao$contaArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type Transacao$contaOrigemArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
    * Select specific fields to fetch from the Conta
    */
@@ -1401,11 +1608,25 @@ export type Transacao$contaArgs<ExtArgs extends runtime.Types.Extensions.Interna
    */
   include?: Prisma.ContaInclude<ExtArgs> | null
   where?: Prisma.ContaWhereInput
-  orderBy?: Prisma.ContaOrderByWithRelationInput | Prisma.ContaOrderByWithRelationInput[]
-  cursor?: Prisma.ContaWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.ContaScalarFieldEnum | Prisma.ContaScalarFieldEnum[]
+}
+
+/**
+ * Transacao.contaDestino
+ */
+export type Transacao$contaDestinoArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Conta
+   */
+  select?: Prisma.ContaSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Conta
+   */
+  omit?: Prisma.ContaOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ContaInclude<ExtArgs> | null
+  where?: Prisma.ContaWhereInput
 }
 
 /**

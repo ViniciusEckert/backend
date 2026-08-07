@@ -125,7 +125,9 @@ export const TransacaoScalarFieldEnum = {
   tipo: 'tipo',
   valor: 'valor',
   dataTransacao: 'dataTransacao',
-  descricao: 'descricao'
+  descricao: 'descricao',
+  contaOrigemId: 'contaOrigemId',
+  contaDestinoId: 'contaDestinoId'
 } as const
 
 export type TransacaoScalarFieldEnum = (typeof TransacaoScalarFieldEnum)[keyof typeof TransacaoScalarFieldEnum]
