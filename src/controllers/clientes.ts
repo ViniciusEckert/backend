@@ -1,172 +1,215 @@
-import {Request, Response} from "express"
-import {prisma} from "../../config/prisma"
-import { handleErrors } from "../helpers/handleErros"
-import jwt from "jsonwebtoken"
-import bcrypt from "bcrypt"
+import { Request, Response } from "express";
+import { prisma } from "../../config/prisma";
+import { handleErrors } from "../helpers/handleErros";
+import jwt from "jsonwebtoken";
+import bcrypt from "bcrypt";
 
 export default {
-    login: async(request: Request, response: Response) =>{
-        try{
-            const {cpf, senha} = request.body
-            const employee = await prisma.cliente.findUnique({
-                where:{
-                    cpf,
-                }
-            })
+  login: async (request: Request, response: Response) => {
+    try {
+      const { cpf, senha } = request.body;
 
-            if(!employee || !bcrypt.compareSync(senha, employee.senha)){
-                return response.status(404).json("CPF e/ou senha inválidos")
-            }
+      const employee = await prisma.cliente.findUnique({
+        where: { cpf },
+      });
 
-            const token = jwt.sign(employee, process.env.JWT_SECRET!, {
-                expiresIn: "1d"
-            })
+      if (!employee || !bcrypt.compareSync(senha, employee.senha)) {
+        return response.status(404).json("CPF e/ou senha inválidos");
+      }
 
-            return response.status(200).json({access_token: token})
+      const token = jwt.sign(employee, process.env.JWT_SECRET!, {
+        expiresIn: "1d",
+      });
 
-        }catch(e){
-            console.error(e);
-            return response.status(401).json()
-        }
-    },
-    create: async (request: Request, response: Response) => {
-        try{
-            const  {nome, email, cpf, data_nascimento, telefone, senha } = request.body
-            if(!nome || !email || !cpf || !data_nascimento || !telefone){
-                return response.status(400).json("Dados Incompletos.")
-            }
-            
-            const user = await prisma.cliente.create({
-                data:{
-                    nome,
-                    email,
-                    cpf,
-                    data_nascimento,
-                    telefone,
-                    senha: bcrypt.hashSync(senha, +process.env.BCRYPT_ROUNDS!)
-                }
-            })
-            console.log("usuario criado")
-            return response.status(201).json(user)
-        }catch(e){
-            return handleErrors(e, response)
-        }
-    },
+      return response.status(200).json({ access_token: token });
+    } catch (e) {
+      console.error(e);
+      return response.status(401).json();
+    }
+  },
 
-    list: async(request: Request, response: Response) => {
-        try{
-            const user = await prisma.cliente.findMany({
-                include: {contas: true}
-            })
-            return response.status(200).json(user)
+  create: async (request: Request, response: Response) => {
+    try {
+      const { nome, email, cpf, data_nascimento, telefone, senha } =
+        request.body;
 
-        }catch(e){
-            handleErrors(e, response)
-        }
-    },
-    
-    getById: async (request: Request, response: Response) => {
-        try{
-            const { id } = request.params
-            const user = await prisma.cliente.findUnique({
-                where: {
-                    id: +id
-                },
-                include: {
-                    contas: {
-                        include: {
-                            cartoes: true,
-                            transacoes: true
-                        }
-                    }
-                }
-            })
-            return response.status(200).json(user)
-        }catch(e){
-            handleErrors(e, response)
-        }
-    },
+      if (!nome || !email || !cpf || !data_nascimento || !telefone) {
+        return response.status(400).json("Dados Incompletos.");
+      }
 
+      const user = await prisma.cliente.create({
+        data: {
+          nome,
+          email,
+          cpf,
+          data_nascimento,
+          telefone,
+          senha: bcrypt.hashSync(
+            senha,
+            +process.env.BCRYPT_ROUNDS!
+          ),
+        },
+      });
 
-    update: async(request: Request, response: Response) => {
-        try{
-            const {id} = request.params
+      return response.status(201).json(user);
+    } catch (e) {
+      return handleErrors(e, response);
+    }
+  },
 
-            const { nome, email, cpf, data_nascimento, telefone, senha} = request.body
+  list: async (request: Request, response: Response) => {
+    try {
+      const user = await prisma.cliente.findMany({
+        include: { contas: true },
+      });
 
-            const user = await prisma.cliente.update({
+      return response.status(200).json(user);
+    } catch (e) {
+      handleErrors(e, response);
+    }
+  },
 
-                data: {
-                    nome,
-                    email,
-                    cpf,
-                    data_nascimento,
-                    telefone,
-                    senha
-                },                
-                where:{
-                    id: +id
-                },
- 
-            })
-            return response.status(200).json(user)
-        }catch(e){
-            handleErrors(e, response)
-        }
-    },
-    
-    delete: async(request: Request, response: Response) => {
-        try{
-            const {id} = request.params
+  // 🔥 AQUI ESTÁ A CORREÇÃO DO EXTRATO
+  getById: async (request: Request, response: Response) => {
+    try {
+      const { id } = request.params;
 
-            const user = await prisma.cliente.delete({where:{ id: +id}})
+      const user = await prisma.cliente.findUnique({
+        where: {
+          id: Number(id),
+        },
+        include: {
+          contas: {
+            include: {
+              agencias: true,
+              cartoes: true,
+              transacoesOrigem: true,
+              transacoesDestino: true,
+            },
+          },
+        },
+      });
 
-            return response.status(200).json(user)
-        }catch(e){
-            handleErrors(e, response)
-        }
-    },
+      if (!user) {
+        return response.status(404).json({
+          erro: "Cliente não encontrado",
+        });
+      }
 
+      // 🔥 FORMATAR DADOS (ESSENCIAL)
+      const userFormatado = {
+        ...user,
+        contas: user.contas.map((conta) => ({
+          ...conta,
+          transacoes: [
+            ...(conta.transacoesOrigem || []).map((t) => ({
+              id: t.id,
+              valor: Number(t.valor), // ✅ Decimal → number
+              tipo: t.tipo,
+              data: t.dataTransacao.toISOString(), // ✅ cria campo "data"
+              descricao: t.descricao,
+              contaOrigemId: t.contaOrigemId,
+              contaDestinoId: t.contaDestinoId,
+            })),
+            ...(conta.transacoesDestino || []).map((t) => ({
+              id: t.id,
+              valor: Number(t.valor),
+              tipo: t.tipo,
+              data: t.dataTransacao.toISOString(),
+              descricao: t.descricao,
+              contaOrigemId: t.contaOrigemId,
+              contaDestinoId: t.contaDestinoId,
+            })),
+          ],
+        })),
+      };
 
-    connect: async (request: Request, response: Response) => {
-        try {
-            const { id } = request.params;
-            const { contaId } = request.body;
+      return response.status(200).json(userFormatado);
+    } catch (e) {
+      console.error("ERRO AO BUSCAR CLIENTE:", e);
+      return handleErrors(e, response);
+    }
+  },
 
-            const user = await prisma.cliente.update({
-                where: {
-                    id: +id
-                },
-                data: {
-                    contas: {
-                        connect: contaId.map((id: number) => ({ id }))
-                    }
-                }
-            });
+  update: async (request: Request, response: Response) => {
+    try {
+      const { id } = request.params;
+      const { nome, email, cpf, data_nascimento, telefone, senha } =
+        request.body;
 
-            return response.status(200).json(user);
-        } catch (e) {
-            return handleErrors(e, response);
-        }
-    },
+      const user = await prisma.cliente.update({
+        data: {
+          nome,
+          email,
+          cpf,
+          data_nascimento,
+          telefone,
+          senha,
+        },
+        where: {
+          id: +id,
+        },
+      });
 
-    disconnect: async(request: Request, response: Response) => {
-        try{
-            const {id} = request.params
-            const {contaId} = request.body
+      return response.status(200).json(user);
+    } catch (e) {
+      handleErrors(e, response);
+    }
+  },
 
-            const user = await prisma.cliente.update({
-                where:{id: +id},
-                data:{
-                    contas:{
-                        disconnect: contaId.map((contaId: Number) => ({id: contaId}))
-                    }
-                }
-            })
-        }
-        catch(e) {
-            handleErrors(e, response)
-        
-        }
-    } 
-}
+  delete: async (request: Request, response: Response) => {
+    try {
+      const { id } = request.params;
+
+      const user = await prisma.cliente.delete({
+        where: { id: +id },
+      });
+
+      return response.status(200).json(user);
+    } catch (e) {
+      handleErrors(e, response);
+    }
+  },
+
+  connect: async (request: Request, response: Response) => {
+    try {
+      const { id } = request.params;
+      const { contaId } = request.body;
+
+      const user = await prisma.cliente.update({
+        where: {
+          id: +id,
+        },
+        data: {
+          contas: {
+            connect: contaId.map((id: number) => ({ id })),
+          },
+        },
+      });
+
+      return response.status(200).json(user);
+    } catch (e) {
+      return handleErrors(e, response);
+    }
+  },
+
+  disconnect: async (request: Request, response: Response) => {
+    try {
+      const { id } = request.params;
+      const { contaId } = request.body;
+
+      const user = await prisma.cliente.update({
+        where: { id: +id },
+        data: {
+          contas: {
+            disconnect: contaId.map((id: number) => ({ id })),
+          },
+        },
+      });
+
+      return response.status(200).json(user);
+    } catch (e) {
+      handleErrors(e, response);
+    }
+  },
+};

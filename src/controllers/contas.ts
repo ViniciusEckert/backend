@@ -24,7 +24,7 @@ export default {
           senha,
           tipo_conta,
           saldo: saldo ?? 0,
-          pix,
+          pix: pix ?? null,
           data_abertura: data_abertura
             ? new Date(data_abertura)
             : new Date(),
@@ -56,33 +56,33 @@ export default {
       return handleErrors(e, response);
     }
   },
-  
+
   getByPix: async (request: Request, response: Response) => {
-  try {
-    const chaveParam = request.params.chave;
+    try {
+      const chaveParam = request.params.chave;
 
-    const chave = Array.isArray(chaveParam)
-      ? chaveParam[0]
-      : chaveParam;
+      const chave = Array.isArray(chaveParam)
+        ? chaveParam[0]
+        : chaveParam;
 
-    const conta = await prisma.conta.findFirst({
-      where: {
-        pix: chave,
-      },
-      include: {
-        clientes: true,
-      },
-    });
+      const conta = await prisma.conta.findFirst({
+        where: {
+          pix: chave,
+        },
+        include: {
+          clientes: true,
+        },
+      });
 
-    if (!conta) {
-      return response.status(404).json({ erro: "Conta não encontrada" });
+      if (!conta) {
+        return response.status(404).json({ erro: "Conta não encontrada" });
+      }
+
+      return response.status(200).json(conta);
+    } catch (e) {
+      return handleErrors(e, response);
     }
-
-    return response.status(200).json(conta);
-  } catch (e) {
-    return handleErrors(e, response);
-  }
-},
+  },
 
   list: async (request: Request, response: Response) => {
     try {
@@ -91,7 +91,8 @@ export default {
           clientes: true,
           agencias: true,
           cartoes: true,
-          transacoes: true,
+          transacoesOrigem: true,
+          transacoesDestino: true,
         },
       });
 
@@ -102,32 +103,56 @@ export default {
   },
 
   getById: async (request: Request, response: Response) => {
-    try {
-      const { id } = request.params;
+  try {
+    const { id } = request.params;
 
-      const conta = await prisma.conta.findUnique({
-        where: {
-          id: Number(id),
-        },
-        include: {
-          clientes: true,
-          agencias: true,
-          cartoes: true,
-          transacoes: true,
-        },
+    const conta = await prisma.conta.findUnique({
+      where: {
+        id: Number(id),
+      },
+      include: {
+        clientes: true,
+        agencias: true,
+        cartoes: true,
+        transacoesOrigem: true,
+        transacoesDestino: true,
+      },
+    });
+
+    if (!conta) {
+      return response.status(404).json({
+        erro: "Conta não encontrada",
       });
-
-      if (!conta) {
-        return response.status(404).json({
-          erro: "Conta não encontrada",
-        });
-      }
-
-      return response.status(200).json(conta);
-    } catch (e) {
-      return handleErrors(e, response);
     }
-  },
+
+    const contaFormatada = {
+      ...conta,
+      transacoes: [
+        ...(conta.transacoesOrigem || []).map((t) => ({
+          id: t.id,
+          valor: -Number(t.valor), // 💸 saída
+          tipo: t.tipo,
+          data: t.dataTransacao.toISOString(), // ✅ nome correto
+          descricao: t.descricao,
+        })),
+        ...(conta.transacoesDestino || []).map((t) => ({
+          id: t.id,
+          valor: Number(t.valor), // 💰 entrada
+          tipo: t.tipo,
+          data: t.dataTransacao.toISOString(), // ✅ nome correto
+          descricao: t.descricao,
+        })),
+      ].sort(
+        (a, b) =>
+          new Date(b.data).getTime() - new Date(a.data).getTime()
+      ),
+    };
+
+    return response.status(200).json(contaFormatada);
+  } catch (e) {
+    return handleErrors(e, response);
+  }
+},
 
   update: async (request: Request, response: Response) => {
     try {
@@ -151,7 +176,8 @@ export default {
       return handleErrors(e, response);
     }
   },
-    clientConnect: async (request: Request, response: Response) => {
+
+  clientConnect: async (request: Request, response: Response) => {
     try {
       const { id } = request.params;
       const { clienteId } = request.body;
@@ -250,58 +276,6 @@ export default {
         },
         include: {
           agencias: true,
-        },
-      });
-
-      return response.status(200).json(conta);
-    } catch (e) {
-      return handleErrors(e, response);
-    }
-  },  transConnect: async (request: Request, response: Response) => {
-    try {
-      const { id } = request.params;
-      const { transacaoId } = request.body;
-
-      const conta = await prisma.conta.update({
-        where: {
-          id: Number(id),
-        },
-        data: {
-          transacoes: {
-            connect: transacaoId.map((id: number) => ({
-              id: Number(id),
-            })),
-          },
-        },
-        include: {
-          transacoes: true,
-        },
-      });
-
-      return response.status(200).json(conta);
-    } catch (e) {
-      return handleErrors(e, response);
-    }
-  },
-
-  transDisconnect: async (request: Request, response: Response) => {
-    try {
-      const { id } = request.params;
-      const { transacaoId } = request.body;
-
-      const conta = await prisma.conta.update({
-        where: {
-          id: Number(id),
-        },
-        data: {
-          transacoes: {
-            disconnect: transacaoId.map((id: number) => ({
-              id: Number(id),
-            })),
-          },
-        },
-        include: {
-          transacoes: true,
         },
       });
 

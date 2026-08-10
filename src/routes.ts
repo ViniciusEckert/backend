@@ -70,7 +70,6 @@ routes.put("/transacoes/:id", transacoesController.update)
 routes.delete("/transacoes/:id", transacoesController.delete)
 routes.put("/transacoes/conectar/:id", transacoesController.connect)
 routes.put("/transacoes/desconectar/:id", transacoesController.disconnect)
-routes.put("/contas/conectarTransacao/:id", contasController.transConnect)
-routes.put("/contas/desconectarTransacao/:id", contasController.transDisconnect)
+
 
 export default routes
