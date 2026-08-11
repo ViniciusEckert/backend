@@ -37,6 +37,8 @@ model Conta {
   data_abertura DateTime
   pix           String?
 
+  ultimoRendimento DateTime?
+
   agencias Agencia[] @relation("AgenciaToConta")
   cartoes  Cartao[]  @relation("CartaoToConta")
   clientes Cliente[] @relation("ClienteToConta")
@@ -94,4 +96,5 @@ enum TipoTransacao {
   SAQUE
   TRANSFERENCIA
   PAGAMENTO
+  RENDIMENTO
 }

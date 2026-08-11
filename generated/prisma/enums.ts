@@ -31,7 +31,8 @@ export const TipoTransacao = {
   DEPOSITO: 'DEPOSITO',
   SAQUE: 'SAQUE',
   TRANSFERENCIA: 'TRANSFERENCIA',
-  PAGAMENTO: 'PAGAMENTO'
+  PAGAMENTO: 'PAGAMENTO',
+  RENDIMENTO: 'RENDIMENTO'
 } as const
 
 export type TipoTransacao = (typeof TipoTransacao)[keyof typeof TipoTransacao]

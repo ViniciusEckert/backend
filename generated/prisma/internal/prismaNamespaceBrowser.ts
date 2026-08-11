@@ -103,7 +103,8 @@ export const ContaScalarFieldEnum = {
   tipo_conta: 'tipo_conta',
   saldo: 'saldo',
   data_abertura: 'data_abertura',
-  pix: 'pix'
+  pix: 'pix',
+  ultimoRendimento: 'ultimoRendimento'
 } as const
 
 export type ContaScalarFieldEnum = (typeof ContaScalarFieldEnum)[keyof typeof ContaScalarFieldEnum]

@@ -43,6 +43,7 @@ export type ContaMinAggregateOutputType = {
   saldo: runtime.Decimal | null
   data_abertura: Date | null
   pix: string | null
+  ultimoRendimento: Date | null
 }
 
 export type ContaMaxAggregateOutputType = {
@@ -52,6 +53,7 @@ export type ContaMaxAggregateOutputType = {
   saldo: runtime.Decimal | null
   data_abertura: Date | null
   pix: string | null
+  ultimoRendimento: Date | null
 }
 
 export type ContaCountAggregateOutputType = {
@@ -61,6 +63,7 @@ export type ContaCountAggregateOutputType = {
   saldo: number
   data_abertura: number
   pix: number
+  ultimoRendimento: number
   _all: number
 }
 
@@ -82,6 +85,7 @@ export type ContaMinAggregateInputType = {
   saldo?: true
   data_abertura?: true
   pix?: true
+  ultimoRendimento?: true
 }
 
 export type ContaMaxAggregateInputType = {
@@ -91,6 +95,7 @@ export type ContaMaxAggregateInputType = {
   saldo?: true
   data_abertura?: true
   pix?: true
+  ultimoRendimento?: true
 }
 
 export type ContaCountAggregateInputType = {
@@ -100,6 +105,7 @@ export type ContaCountAggregateInputType = {
   saldo?: true
   data_abertura?: true
   pix?: true
+  ultimoRendimento?: true
   _all?: true
 }
 
@@ -196,6 +202,7 @@ export type ContaGroupByOutputType = {
   saldo: runtime.Decimal
   data_abertura: Date
   pix: string | null
+  ultimoRendimento: Date | null
   _count: ContaCountAggregateOutputType | null
   _avg: ContaAvgAggregateOutputType | null
   _sum: ContaSumAggregateOutputType | null
@@ -228,6 +235,7 @@ export type ContaWhereInput = {
   saldo?: Prisma.DecimalFilter<"Conta"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   data_abertura?: Prisma.DateTimeFilter<"Conta"> | Date | string
   pix?: Prisma.StringNullableFilter<"Conta"> | string | null
+  ultimoRendimento?: Prisma.DateTimeNullableFilter<"Conta"> | Date | string | null
   agencias?: Prisma.AgenciaListRelationFilter
   cartoes?: Prisma.CartaoListRelationFilter
   clientes?: Prisma.ClienteListRelationFilter
@@ -242,6 +250,7 @@ export type ContaOrderByWithRelationInput = {
   saldo?: Prisma.SortOrder
   data_abertura?: Prisma.SortOrder
   pix?: Prisma.SortOrderInput | Prisma.SortOrder
+  ultimoRendimento?: Prisma.SortOrderInput | Prisma.SortOrder
   agencias?: Prisma.AgenciaOrderByRelationAggregateInput
   cartoes?: Prisma.CartaoOrderByRelationAggregateInput
   clientes?: Prisma.ClienteOrderByRelationAggregateInput
@@ -259,6 +268,7 @@ export type ContaWhereUniqueInput = Prisma.AtLeast<{
   saldo?: Prisma.DecimalFilter<"Conta"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   data_abertura?: Prisma.DateTimeFilter<"Conta"> | Date | string
   pix?: Prisma.StringNullableFilter<"Conta"> | string | null
+  ultimoRendimento?: Prisma.DateTimeNullableFilter<"Conta"> | Date | string | null
   agencias?: Prisma.AgenciaListRelationFilter
   cartoes?: Prisma.CartaoListRelationFilter
   clientes?: Prisma.ClienteListRelationFilter
@@ -273,6 +283,7 @@ export type ContaOrderByWithAggregationInput = {
   saldo?: Prisma.SortOrder
   data_abertura?: Prisma.SortOrder
   pix?: Prisma.SortOrderInput | Prisma.SortOrder
+  ultimoRendimento?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.ContaCountOrderByAggregateInput
   _avg?: Prisma.ContaAvgOrderByAggregateInput
   _max?: Prisma.ContaMaxOrderByAggregateInput
@@ -290,6 +301,7 @@ export type ContaScalarWhereWithAggregatesInput = {
   saldo?: Prisma.DecimalWithAggregatesFilter<"Conta"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   data_abertura?: Prisma.DateTimeWithAggregatesFilter<"Conta"> | Date | string
   pix?: Prisma.StringNullableWithAggregatesFilter<"Conta"> | string | null
+  ultimoRendimento?: Prisma.DateTimeNullableWithAggregatesFilter<"Conta"> | Date | string | null
 }
 
 export type ContaCreateInput = {
@@ -298,6 +310,7 @@ export type ContaCreateInput = {
   saldo?: runtime.Decimal | runtime.DecimalJsLike | number | string
   data_abertura: Date | string
   pix?: string | null
+  ultimoRendimento?: Date | string | null
   agencias?: Prisma.AgenciaCreateNestedManyWithoutContasInput
   cartoes?: Prisma.CartaoCreateNestedManyWithoutContaInput
   clientes?: Prisma.ClienteCreateNestedManyWithoutContasInput
@@ -312,6 +325,7 @@ export type ContaUncheckedCreateInput = {
   saldo?: runtime.Decimal | runtime.DecimalJsLike | number | string
   data_abertura: Date | string
   pix?: string | null
+  ultimoRendimento?: Date | string | null
   agencias?: Prisma.AgenciaUncheckedCreateNestedManyWithoutContasInput
   cartoes?: Prisma.CartaoUncheckedCreateNestedManyWithoutContaInput
   clientes?: Prisma.ClienteUncheckedCreateNestedManyWithoutContasInput
@@ -325,6 +339,7 @@ export type ContaUpdateInput = {
   saldo?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   data_abertura?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   pix?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ultimoRendimento?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   agencias?: Prisma.AgenciaUpdateManyWithoutContasNestedInput
   cartoes?: Prisma.CartaoUpdateManyWithoutContaNestedInput
   clientes?: Prisma.ClienteUpdateManyWithoutContasNestedInput
@@ -339,6 +354,7 @@ export type ContaUncheckedUpdateInput = {
   saldo?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   data_abertura?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   pix?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ultimoRendimento?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   agencias?: Prisma.AgenciaUncheckedUpdateManyWithoutContasNestedInput
   cartoes?: Prisma.CartaoUncheckedUpdateManyWithoutContaNestedInput
   clientes?: Prisma.ClienteUncheckedUpdateManyWithoutContasNestedInput
@@ -353,6 +369,7 @@ export type ContaCreateManyInput = {
   saldo?: runtime.Decimal | runtime.DecimalJsLike | number | string
   data_abertura: Date | string
   pix?: string | null
+  ultimoRendimento?: Date | string | null
 }
 
 export type ContaUpdateManyMutationInput = {
@@ -361,6 +378,7 @@ export type ContaUpdateManyMutationInput = {
   saldo?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   data_abertura?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   pix?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ultimoRendimento?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type ContaUncheckedUpdateManyInput = {
@@ -370,6 +388,7 @@ export type ContaUncheckedUpdateManyInput = {
   saldo?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   data_abertura?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   pix?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ultimoRendimento?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type ContaListRelationFilter = {
@@ -389,6 +408,7 @@ export type ContaCountOrderByAggregateInput = {
   saldo?: Prisma.SortOrder
   data_abertura?: Prisma.SortOrder
   pix?: Prisma.SortOrder
+  ultimoRendimento?: Prisma.SortOrder
 }
 
 export type ContaAvgOrderByAggregateInput = {
@@ -403,6 +423,7 @@ export type ContaMaxOrderByAggregateInput = {
   saldo?: Prisma.SortOrder
   data_abertura?: Prisma.SortOrder
   pix?: Prisma.SortOrder
+  ultimoRendimento?: Prisma.SortOrder
 }
 
 export type ContaMinOrderByAggregateInput = {
@@ -412,6 +433,7 @@ export type ContaMinOrderByAggregateInput = {
   saldo?: Prisma.SortOrder
   data_abertura?: Prisma.SortOrder
   pix?: Prisma.SortOrder
+  ultimoRendimento?: Prisma.SortOrder
 }
 
 export type ContaSumOrderByAggregateInput = {
@@ -516,6 +538,10 @@ export type NullableStringFieldUpdateOperationsInput = {
   set?: string | null
 }
 
+export type NullableDateTimeFieldUpdateOperationsInput = {
+  set?: Date | string | null
+}
+
 export type ContaCreateNestedManyWithoutCartoesInput = {
   create?: Prisma.XOR<Prisma.ContaCreateWithoutCartoesInput, Prisma.ContaUncheckedCreateWithoutCartoesInput> | Prisma.ContaCreateWithoutCartoesInput[] | Prisma.ContaUncheckedCreateWithoutCartoesInput[]
   connectOrCreate?: Prisma.ContaCreateOrConnectWithoutCartoesInput | Prisma.ContaCreateOrConnectWithoutCartoesInput[]
@@ -592,6 +618,7 @@ export type ContaCreateWithoutClientesInput = {
   saldo?: runtime.Decimal | runtime.DecimalJsLike | number | string
   data_abertura: Date | string
   pix?: string | null
+  ultimoRendimento?: Date | string | null
   agencias?: Prisma.AgenciaCreateNestedManyWithoutContasInput
   cartoes?: Prisma.CartaoCreateNestedManyWithoutContaInput
   transacoesOrigem?: Prisma.TransacaoCreateNestedManyWithoutContaOrigemInput
@@ -605,6 +632,7 @@ export type ContaUncheckedCreateWithoutClientesInput = {
   saldo?: runtime.Decimal | runtime.DecimalJsLike | number | string
   data_abertura: Date | string
   pix?: string | null
+  ultimoRendimento?: Date | string | null
   agencias?: Prisma.AgenciaUncheckedCreateNestedManyWithoutContasInput
   cartoes?: Prisma.CartaoUncheckedCreateNestedManyWithoutContaInput
   transacoesOrigem?: Prisma.TransacaoUncheckedCreateNestedManyWithoutContaOrigemInput
@@ -642,6 +670,7 @@ export type ContaScalarWhereInput = {
   saldo?: Prisma.DecimalFilter<"Conta"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   data_abertura?: Prisma.DateTimeFilter<"Conta"> | Date | string
   pix?: Prisma.StringNullableFilter<"Conta"> | string | null
+  ultimoRendimento?: Prisma.DateTimeNullableFilter<"Conta"> | Date | string | null
 }
 
 export type ContaCreateWithoutAgenciasInput = {
@@ -650,6 +679,7 @@ export type ContaCreateWithoutAgenciasInput = {
   saldo?: runtime.Decimal | runtime.DecimalJsLike | number | string
   data_abertura: Date | string
   pix?: string | null
+  ultimoRendimento?: Date | string | null
   cartoes?: Prisma.CartaoCreateNestedManyWithoutContaInput
   clientes?: Prisma.ClienteCreateNestedManyWithoutContasInput
   transacoesOrigem?: Prisma.TransacaoCreateNestedManyWithoutContaOrigemInput
@@ -663,6 +693,7 @@ export type ContaUncheckedCreateWithoutAgenciasInput = {
   saldo?: runtime.Decimal | runtime.DecimalJsLike | number | string
   data_abertura: Date | string
   pix?: string | null
+  ultimoRendimento?: Date | string | null
   cartoes?: Prisma.CartaoUncheckedCreateNestedManyWithoutContaInput
   clientes?: Prisma.ClienteUncheckedCreateNestedManyWithoutContasInput
   transacoesOrigem?: Prisma.TransacaoUncheckedCreateNestedManyWithoutContaOrigemInput
@@ -696,6 +727,7 @@ export type ContaCreateWithoutCartoesInput = {
   saldo?: runtime.Decimal | runtime.DecimalJsLike | number | string
   data_abertura: Date | string
   pix?: string | null
+  ultimoRendimento?: Date | string | null
   agencias?: Prisma.AgenciaCreateNestedManyWithoutContasInput
   clientes?: Prisma.ClienteCreateNestedManyWithoutContasInput
   transacoesOrigem?: Prisma.TransacaoCreateNestedManyWithoutContaOrigemInput
@@ -709,6 +741,7 @@ export type ContaUncheckedCreateWithoutCartoesInput = {
   saldo?: runtime.Decimal | runtime.DecimalJsLike | number | string
   data_abertura: Date | string
   pix?: string | null
+  ultimoRendimento?: Date | string | null
   agencias?: Prisma.AgenciaUncheckedCreateNestedManyWithoutContasInput
   clientes?: Prisma.ClienteUncheckedCreateNestedManyWithoutContasInput
   transacoesOrigem?: Prisma.TransacaoUncheckedCreateNestedManyWithoutContaOrigemInput
@@ -742,6 +775,7 @@ export type ContaCreateWithoutTransacoesOrigemInput = {
   saldo?: runtime.Decimal | runtime.DecimalJsLike | number | string
   data_abertura: Date | string
   pix?: string | null
+  ultimoRendimento?: Date | string | null
   agencias?: Prisma.AgenciaCreateNestedManyWithoutContasInput
   cartoes?: Prisma.CartaoCreateNestedManyWithoutContaInput
   clientes?: Prisma.ClienteCreateNestedManyWithoutContasInput
@@ -755,6 +789,7 @@ export type ContaUncheckedCreateWithoutTransacoesOrigemInput = {
   saldo?: runtime.Decimal | runtime.DecimalJsLike | number | string
   data_abertura: Date | string
   pix?: string | null
+  ultimoRendimento?: Date | string | null
   agencias?: Prisma.AgenciaUncheckedCreateNestedManyWithoutContasInput
   cartoes?: Prisma.CartaoUncheckedCreateNestedManyWithoutContaInput
   clientes?: Prisma.ClienteUncheckedCreateNestedManyWithoutContasInput
@@ -772,6 +807,7 @@ export type ContaCreateWithoutTransacoesDestinoInput = {
   saldo?: runtime.Decimal | runtime.DecimalJsLike | number | string
   data_abertura: Date | string
   pix?: string | null
+  ultimoRendimento?: Date | string | null
   agencias?: Prisma.AgenciaCreateNestedManyWithoutContasInput
   cartoes?: Prisma.CartaoCreateNestedManyWithoutContaInput
   clientes?: Prisma.ClienteCreateNestedManyWithoutContasInput
@@ -785,6 +821,7 @@ export type ContaUncheckedCreateWithoutTransacoesDestinoInput = {
   saldo?: runtime.Decimal | runtime.DecimalJsLike | number | string
   data_abertura: Date | string
   pix?: string | null
+  ultimoRendimento?: Date | string | null
   agencias?: Prisma.AgenciaUncheckedCreateNestedManyWithoutContasInput
   cartoes?: Prisma.CartaoUncheckedCreateNestedManyWithoutContaInput
   clientes?: Prisma.ClienteUncheckedCreateNestedManyWithoutContasInput
@@ -813,6 +850,7 @@ export type ContaUpdateWithoutTransacoesOrigemInput = {
   saldo?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   data_abertura?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   pix?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ultimoRendimento?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   agencias?: Prisma.AgenciaUpdateManyWithoutContasNestedInput
   cartoes?: Prisma.CartaoUpdateManyWithoutContaNestedInput
   clientes?: Prisma.ClienteUpdateManyWithoutContasNestedInput
@@ -826,6 +864,7 @@ export type ContaUncheckedUpdateWithoutTransacoesOrigemInput = {
   saldo?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   data_abertura?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   pix?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ultimoRendimento?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   agencias?: Prisma.AgenciaUncheckedUpdateManyWithoutContasNestedInput
   cartoes?: Prisma.CartaoUncheckedUpdateManyWithoutContaNestedInput
   clientes?: Prisma.ClienteUncheckedUpdateManyWithoutContasNestedInput
@@ -849,6 +888,7 @@ export type ContaUpdateWithoutTransacoesDestinoInput = {
   saldo?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   data_abertura?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   pix?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ultimoRendimento?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   agencias?: Prisma.AgenciaUpdateManyWithoutContasNestedInput
   cartoes?: Prisma.CartaoUpdateManyWithoutContaNestedInput
   clientes?: Prisma.ClienteUpdateManyWithoutContasNestedInput
@@ -862,6 +902,7 @@ export type ContaUncheckedUpdateWithoutTransacoesDestinoInput = {
   saldo?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   data_abertura?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   pix?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ultimoRendimento?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   agencias?: Prisma.AgenciaUncheckedUpdateManyWithoutContasNestedInput
   cartoes?: Prisma.CartaoUncheckedUpdateManyWithoutContaNestedInput
   clientes?: Prisma.ClienteUncheckedUpdateManyWithoutContasNestedInput
@@ -874,6 +915,7 @@ export type ContaUpdateWithoutClientesInput = {
   saldo?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   data_abertura?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   pix?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ultimoRendimento?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   agencias?: Prisma.AgenciaUpdateManyWithoutContasNestedInput
   cartoes?: Prisma.CartaoUpdateManyWithoutContaNestedInput
   transacoesOrigem?: Prisma.TransacaoUpdateManyWithoutContaOrigemNestedInput
@@ -887,6 +929,7 @@ export type ContaUncheckedUpdateWithoutClientesInput = {
   saldo?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   data_abertura?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   pix?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ultimoRendimento?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   agencias?: Prisma.AgenciaUncheckedUpdateManyWithoutContasNestedInput
   cartoes?: Prisma.CartaoUncheckedUpdateManyWithoutContaNestedInput
   transacoesOrigem?: Prisma.TransacaoUncheckedUpdateManyWithoutContaOrigemNestedInput
@@ -900,6 +943,7 @@ export type ContaUncheckedUpdateManyWithoutClientesInput = {
   saldo?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   data_abertura?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   pix?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ultimoRendimento?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type ContaUpdateWithoutAgenciasInput = {
@@ -908,6 +952,7 @@ export type ContaUpdateWithoutAgenciasInput = {
   saldo?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   data_abertura?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   pix?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ultimoRendimento?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   cartoes?: Prisma.CartaoUpdateManyWithoutContaNestedInput
   clientes?: Prisma.ClienteUpdateManyWithoutContasNestedInput
   transacoesOrigem?: Prisma.TransacaoUpdateManyWithoutContaOrigemNestedInput
@@ -921,6 +966,7 @@ export type ContaUncheckedUpdateWithoutAgenciasInput = {
   saldo?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   data_abertura?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   pix?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ultimoRendimento?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   cartoes?: Prisma.CartaoUncheckedUpdateManyWithoutContaNestedInput
   clientes?: Prisma.ClienteUncheckedUpdateManyWithoutContasNestedInput
   transacoesOrigem?: Prisma.TransacaoUncheckedUpdateManyWithoutContaOrigemNestedInput
@@ -934,6 +980,7 @@ export type ContaUncheckedUpdateManyWithoutAgenciasInput = {
   saldo?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   data_abertura?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   pix?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ultimoRendimento?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type ContaUpdateWithoutCartoesInput = {
@@ -942,6 +989,7 @@ export type ContaUpdateWithoutCartoesInput = {
   saldo?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   data_abertura?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   pix?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ultimoRendimento?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   agencias?: Prisma.AgenciaUpdateManyWithoutContasNestedInput
   clientes?: Prisma.ClienteUpdateManyWithoutContasNestedInput
   transacoesOrigem?: Prisma.TransacaoUpdateManyWithoutContaOrigemNestedInput
@@ -955,6 +1003,7 @@ export type ContaUncheckedUpdateWithoutCartoesInput = {
   saldo?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   data_abertura?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   pix?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ultimoRendimento?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   agencias?: Prisma.AgenciaUncheckedUpdateManyWithoutContasNestedInput
   clientes?: Prisma.ClienteUncheckedUpdateManyWithoutContasNestedInput
   transacoesOrigem?: Prisma.TransacaoUncheckedUpdateManyWithoutContaOrigemNestedInput
@@ -968,6 +1017,7 @@ export type ContaUncheckedUpdateManyWithoutCartoesInput = {
   saldo?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   data_abertura?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   pix?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ultimoRendimento?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 
@@ -1044,6 +1094,7 @@ export type ContaSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   saldo?: boolean
   data_abertura?: boolean
   pix?: boolean
+  ultimoRendimento?: boolean
   agencias?: boolean | Prisma.Conta$agenciasArgs<ExtArgs>
   cartoes?: boolean | Prisma.Conta$cartoesArgs<ExtArgs>
   clientes?: boolean | Prisma.Conta$clientesArgs<ExtArgs>
@@ -1059,6 +1110,7 @@ export type ContaSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   saldo?: boolean
   data_abertura?: boolean
   pix?: boolean
+  ultimoRendimento?: boolean
 }, ExtArgs["result"]["conta"]>
 
 export type ContaSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -1068,6 +1120,7 @@ export type ContaSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   saldo?: boolean
   data_abertura?: boolean
   pix?: boolean
+  ultimoRendimento?: boolean
 }, ExtArgs["result"]["conta"]>
 
 export type ContaSelectScalar = {
@@ -1077,9 +1130,10 @@ export type ContaSelectScalar = {
   saldo?: boolean
   data_abertura?: boolean
   pix?: boolean
+  ultimoRendimento?: boolean
 }
 
-export type ContaOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "senha" | "tipo_conta" | "saldo" | "data_abertura" | "pix", ExtArgs["result"]["conta"]>
+export type ContaOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "senha" | "tipo_conta" | "saldo" | "data_abertura" | "pix" | "ultimoRendimento", ExtArgs["result"]["conta"]>
 export type ContaInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   agencias?: boolean | Prisma.Conta$agenciasArgs<ExtArgs>
   cartoes?: boolean | Prisma.Conta$cartoesArgs<ExtArgs>
@@ -1107,6 +1161,7 @@ export type $ContaPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     saldo: runtime.Decimal
     data_abertura: Date
     pix: string | null
+    ultimoRendimento: Date | null
   }, ExtArgs["result"]["conta"]>
   composites: {}
 }
@@ -1541,6 +1596,7 @@ export interface ContaFieldRefs {
   readonly saldo: Prisma.FieldRef<"Conta", 'Decimal'>
   readonly data_abertura: Prisma.FieldRef<"Conta", 'DateTime'>
   readonly pix: Prisma.FieldRef<"Conta", 'String'>
+  readonly ultimoRendimento: Prisma.FieldRef<"Conta", 'DateTime'>
 }
     
 
