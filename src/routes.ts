@@ -6,6 +6,8 @@ import funcionariosController from "./controllers/funcionarios"
 import cartoesController from "./controllers/cartoes"
 import transacoesController from "./controllers/transacoes"
 import { authentication } from "./middlewares/authentication"
+import { aplicarRendimentoPoupanca } from "./services/rendimentoPoupanca"
+
 
 const routes = Router()
 
@@ -71,5 +73,9 @@ routes.delete("/transacoes/:id", transacoesController.delete)
 routes.put("/transacoes/conectar/:id", transacoesController.connect)
 routes.put("/transacoes/desconectar/:id", transacoesController.disconnect)
 
-
+// Teste rendimento
+routes.post("/admin/rodar-rendimento", async (req, res) => {
+  const resultado = await aplicarRendimentoPoupanca()
+  res.json(resultado)
+})
 export default routes
