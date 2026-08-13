@@ -75,7 +75,12 @@ routes.put("/transacoes/desconectar/:id", transacoesController.disconnect)
 
 // Teste rendimento
 routes.post("/admin/rodar-rendimento", async (req, res) => {
-  const resultado = await aplicarRendimentoPoupanca()
-  res.json(resultado)
+  try {
+    const resultado = await aplicarRendimentoPoupanca()
+    res.json(resultado)
+  } catch (err) {
+    console.error("[rendimento] erro:", err)
+    res.status(500).json({ erro: String(err) })
+  }
 })
 export default routes
