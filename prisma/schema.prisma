@@ -57,11 +57,12 @@ model Cartao {
 }
 
 model Transacao {
-  id            Int           @id @default(autoincrement())
+  id            Int             @id @default(autoincrement())
   tipo          TipoTransacao
   valor         Decimal
-  dataTransacao DateTime      @default(now())
+  dataTransacao DateTime        @default(now())
   descricao     String?
+  categoria     CategoriaGasto?
 
   contaOrigemId  Int?
   contaDestinoId Int?
@@ -97,4 +98,17 @@ enum TipoTransacao {
   TRANSFERENCIA
   PAGAMENTO
   RENDIMENTO
+}
+
+enum CategoriaGasto {
+  ALIMENTACAO
+  TRANSPORTE
+  MORADIA
+  SAUDE
+  EDUCACAO
+  LAZER
+  COMPRAS
+  SERVICOS
+  ASSINATURAS
+  OUTROS
 }

@@ -957,6 +957,7 @@ export const TransacaoScalarFieldEnum = {
   valor: 'valor',
   dataTransacao: 'dataTransacao',
   descricao: 'descricao',
+  categoria: 'categoria',
   contaOrigemId: 'contaOrigemId',
   contaDestinoId: 'contaDestinoId'
 } as const
@@ -1043,6 +1044,13 @@ export type EnumTipoCartaoFieldRefInput<$PrismaModel> = FieldRefInputType<$Prism
  * Reference to a field of type 'TipoTransacao'
  */
 export type EnumTipoTransacaoFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TipoTransacao'>
+    
+
+
+/**
+ * Reference to a field of type 'CategoriaGasto'
+ */
+export type EnumCategoriaGastoFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CategoriaGasto'>
     
 
 

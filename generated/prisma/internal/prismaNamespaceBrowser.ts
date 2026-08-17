@@ -127,6 +127,7 @@ export const TransacaoScalarFieldEnum = {
   valor: 'valor',
   dataTransacao: 'dataTransacao',
   descricao: 'descricao',
+  categoria: 'categoria',
   contaOrigemId: 'contaOrigemId',
   contaDestinoId: 'contaDestinoId'
 } as const

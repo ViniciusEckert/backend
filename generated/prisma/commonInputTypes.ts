@@ -226,6 +226,13 @@ export type EnumTipoTransacaoFilter<$PrismaModel = never> = {
   not?: Prisma.NestedEnumTipoTransacaoFilter<$PrismaModel> | $Enums.TipoTransacao
 }
 
+export type EnumCategoriaGastoNullableFilter<$PrismaModel = never> = {
+  equals?: $Enums.CategoriaGasto | Prisma.EnumCategoriaGastoFieldRefInput<$PrismaModel> | null
+  in?: $Enums.CategoriaGasto[] | null
+  notIn?: $Enums.CategoriaGasto[] | null
+  not?: Prisma.NestedEnumCategoriaGastoNullableFilter<$PrismaModel> | $Enums.CategoriaGasto | null
+}
+
 export type IntNullableFilter<$PrismaModel = never> = {
   equals?: number | Prisma.IntFieldRefInput<$PrismaModel> | null
   in?: number[] | null
@@ -245,6 +252,16 @@ export type EnumTipoTransacaoWithAggregatesFilter<$PrismaModel = never> = {
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumTipoTransacaoFilter<$PrismaModel>
   _max?: Prisma.NestedEnumTipoTransacaoFilter<$PrismaModel>
+}
+
+export type EnumCategoriaGastoNullableWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.CategoriaGasto | Prisma.EnumCategoriaGastoFieldRefInput<$PrismaModel> | null
+  in?: $Enums.CategoriaGasto[] | null
+  notIn?: $Enums.CategoriaGasto[] | null
+  not?: Prisma.NestedEnumCategoriaGastoNullableWithAggregatesFilter<$PrismaModel> | $Enums.CategoriaGasto | null
+  _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumCategoriaGastoNullableFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumCategoriaGastoNullableFilter<$PrismaModel>
 }
 
 export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -505,6 +522,13 @@ export type NestedEnumTipoTransacaoFilter<$PrismaModel = never> = {
   not?: Prisma.NestedEnumTipoTransacaoFilter<$PrismaModel> | $Enums.TipoTransacao
 }
 
+export type NestedEnumCategoriaGastoNullableFilter<$PrismaModel = never> = {
+  equals?: $Enums.CategoriaGasto | Prisma.EnumCategoriaGastoFieldRefInput<$PrismaModel> | null
+  in?: $Enums.CategoriaGasto[] | null
+  notIn?: $Enums.CategoriaGasto[] | null
+  not?: Prisma.NestedEnumCategoriaGastoNullableFilter<$PrismaModel> | $Enums.CategoriaGasto | null
+}
+
 export type NestedEnumTipoTransacaoWithAggregatesFilter<$PrismaModel = never> = {
   equals?: $Enums.TipoTransacao | Prisma.EnumTipoTransacaoFieldRefInput<$PrismaModel>
   in?: $Enums.TipoTransacao[]
@@ -513,6 +537,16 @@ export type NestedEnumTipoTransacaoWithAggregatesFilter<$PrismaModel = never> = 
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumTipoTransacaoFilter<$PrismaModel>
   _max?: Prisma.NestedEnumTipoTransacaoFilter<$PrismaModel>
+}
+
+export type NestedEnumCategoriaGastoNullableWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.CategoriaGasto | Prisma.EnumCategoriaGastoFieldRefInput<$PrismaModel> | null
+  in?: $Enums.CategoriaGasto[] | null
+  notIn?: $Enums.CategoriaGasto[] | null
+  not?: Prisma.NestedEnumCategoriaGastoNullableWithAggregatesFilter<$PrismaModel> | $Enums.CategoriaGasto | null
+  _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumCategoriaGastoNullableFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumCategoriaGastoNullableFilter<$PrismaModel>
 }
 
 export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {

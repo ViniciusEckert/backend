@@ -46,6 +46,7 @@ export type TransacaoMinAggregateOutputType = {
   valor: runtime.Decimal | null
   dataTransacao: Date | null
   descricao: string | null
+  categoria: $Enums.CategoriaGasto | null
   contaOrigemId: number | null
   contaDestinoId: number | null
 }
@@ -56,6 +57,7 @@ export type TransacaoMaxAggregateOutputType = {
   valor: runtime.Decimal | null
   dataTransacao: Date | null
   descricao: string | null
+  categoria: $Enums.CategoriaGasto | null
   contaOrigemId: number | null
   contaDestinoId: number | null
 }
@@ -66,6 +68,7 @@ export type TransacaoCountAggregateOutputType = {
   valor: number
   dataTransacao: number
   descricao: number
+  categoria: number
   contaOrigemId: number
   contaDestinoId: number
   _all: number
@@ -92,6 +95,7 @@ export type TransacaoMinAggregateInputType = {
   valor?: true
   dataTransacao?: true
   descricao?: true
+  categoria?: true
   contaOrigemId?: true
   contaDestinoId?: true
 }
@@ -102,6 +106,7 @@ export type TransacaoMaxAggregateInputType = {
   valor?: true
   dataTransacao?: true
   descricao?: true
+  categoria?: true
   contaOrigemId?: true
   contaDestinoId?: true
 }
@@ -112,6 +117,7 @@ export type TransacaoCountAggregateInputType = {
   valor?: true
   dataTransacao?: true
   descricao?: true
+  categoria?: true
   contaOrigemId?: true
   contaDestinoId?: true
   _all?: true
@@ -209,6 +215,7 @@ export type TransacaoGroupByOutputType = {
   valor: runtime.Decimal
   dataTransacao: Date
   descricao: string | null
+  categoria: $Enums.CategoriaGasto | null
   contaOrigemId: number | null
   contaDestinoId: number | null
   _count: TransacaoCountAggregateOutputType | null
@@ -242,6 +249,7 @@ export type TransacaoWhereInput = {
   valor?: Prisma.DecimalFilter<"Transacao"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   dataTransacao?: Prisma.DateTimeFilter<"Transacao"> | Date | string
   descricao?: Prisma.StringNullableFilter<"Transacao"> | string | null
+  categoria?: Prisma.EnumCategoriaGastoNullableFilter<"Transacao"> | $Enums.CategoriaGasto | null
   contaOrigemId?: Prisma.IntNullableFilter<"Transacao"> | number | null
   contaDestinoId?: Prisma.IntNullableFilter<"Transacao"> | number | null
   contaOrigem?: Prisma.XOR<Prisma.ContaNullableScalarRelationFilter, Prisma.ContaWhereInput> | null
@@ -254,6 +262,7 @@ export type TransacaoOrderByWithRelationInput = {
   valor?: Prisma.SortOrder
   dataTransacao?: Prisma.SortOrder
   descricao?: Prisma.SortOrderInput | Prisma.SortOrder
+  categoria?: Prisma.SortOrderInput | Prisma.SortOrder
   contaOrigemId?: Prisma.SortOrderInput | Prisma.SortOrder
   contaDestinoId?: Prisma.SortOrderInput | Prisma.SortOrder
   contaOrigem?: Prisma.ContaOrderByWithRelationInput
@@ -269,6 +278,7 @@ export type TransacaoWhereUniqueInput = Prisma.AtLeast<{
   valor?: Prisma.DecimalFilter<"Transacao"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   dataTransacao?: Prisma.DateTimeFilter<"Transacao"> | Date | string
   descricao?: Prisma.StringNullableFilter<"Transacao"> | string | null
+  categoria?: Prisma.EnumCategoriaGastoNullableFilter<"Transacao"> | $Enums.CategoriaGasto | null
   contaOrigemId?: Prisma.IntNullableFilter<"Transacao"> | number | null
   contaDestinoId?: Prisma.IntNullableFilter<"Transacao"> | number | null
   contaOrigem?: Prisma.XOR<Prisma.ContaNullableScalarRelationFilter, Prisma.ContaWhereInput> | null
@@ -281,6 +291,7 @@ export type TransacaoOrderByWithAggregationInput = {
   valor?: Prisma.SortOrder
   dataTransacao?: Prisma.SortOrder
   descricao?: Prisma.SortOrderInput | Prisma.SortOrder
+  categoria?: Prisma.SortOrderInput | Prisma.SortOrder
   contaOrigemId?: Prisma.SortOrderInput | Prisma.SortOrder
   contaDestinoId?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.TransacaoCountOrderByAggregateInput
@@ -299,6 +310,7 @@ export type TransacaoScalarWhereWithAggregatesInput = {
   valor?: Prisma.DecimalWithAggregatesFilter<"Transacao"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   dataTransacao?: Prisma.DateTimeWithAggregatesFilter<"Transacao"> | Date | string
   descricao?: Prisma.StringNullableWithAggregatesFilter<"Transacao"> | string | null
+  categoria?: Prisma.EnumCategoriaGastoNullableWithAggregatesFilter<"Transacao"> | $Enums.CategoriaGasto | null
   contaOrigemId?: Prisma.IntNullableWithAggregatesFilter<"Transacao"> | number | null
   contaDestinoId?: Prisma.IntNullableWithAggregatesFilter<"Transacao"> | number | null
 }
@@ -308,6 +320,7 @@ export type TransacaoCreateInput = {
   valor: runtime.Decimal | runtime.DecimalJsLike | number | string
   dataTransacao?: Date | string
   descricao?: string | null
+  categoria?: $Enums.CategoriaGasto | null
   contaOrigem?: Prisma.ContaCreateNestedOneWithoutTransacoesOrigemInput
   contaDestino?: Prisma.ContaCreateNestedOneWithoutTransacoesDestinoInput
 }
@@ -318,6 +331,7 @@ export type TransacaoUncheckedCreateInput = {
   valor: runtime.Decimal | runtime.DecimalJsLike | number | string
   dataTransacao?: Date | string
   descricao?: string | null
+  categoria?: $Enums.CategoriaGasto | null
   contaOrigemId?: number | null
   contaDestinoId?: number | null
 }
@@ -327,6 +341,7 @@ export type TransacaoUpdateInput = {
   valor?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   dataTransacao?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   descricao?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  categoria?: Prisma.NullableEnumCategoriaGastoFieldUpdateOperationsInput | $Enums.CategoriaGasto | null
   contaOrigem?: Prisma.ContaUpdateOneWithoutTransacoesOrigemNestedInput
   contaDestino?: Prisma.ContaUpdateOneWithoutTransacoesDestinoNestedInput
 }
@@ -337,6 +352,7 @@ export type TransacaoUncheckedUpdateInput = {
   valor?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   dataTransacao?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   descricao?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  categoria?: Prisma.NullableEnumCategoriaGastoFieldUpdateOperationsInput | $Enums.CategoriaGasto | null
   contaOrigemId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   contaDestinoId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
@@ -347,6 +363,7 @@ export type TransacaoCreateManyInput = {
   valor: runtime.Decimal | runtime.DecimalJsLike | number | string
   dataTransacao?: Date | string
   descricao?: string | null
+  categoria?: $Enums.CategoriaGasto | null
   contaOrigemId?: number | null
   contaDestinoId?: number | null
 }
@@ -356,6 +373,7 @@ export type TransacaoUpdateManyMutationInput = {
   valor?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   dataTransacao?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   descricao?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  categoria?: Prisma.NullableEnumCategoriaGastoFieldUpdateOperationsInput | $Enums.CategoriaGasto | null
 }
 
 export type TransacaoUncheckedUpdateManyInput = {
@@ -364,6 +382,7 @@ export type TransacaoUncheckedUpdateManyInput = {
   valor?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   dataTransacao?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   descricao?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  categoria?: Prisma.NullableEnumCategoriaGastoFieldUpdateOperationsInput | $Enums.CategoriaGasto | null
   contaOrigemId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   contaDestinoId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
@@ -384,6 +403,7 @@ export type TransacaoCountOrderByAggregateInput = {
   valor?: Prisma.SortOrder
   dataTransacao?: Prisma.SortOrder
   descricao?: Prisma.SortOrder
+  categoria?: Prisma.SortOrder
   contaOrigemId?: Prisma.SortOrder
   contaDestinoId?: Prisma.SortOrder
 }
@@ -401,6 +421,7 @@ export type TransacaoMaxOrderByAggregateInput = {
   valor?: Prisma.SortOrder
   dataTransacao?: Prisma.SortOrder
   descricao?: Prisma.SortOrder
+  categoria?: Prisma.SortOrder
   contaOrigemId?: Prisma.SortOrder
   contaDestinoId?: Prisma.SortOrder
 }
@@ -411,6 +432,7 @@ export type TransacaoMinOrderByAggregateInput = {
   valor?: Prisma.SortOrder
   dataTransacao?: Prisma.SortOrder
   descricao?: Prisma.SortOrder
+  categoria?: Prisma.SortOrder
   contaOrigemId?: Prisma.SortOrder
   contaDestinoId?: Prisma.SortOrder
 }
@@ -510,6 +532,10 @@ export type EnumTipoTransacaoFieldUpdateOperationsInput = {
   set?: $Enums.TipoTransacao
 }
 
+export type NullableEnumCategoriaGastoFieldUpdateOperationsInput = {
+  set?: $Enums.CategoriaGasto | null
+}
+
 export type NullableIntFieldUpdateOperationsInput = {
   set?: number | null
   increment?: number
@@ -523,6 +549,7 @@ export type TransacaoCreateWithoutContaOrigemInput = {
   valor: runtime.Decimal | runtime.DecimalJsLike | number | string
   dataTransacao?: Date | string
   descricao?: string | null
+  categoria?: $Enums.CategoriaGasto | null
   contaDestino?: Prisma.ContaCreateNestedOneWithoutTransacoesDestinoInput
 }
 
@@ -532,6 +559,7 @@ export type TransacaoUncheckedCreateWithoutContaOrigemInput = {
   valor: runtime.Decimal | runtime.DecimalJsLike | number | string
   dataTransacao?: Date | string
   descricao?: string | null
+  categoria?: $Enums.CategoriaGasto | null
   contaDestinoId?: number | null
 }
 
@@ -549,6 +577,7 @@ export type TransacaoCreateWithoutContaDestinoInput = {
   valor: runtime.Decimal | runtime.DecimalJsLike | number | string
   dataTransacao?: Date | string
   descricao?: string | null
+  categoria?: $Enums.CategoriaGasto | null
   contaOrigem?: Prisma.ContaCreateNestedOneWithoutTransacoesOrigemInput
 }
 
@@ -558,6 +587,7 @@ export type TransacaoUncheckedCreateWithoutContaDestinoInput = {
   valor: runtime.Decimal | runtime.DecimalJsLike | number | string
   dataTransacao?: Date | string
   descricao?: string | null
+  categoria?: $Enums.CategoriaGasto | null
   contaOrigemId?: number | null
 }
 
@@ -595,6 +625,7 @@ export type TransacaoScalarWhereInput = {
   valor?: Prisma.DecimalFilter<"Transacao"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   dataTransacao?: Prisma.DateTimeFilter<"Transacao"> | Date | string
   descricao?: Prisma.StringNullableFilter<"Transacao"> | string | null
+  categoria?: Prisma.EnumCategoriaGastoNullableFilter<"Transacao"> | $Enums.CategoriaGasto | null
   contaOrigemId?: Prisma.IntNullableFilter<"Transacao"> | number | null
   contaDestinoId?: Prisma.IntNullableFilter<"Transacao"> | number | null
 }
@@ -621,6 +652,7 @@ export type TransacaoCreateManyContaOrigemInput = {
   valor: runtime.Decimal | runtime.DecimalJsLike | number | string
   dataTransacao?: Date | string
   descricao?: string | null
+  categoria?: $Enums.CategoriaGasto | null
   contaDestinoId?: number | null
 }
 
@@ -630,6 +662,7 @@ export type TransacaoCreateManyContaDestinoInput = {
   valor: runtime.Decimal | runtime.DecimalJsLike | number | string
   dataTransacao?: Date | string
   descricao?: string | null
+  categoria?: $Enums.CategoriaGasto | null
   contaOrigemId?: number | null
 }
 
@@ -638,6 +671,7 @@ export type TransacaoUpdateWithoutContaOrigemInput = {
   valor?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   dataTransacao?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   descricao?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  categoria?: Prisma.NullableEnumCategoriaGastoFieldUpdateOperationsInput | $Enums.CategoriaGasto | null
   contaDestino?: Prisma.ContaUpdateOneWithoutTransacoesDestinoNestedInput
 }
 
@@ -647,6 +681,7 @@ export type TransacaoUncheckedUpdateWithoutContaOrigemInput = {
   valor?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   dataTransacao?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   descricao?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  categoria?: Prisma.NullableEnumCategoriaGastoFieldUpdateOperationsInput | $Enums.CategoriaGasto | null
   contaDestinoId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
@@ -656,6 +691,7 @@ export type TransacaoUncheckedUpdateManyWithoutContaOrigemInput = {
   valor?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   dataTransacao?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   descricao?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  categoria?: Prisma.NullableEnumCategoriaGastoFieldUpdateOperationsInput | $Enums.CategoriaGasto | null
   contaDestinoId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
@@ -664,6 +700,7 @@ export type TransacaoUpdateWithoutContaDestinoInput = {
   valor?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   dataTransacao?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   descricao?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  categoria?: Prisma.NullableEnumCategoriaGastoFieldUpdateOperationsInput | $Enums.CategoriaGasto | null
   contaOrigem?: Prisma.ContaUpdateOneWithoutTransacoesOrigemNestedInput
 }
 
@@ -673,6 +710,7 @@ export type TransacaoUncheckedUpdateWithoutContaDestinoInput = {
   valor?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   dataTransacao?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   descricao?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  categoria?: Prisma.NullableEnumCategoriaGastoFieldUpdateOperationsInput | $Enums.CategoriaGasto | null
   contaOrigemId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
@@ -682,6 +720,7 @@ export type TransacaoUncheckedUpdateManyWithoutContaDestinoInput = {
   valor?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   dataTransacao?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   descricao?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  categoria?: Prisma.NullableEnumCategoriaGastoFieldUpdateOperationsInput | $Enums.CategoriaGasto | null
   contaOrigemId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
@@ -693,6 +732,7 @@ export type TransacaoSelect<ExtArgs extends runtime.Types.Extensions.InternalArg
   valor?: boolean
   dataTransacao?: boolean
   descricao?: boolean
+  categoria?: boolean
   contaOrigemId?: boolean
   contaDestinoId?: boolean
   contaOrigem?: boolean | Prisma.Transacao$contaOrigemArgs<ExtArgs>
@@ -705,6 +745,7 @@ export type TransacaoSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ext
   valor?: boolean
   dataTransacao?: boolean
   descricao?: boolean
+  categoria?: boolean
   contaOrigemId?: boolean
   contaDestinoId?: boolean
   contaOrigem?: boolean | Prisma.Transacao$contaOrigemArgs<ExtArgs>
@@ -717,6 +758,7 @@ export type TransacaoSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ext
   valor?: boolean
   dataTransacao?: boolean
   descricao?: boolean
+  categoria?: boolean
   contaOrigemId?: boolean
   contaDestinoId?: boolean
   contaOrigem?: boolean | Prisma.Transacao$contaOrigemArgs<ExtArgs>
@@ -729,11 +771,12 @@ export type TransacaoSelectScalar = {
   valor?: boolean
   dataTransacao?: boolean
   descricao?: boolean
+  categoria?: boolean
   contaOrigemId?: boolean
   contaDestinoId?: boolean
 }
 
-export type TransacaoOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tipo" | "valor" | "dataTransacao" | "descricao" | "contaOrigemId" | "contaDestinoId", ExtArgs["result"]["transacao"]>
+export type TransacaoOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tipo" | "valor" | "dataTransacao" | "descricao" | "categoria" | "contaOrigemId" | "contaDestinoId", ExtArgs["result"]["transacao"]>
 export type TransacaoInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   contaOrigem?: boolean | Prisma.Transacao$contaOrigemArgs<ExtArgs>
   contaDestino?: boolean | Prisma.Transacao$contaDestinoArgs<ExtArgs>
@@ -759,6 +802,7 @@ export type $TransacaoPayload<ExtArgs extends runtime.Types.Extensions.InternalA
     valor: runtime.Decimal
     dataTransacao: Date
     descricao: string | null
+    categoria: $Enums.CategoriaGasto | null
     contaOrigemId: number | null
     contaDestinoId: number | null
   }, ExtArgs["result"]["transacao"]>
@@ -1191,6 +1235,7 @@ export interface TransacaoFieldRefs {
   readonly valor: Prisma.FieldRef<"Transacao", 'Decimal'>
   readonly dataTransacao: Prisma.FieldRef<"Transacao", 'DateTime'>
   readonly descricao: Prisma.FieldRef<"Transacao", 'String'>
+  readonly categoria: Prisma.FieldRef<"Transacao", 'CategoriaGasto'>
   readonly contaOrigemId: Prisma.FieldRef<"Transacao", 'Int'>
   readonly contaDestinoId: Prisma.FieldRef<"Transacao", 'Int'>
 }

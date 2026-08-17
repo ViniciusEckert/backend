@@ -36,3 +36,19 @@ export const TipoTransacao = {
 } as const
 
 export type TipoTransacao = (typeof TipoTransacao)[keyof typeof TipoTransacao]
+
+
+export const CategoriaGasto = {
+  ALIMENTACAO: 'ALIMENTACAO',
+  TRANSPORTE: 'TRANSPORTE',
+  MORADIA: 'MORADIA',
+  SAUDE: 'SAUDE',
+  EDUCACAO: 'EDUCACAO',
+  LAZER: 'LAZER',
+  COMPRAS: 'COMPRAS',
+  SERVICOS: 'SERVICOS',
+  ASSINATURAS: 'ASSINATURAS',
+  OUTROS: 'OUTROS'
+} as const
+
+export type CategoriaGasto = (typeof CategoriaGasto)[keyof typeof CategoriaGasto]
